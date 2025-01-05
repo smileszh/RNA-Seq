@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 4 章 差异表达分析 | RNA-Seq</title>
+  <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 4 章 差异表达分析 | RNA-Seq" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="github-repo" content="smileszh/RNA-Seq" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 4 章 差异表达分析 | RNA-Seq" />
+  
+  <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
+  
+
+<meta name="author" content="苏总华" />
+
+
+<meta name="date" content="2025-01-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="基因表达定量.html"/>
+<link rel="next" href="差异基因富集分析.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RNA-Seq</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#物种"><i class="fa fa-check"></i><b>1.1</b> 物种</a></li>
+<li class="chapter" data-level="1.2" data-path="数据预处理.html"><a href="数据预处理.html#counts-数据预处理"><i class="fa fa-check"></i><b>1.2</b> Counts 数据预处理</a></li>
+<li class="chapter" data-level="1.3" data-path="数据预处理.html"><a href="数据预处理.html#构建样本分组信息"><i class="fa fa-check"></i><b>1.3</b> 构建样本分组信息</a></li>
+<li class="chapter" data-level="1.4" data-path="数据预处理.html"><a href="数据预处理.html#构建组间比较信息"><i class="fa fa-check"></i><b>1.4</b> 构建组间比较信息</a></li>
+<li class="chapter" data-level="1.5" data-path="数据预处理.html"><a href="数据预处理.html#保存数据"><i class="fa fa-check"></i><b>1.5</b> 保存数据</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="基因数据库注释.html"><a href="基因数据库注释.html"><i class="fa fa-check"></i><b>2</b> 基因数据库注释</a></li>
+<li class="chapter" data-level="3" data-path="基因表达定量.html"><a href="基因表达定量.html"><i class="fa fa-check"></i><b>3</b> 基因表达定量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="基因表达定量.html"><a href="基因表达定量.html#基因表达定量-1"><i class="fa fa-check"></i><b>3.1</b> 基因表达定量</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="基因表达定量.html"><a href="基因表达定量.html#fpkm-rpkm"><i class="fa fa-check"></i><b>3.1.1</b> FPKM / RPKM</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="基因表达定量.html"><a href="基因表达定量.html#基因表达分布"><i class="fa fa-check"></i><b>3.2</b> 基因表达分布</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="基因表达定量.html"><a href="基因表达定量.html#箱线图"><i class="fa fa-check"></i><b>3.2.1</b> 箱线图</a></li>
+<li class="chapter" data-level="3.2.2" data-path="基因表达定量.html"><a href="基因表达定量.html#密度图"><i class="fa fa-check"></i><b>3.2.2</b> 密度图</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="基因表达定量.html"><a href="基因表达定量.html#生物学重复相关性分析"><i class="fa fa-check"></i><b>3.3</b> 生物学重复相关性分析</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="基因表达定量.html"><a href="基因表达定量.html#样本间相关性点图"><i class="fa fa-check"></i><b>3.3.1</b> 样本间相关性点图</a></li>
+<li class="chapter" data-level="3.3.2" data-path="基因表达定量.html"><a href="基因表达定量.html#样本间相关性热图"><i class="fa fa-check"></i><b>3.3.2</b> 样本间相关性热图</a></li>
+<li class="chapter" data-level="3.3.3" data-path="基因表达定量.html"><a href="基因表达定量.html#样本-pca"><i class="fa fa-check"></i><b>3.3.3</b> 样本 PCA</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="差异表达分析.html"><a href="差异表达分析.html"><i class="fa fa-check"></i><b>4</b> 差异表达分析</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="差异表达分析.html"><a href="差异表达分析.html#差异表达分析-1"><i class="fa fa-check"></i><b>4.1</b> 差异表达分析</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="差异表达分析.html"><a href="差异表达分析.html#deseq2"><i class="fa fa-check"></i><b>4.1.1</b> DESeq2</a></li>
+<li class="chapter" data-level="4.1.2" data-path="差异表达分析.html"><a href="差异表达分析.html#edger"><i class="fa fa-check"></i><b>4.1.2</b> edgeR</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="差异表达分析.html"><a href="差异表达分析.html#差异表达基因筛选"><i class="fa fa-check"></i><b>4.2</b> 差异表达基因筛选</a></li>
+<li class="chapter" data-level="4.3" data-path="差异表达分析.html"><a href="差异表达分析.html#差异基因可视化"><i class="fa fa-check"></i><b>4.3</b> 差异基因可视化</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="差异表达分析.html"><a href="差异表达分析.html#火山图"><i class="fa fa-check"></i><b>4.3.1</b> 火山图</a></li>
+<li class="chapter" data-level="4.3.2" data-path="差异表达分析.html"><a href="差异表达分析.html#热图"><i class="fa fa-check"></i><b>4.3.2</b> 热图</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html"><i class="fa fa-check"></i><b>5</b> 差异基因富集分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>5.1</b> GO 富集分析</a></li>
+<li class="chapter" data-level="5.2" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>5.2</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="5.3" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>5.3</b> GSEA 分析</a></li>
+<li class="chapter" data-level="5.4" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#kegg数据库"><i class="fa fa-check"></i><b>5.4</b> KEGG数据库</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-Seq</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="差异表达分析" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">第 4 章</span> 差异表达分析<a href="差异表达分析.html#差异表达分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="差异表达分析-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 差异表达分析<a href="差异表达分析.html#差异表达分析-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="deseq2" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> DESeq2<a href="差异表达分析.html#deseq2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="差异表达分析.html#cb22-1" tabindex="-1"></a><span class="co"># 安装加载必要的包</span></span>
+<span id="cb22-2"><a href="差异表达分析.html#cb22-2" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span>
+<span id="cb22-3"><a href="差异表达分析.html#cb22-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb22-4"><a href="差异表达分析.html#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="差异表达分析.html#cb22-5" tabindex="-1"></a><span class="co"># 定义一个函数来进行 DESeq2 差异基因表达分析</span></span>
+<span id="cb22-6"><a href="差异表达分析.html#cb22-6" tabindex="-1"></a>run_deseq2 <span class="ot">&lt;-</span> <span class="cf">function</span>(count, group_df, group1, group2) {</span>
+<span id="cb22-7"><a href="差异表达分析.html#cb22-7" tabindex="-1"></a>  samples_group1 <span class="ot">&lt;-</span> group_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> group1) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(sample)</span>
+<span id="cb22-8"><a href="差异表达分析.html#cb22-8" tabindex="-1"></a>  samples_group2 <span class="ot">&lt;-</span> group_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> group2) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(sample)</span>
+<span id="cb22-9"><a href="差异表达分析.html#cb22-9" tabindex="-1"></a>  </span>
+<span id="cb22-10"><a href="差异表达分析.html#cb22-10" tabindex="-1"></a>  selected_samples <span class="ot">&lt;-</span> <span class="fu">c</span>(samples_group1, samples_group2)</span>
+<span id="cb22-11"><a href="差异表达分析.html#cb22-11" tabindex="-1"></a>  selected_counts <span class="ot">&lt;-</span> count[, selected_samples, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb22-12"><a href="差异表达分析.html#cb22-12" tabindex="-1"></a>  selected_group <span class="ot">&lt;-</span> group_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sample <span class="sc">%in%</span> selected_samples)</span>
+<span id="cb22-13"><a href="差异表达分析.html#cb22-13" tabindex="-1"></a>  </span>
+<span id="cb22-14"><a href="差异表达分析.html#cb22-14" tabindex="-1"></a>  <span class="co"># 创建 DESeq2 数据集</span></span>
+<span id="cb22-15"><a href="差异表达分析.html#cb22-15" tabindex="-1"></a>  dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(<span class="at">countData =</span> selected_counts, </span>
+<span id="cb22-16"><a href="差异表达分析.html#cb22-16" tabindex="-1"></a>                                <span class="at">colData =</span> selected_group, </span>
+<span id="cb22-17"><a href="差异表达分析.html#cb22-17" tabindex="-1"></a>                                <span class="at">design =</span> <span class="sc">~</span> group)</span>
+<span id="cb22-18"><a href="差异表达分析.html#cb22-18" tabindex="-1"></a>  </span>
+<span id="cb22-19"><a href="差异表达分析.html#cb22-19" tabindex="-1"></a>  <span class="co"># 去除低表达基因</span></span>
+<span id="cb22-20"><a href="差异表达分析.html#cb22-20" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">3</span></span>
+<span id="cb22-21"><a href="差异表达分析.html#cb22-21" tabindex="-1"></a>  <span class="co"># 或者更严格筛选至少3个样本中计数大于或等于10的基因</span></span>
+<span id="cb22-22"><a href="差异表达分析.html#cb22-22" tabindex="-1"></a>  <span class="co"># keep &lt;- rowSums(counts(dds) &gt;= 10) &gt;= 3</span></span>
+<span id="cb22-23"><a href="差异表达分析.html#cb22-23" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="差异表达分析.html#cb22-24" tabindex="-1"></a>  dds <span class="ot">&lt;-</span> dds[keep, ]</span>
+<span id="cb22-25"><a href="差异表达分析.html#cb22-25" tabindex="-1"></a>  </span>
+<span id="cb22-26"><a href="差异表达分析.html#cb22-26" tabindex="-1"></a>  <span class="co"># 运行 DESeq2</span></span>
+<span id="cb22-27"><a href="差异表达分析.html#cb22-27" tabindex="-1"></a>  dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb22-28"><a href="差异表达分析.html#cb22-28" tabindex="-1"></a>  </span>
+<span id="cb22-29"><a href="差异表达分析.html#cb22-29" tabindex="-1"></a>  <span class="co"># 获取结果</span></span>
+<span id="cb22-30"><a href="差异表达分析.html#cb22-30" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">results</span>(dds) <span class="sc">%&gt;%</span></span>
+<span id="cb22-31"><a href="差异表达分析.html#cb22-31" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-32"><a href="差异表达分析.html#cb22-32" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;SYMBOL&quot;</span>)</span>
+<span id="cb22-33"><a href="差异表达分析.html#cb22-33" tabindex="-1"></a>  </span>
+<span id="cb22-34"><a href="差异表达分析.html#cb22-34" tabindex="-1"></a>  <span class="co"># 得到标准化后的count</span></span>
+<span id="cb22-35"><a href="差异表达分析.html#cb22-35" tabindex="-1"></a>  normed <span class="ot">=</span> <span class="fu">counts</span>(dds, <span class="at">normalized=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-36"><a href="差异表达分析.html#cb22-36" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb22-37"><a href="差异表达分析.html#cb22-37" tabindex="-1"></a>  </span>
+<span id="cb22-38"><a href="差异表达分析.html#cb22-38" tabindex="-1"></a>  <span class="co"># 整理结果</span></span>
+<span id="cb22-39"><a href="差异表达分析.html#cb22-39" tabindex="-1"></a>  </span>
+<span id="cb22-40"><a href="差异表达分析.html#cb22-40" tabindex="-1"></a>  <span class="do">## 创建 foldChange 列.</span></span>
+<span id="cb22-41"><a href="差异表达分析.html#cb22-41" tabindex="-1"></a>  res<span class="sc">$</span>foldChange <span class="ot">=</span> <span class="dv">2</span> <span class="sc">^</span> res<span class="sc">$</span>log2FoldChange</span>
+<span id="cb22-42"><a href="差异表达分析.html#cb22-42" tabindex="-1"></a>  </span>
+<span id="cb22-43"><a href="差异表达分析.html#cb22-43" tabindex="-1"></a>  <span class="do">## 创建 FDR 列，原因[在此](https://www.biostars.org/p/462897/).</span></span>
+<span id="cb22-44"><a href="差异表达分析.html#cb22-44" tabindex="-1"></a>  res <span class="ot">=</span>  dplyr<span class="sc">::</span><span class="fu">rename</span>(res, <span class="at">FDR=</span>padj)</span>
+<span id="cb22-45"><a href="差异表达分析.html#cb22-45" tabindex="-1"></a>  res<span class="sc">$</span>FDR[<span class="fu">is.na</span>(res<span class="sc">$</span>FDR)] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb22-46"><a href="差异表达分析.html#cb22-46" tabindex="-1"></a>  </span>
+<span id="cb22-47"><a href="差异表达分析.html#cb22-47" tabindex="-1"></a>  <span class="do">## 创建 padj 列.</span></span>
+<span id="cb22-48"><a href="差异表达分析.html#cb22-48" tabindex="-1"></a>  res<span class="sc">$</span>padj <span class="ot">=</span> <span class="fu">p.adjust</span>(res<span class="sc">$</span>pvalue, <span class="at">method=</span><span class="st">&quot;hochberg&quot;</span>)</span>
+<span id="cb22-49"><a href="差异表达分析.html#cb22-49" tabindex="-1"></a>  </span>
+<span id="cb22-50"><a href="差异表达分析.html#cb22-50" tabindex="-1"></a></span>
+<span id="cb22-51"><a href="差异表达分析.html#cb22-51" tabindex="-1"></a>  <span class="do">## 合并结果和标准化后的 count </span></span>
+<span id="cb22-52"><a href="差异表达分析.html#cb22-52" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(res, normed) <span class="sc">%&gt;%</span></span>
+<span id="cb22-53"><a href="差异表达分析.html#cb22-53" tabindex="-1"></a>    <span class="fu">arrange</span>(FDR)</span>
+<span id="cb22-54"><a href="差异表达分析.html#cb22-54" tabindex="-1"></a>  </span>
+<span id="cb22-55"><a href="差异表达分析.html#cb22-55" tabindex="-1"></a>  <span class="co"># 创建其他想呈现的信息</span></span>
+<span id="cb22-56"><a href="差异表达分析.html#cb22-56" tabindex="-1"></a></span>
+<span id="cb22-57"><a href="差异表达分析.html#cb22-57" tabindex="-1"></a>  <span class="do">## 计算排序表的错误发现计数。</span></span>
+<span id="cb22-58"><a href="差异表达分析.html#cb22-58" tabindex="-1"></a>  total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(total) <span class="sc">*</span> total<span class="sc">$</span>FDR</span>
+<span id="cb22-59"><a href="差异表达分析.html#cb22-59" tabindex="-1"></a></span>
+<span id="cb22-60"><a href="差异表达分析.html#cb22-60" tabindex="-1"></a>  <span class="do">## 创建各族均值</span></span>
+<span id="cb22-61"><a href="差异表达分析.html#cb22-61" tabindex="-1"></a>  total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb22-62"><a href="差异表达分析.html#cb22-62" tabindex="-1"></a>  total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb22-63"><a href="差异表达分析.html#cb22-63" tabindex="-1"></a>  </span>
+<span id="cb22-64"><a href="差异表达分析.html#cb22-64" tabindex="-1"></a>  total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, samples_group1])</span>
+<span id="cb22-65"><a href="差异表达分析.html#cb22-65" tabindex="-1"></a>  total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, samples_group2])</span>
+<span id="cb22-66"><a href="差异表达分析.html#cb22-66" tabindex="-1"></a></span>
+<span id="cb22-67"><a href="差异表达分析.html#cb22-67" tabindex="-1"></a>  </span>
+<span id="cb22-68"><a href="差异表达分析.html#cb22-68" tabindex="-1"></a>  <span class="co"># 整理结果，美化输出</span></span>
+<span id="cb22-69"><a href="差异表达分析.html#cb22-69" tabindex="-1"></a>  <span class="co"># total$foldChange = round(total$foldChange, 3)</span></span>
+<span id="cb22-70"><a href="差异表达分析.html#cb22-70" tabindex="-1"></a>  <span class="co"># total$log2FoldChange = round(total$log2FoldChange, 1)</span></span>
+<span id="cb22-71"><a href="差异表达分析.html#cb22-71" tabindex="-1"></a>  <span class="co"># total$baseMean  = round(total$baseMean, 1)</span></span>
+<span id="cb22-72"><a href="差异表达分析.html#cb22-72" tabindex="-1"></a>  <span class="co"># total$baseMeanA = round(total$baseMeanA, 1)</span></span>
+<span id="cb22-73"><a href="差异表达分析.html#cb22-73" tabindex="-1"></a>  <span class="co"># total$baseMeanB =  round(total$baseMeanB, 1)</span></span>
+<span id="cb22-74"><a href="差异表达分析.html#cb22-74" tabindex="-1"></a>  <span class="co"># total$lfcSE = round(total$lfcSE, 2)</span></span>
+<span id="cb22-75"><a href="差异表达分析.html#cb22-75" tabindex="-1"></a>  <span class="co"># total$stat = round(total$stat, 2)</span></span>
+<span id="cb22-76"><a href="差异表达分析.html#cb22-76" tabindex="-1"></a>  <span class="co"># total$FDR = round(total$FDR, 4)</span></span>
+<span id="cb22-77"><a href="差异表达分析.html#cb22-77" tabindex="-1"></a>  <span class="co"># total$falsePos = round(total$falsePos, 0)</span></span>
+<span id="cb22-78"><a href="差异表达分析.html#cb22-78" tabindex="-1"></a></span>
+<span id="cb22-79"><a href="差异表达分析.html#cb22-79" tabindex="-1"></a>  new_cols <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb22-80"><a href="差异表达分析.html#cb22-80" tabindex="-1"></a>             <span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;baseMean&quot;</span>,<span class="st">&quot;baseMeanA&quot;</span>,<span class="st">&quot;baseMeanB&quot;</span>,</span>
+<span id="cb22-81"><a href="差异表达分析.html#cb22-81" tabindex="-1"></a>             <span class="st">&quot;foldChange&quot;</span>, <span class="st">&quot;log2FoldChange&quot;</span>,</span>
+<span id="cb22-82"><a href="差异表达分析.html#cb22-82" tabindex="-1"></a>             <span class="st">&quot;lfcSE&quot;</span>,<span class="st">&quot;stat&quot;</span>,<span class="st">&quot;pvalue&quot;</span>,<span class="st">&quot;padj&quot;</span>, </span>
+<span id="cb22-83"><a href="差异表达分析.html#cb22-83" tabindex="-1"></a>             <span class="st">&quot;FDR&quot;</span>,<span class="st">&quot;falsePos&quot;</span>, samples_group1, samples_group2)</span>
+<span id="cb22-84"><a href="差异表达分析.html#cb22-84" tabindex="-1"></a></span>
+<span id="cb22-85"><a href="差异表达分析.html#cb22-85" tabindex="-1"></a>  total <span class="ot">=</span> total[, new_cols]</span>
+<span id="cb22-86"><a href="差异表达分析.html#cb22-86" tabindex="-1"></a>  </span>
+<span id="cb22-87"><a href="差异表达分析.html#cb22-87" tabindex="-1"></a></span>
+<span id="cb22-88"><a href="差异表达分析.html#cb22-88" tabindex="-1"></a>  <span class="fu">return</span>(total)</span>
+<span id="cb22-89"><a href="差异表达分析.html#cb22-89" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="差异表达分析.html#cb23-1" tabindex="-1"></a><span class="co"># 进行两两比对并存储结果</span></span>
+<span id="cb23-2"><a href="差异表达分析.html#cb23-2" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/1_DEG_stat/DESeq2&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb23-3"><a href="差异表达分析.html#cb23-3" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="差异表达分析.html#cb23-4" tabindex="-1"></a>comparison_results_DESeq2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">names</span>(group_compare), <span class="cf">function</span>(comp_name) {</span>
+<span id="cb23-5"><a href="差异表达分析.html#cb23-5" tabindex="-1"></a>  <span class="co"># 获取因子的水平</span></span>
+<span id="cb23-6"><a href="差异表达分析.html#cb23-6" tabindex="-1"></a>  <span class="co"># comp_name &lt;- &quot;a_vs_b&quot;</span></span>
+<span id="cb23-7"><a href="差异表达分析.html#cb23-7" tabindex="-1"></a>  groups <span class="ot">&lt;-</span> <span class="fu">levels</span>(group_compare[[comp_name]])</span>
+<span id="cb23-8"><a href="差异表达分析.html#cb23-8" tabindex="-1"></a>  group1 <span class="ot">&lt;-</span> groups[<span class="dv">1</span>]</span>
+<span id="cb23-9"><a href="差异表达分析.html#cb23-9" tabindex="-1"></a>  group2 <span class="ot">&lt;-</span> groups[<span class="dv">2</span>]</span>
+<span id="cb23-10"><a href="差异表达分析.html#cb23-10" tabindex="-1"></a>  </span>
+<span id="cb23-11"><a href="差异表达分析.html#cb23-11" tabindex="-1"></a>  <span class="co"># 打印调试信息</span></span>
+<span id="cb23-12"><a href="差异表达分析.html#cb23-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Comparing&quot;</span>, group1, <span class="st">&quot;vs&quot;</span>, group2))</span>
+<span id="cb23-13"><a href="差异表达分析.html#cb23-13" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">head</span>(group))</span>
+<span id="cb23-14"><a href="差异表达分析.html#cb23-14" tabindex="-1"></a>  </span>
+<span id="cb23-15"><a href="差异表达分析.html#cb23-15" tabindex="-1"></a>  <span class="co"># 运行 DESeq2</span></span>
+<span id="cb23-16"><a href="差异表达分析.html#cb23-16" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">run_deseq2</span>(count, group, group1, group2)</span>
+<span id="cb23-17"><a href="差异表达分析.html#cb23-17" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="差异表达分析.html#cb23-18" tabindex="-1"></a>  </span>
+<span id="cb23-19"><a href="差异表达分析.html#cb23-19" tabindex="-1"></a>  <span class="co"># 保存结果</span></span>
+<span id="cb23-20"><a href="差异表达分析.html#cb23-20" tabindex="-1"></a>  <span class="do">## 定义结果文件名</span></span>
+<span id="cb23-21"><a href="差异表达分析.html#cb23-21" tabindex="-1"></a>  result_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(comp_name, <span class="st">&quot;_DEG_DESeq2.csv&quot;</span>)</span>
+<span id="cb23-22"><a href="差异表达分析.html#cb23-22" tabindex="-1"></a>  </span>
+<span id="cb23-23"><a href="差异表达分析.html#cb23-23" tabindex="-1"></a>  <span class="do">## 将结果保存为 CSV 文件</span></span>
+<span id="cb23-24"><a href="差异表达分析.html#cb23-24" tabindex="-1"></a>  <span class="fu">write.csv</span>(result, <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/1_DEG_stat/DESeq2/&quot;</span>, result_file) , <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-25"><a href="差异表达分析.html#cb23-25" tabindex="-1"></a>  </span>
+<span id="cb23-26"><a href="差异表达分析.html#cb23-26" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb23-27"><a href="差异表达分析.html#cb23-27" tabindex="-1"></a>})</span>
+<span id="cb23-28"><a href="差异表达分析.html#cb23-28" tabindex="-1"></a><span class="do">## [1] &quot;Comparing a vs b&quot;</span></span>
+<span id="cb23-29"><a href="差异表达分析.html#cb23-29" tabindex="-1"></a><span class="do">##   sample group</span></span>
+<span id="cb23-30"><a href="差异表达分析.html#cb23-30" tabindex="-1"></a><span class="do">## 1    a-1     a</span></span>
+<span id="cb23-31"><a href="差异表达分析.html#cb23-31" tabindex="-1"></a><span class="do">## 2    a-2     a</span></span>
+<span id="cb23-32"><a href="差异表达分析.html#cb23-32" tabindex="-1"></a><span class="do">## 3    a-3     a</span></span>
+<span id="cb23-33"><a href="差异表达分析.html#cb23-33" tabindex="-1"></a><span class="do">## 4    b-1     b</span></span>
+<span id="cb23-34"><a href="差异表达分析.html#cb23-34" tabindex="-1"></a><span class="do">## 5    b-2     b</span></span>
+<span id="cb23-35"><a href="差异表达分析.html#cb23-35" tabindex="-1"></a><span class="do">## 6    b-3     b</span></span>
+<span id="cb23-36"><a href="差异表达分析.html#cb23-36" tabindex="-1"></a><span class="do">## [1] &quot;Comparing c vs d&quot;</span></span>
+<span id="cb23-37"><a href="差异表达分析.html#cb23-37" tabindex="-1"></a><span class="do">##   sample group</span></span>
+<span id="cb23-38"><a href="差异表达分析.html#cb23-38" tabindex="-1"></a><span class="do">## 1    a-1     a</span></span>
+<span id="cb23-39"><a href="差异表达分析.html#cb23-39" tabindex="-1"></a><span class="do">## 2    a-2     a</span></span>
+<span id="cb23-40"><a href="差异表达分析.html#cb23-40" tabindex="-1"></a><span class="do">## 3    a-3     a</span></span>
+<span id="cb23-41"><a href="差异表达分析.html#cb23-41" tabindex="-1"></a><span class="do">## 4    b-1     b</span></span>
+<span id="cb23-42"><a href="差异表达分析.html#cb23-42" tabindex="-1"></a><span class="do">## 5    b-2     b</span></span>
+<span id="cb23-43"><a href="差异表达分析.html#cb23-43" tabindex="-1"></a><span class="do">## 6    b-3     b</span></span>
+<span id="cb23-44"><a href="差异表达分析.html#cb23-44" tabindex="-1"></a><span class="do">## [1] &quot;Comparing a vs c&quot;</span></span>
+<span id="cb23-45"><a href="差异表达分析.html#cb23-45" tabindex="-1"></a><span class="do">##   sample group</span></span>
+<span id="cb23-46"><a href="差异表达分析.html#cb23-46" tabindex="-1"></a><span class="do">## 1    a-1     a</span></span>
+<span id="cb23-47"><a href="差异表达分析.html#cb23-47" tabindex="-1"></a><span class="do">## 2    a-2     a</span></span>
+<span id="cb23-48"><a href="差异表达分析.html#cb23-48" tabindex="-1"></a><span class="do">## 3    a-3     a</span></span>
+<span id="cb23-49"><a href="差异表达分析.html#cb23-49" tabindex="-1"></a><span class="do">## 4    b-1     b</span></span>
+<span id="cb23-50"><a href="差异表达分析.html#cb23-50" tabindex="-1"></a><span class="do">## 5    b-2     b</span></span>
+<span id="cb23-51"><a href="差异表达分析.html#cb23-51" tabindex="-1"></a><span class="do">## 6    b-3     b</span></span>
+<span id="cb23-52"><a href="差异表达分析.html#cb23-52" tabindex="-1"></a></span>
+<span id="cb23-53"><a href="差异表达分析.html#cb23-53" tabindex="-1"></a><span class="fu">names</span>(comparison_results_DESeq2) <span class="ot">&lt;-</span> <span class="fu">names</span>(group_compare)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="差异表达分析.html#cb24-1" tabindex="-1"></a><span class="fu">save</span>(comparison_results_DESeq2, <span class="at">file =</span> <span class="st">&quot;Rdata/comparison_results_DESeq2.Rdata&quot;</span>)</span></code></pre></div>
+
+</div>
+<div id="edger" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> edgeR<a href="差异表达分析.html#edger" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="差异表达分析.html#cb25-1" tabindex="-1"></a><span class="co"># 安装加载必要的包</span></span>
+<span id="cb25-2"><a href="差异表达分析.html#cb25-2" tabindex="-1"></a><span class="fu">library</span>(edgeR)</span></code></pre></div>
+<pre><code>## Loading required package: limma</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="差异表达分析.html#cb27-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="差异表达分析.html#cb30-1" tabindex="-1"></a><span class="co"># 定义一个函数来进行 edgeR 差异基因表达分析</span></span>
+<span id="cb30-2"><a href="差异表达分析.html#cb30-2" tabindex="-1"></a>run_edger <span class="ot">&lt;-</span> <span class="cf">function</span>(count, group_df, group1, group2) {</span>
+<span id="cb30-3"><a href="差异表达分析.html#cb30-3" tabindex="-1"></a>  samples_group1 <span class="ot">&lt;-</span> group_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> group1) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(sample)</span>
+<span id="cb30-4"><a href="差异表达分析.html#cb30-4" tabindex="-1"></a>  samples_group2 <span class="ot">&lt;-</span> group_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group <span class="sc">==</span> group2) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(sample)</span>
+<span id="cb30-5"><a href="差异表达分析.html#cb30-5" tabindex="-1"></a>  </span>
+<span id="cb30-6"><a href="差异表达分析.html#cb30-6" tabindex="-1"></a>  selected_samples <span class="ot">&lt;-</span> <span class="fu">c</span>(samples_group1, samples_group2)</span>
+<span id="cb30-7"><a href="差异表达分析.html#cb30-7" tabindex="-1"></a>  selected_counts <span class="ot">&lt;-</span> count[, selected_samples, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb30-8"><a href="差异表达分析.html#cb30-8" tabindex="-1"></a>  selected_group <span class="ot">&lt;-</span> group_df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sample <span class="sc">%in%</span> selected_samples)</span>
+<span id="cb30-9"><a href="差异表达分析.html#cb30-9" tabindex="-1"></a>  </span>
+<span id="cb30-10"><a href="差异表达分析.html#cb30-10" tabindex="-1"></a>  <span class="co"># 创建 DGEList 对象</span></span>
+<span id="cb30-11"><a href="差异表达分析.html#cb30-11" tabindex="-1"></a>  group <span class="ot">&lt;-</span> <span class="fu">factor</span>(selected_group<span class="sc">$</span>group)</span>
+<span id="cb30-12"><a href="差异表达分析.html#cb30-12" tabindex="-1"></a>  deg <span class="ot">&lt;-</span> <span class="fu">DGEList</span>(<span class="at">counts =</span> selected_counts, <span class="at">group =</span> group)</span>
+<span id="cb30-13"><a href="差异表达分析.html#cb30-13" tabindex="-1"></a>  </span>
+<span id="cb30-14"><a href="差异表达分析.html#cb30-14" tabindex="-1"></a>  <span class="co"># 过滤低表达基因</span></span>
+<span id="cb30-15"><a href="差异表达分析.html#cb30-15" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> <span class="fu">filterByExpr</span>(deg)</span>
+<span id="cb30-16"><a href="差异表达分析.html#cb30-16" tabindex="-1"></a>  deg <span class="ot">&lt;-</span> deg[keep, , keep.lib.sizes <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb30-17"><a href="差异表达分析.html#cb30-17" tabindex="-1"></a>  </span>
+<span id="cb30-18"><a href="差异表达分析.html#cb30-18" tabindex="-1"></a>  <span class="co"># 规范化</span></span>
+<span id="cb30-19"><a href="差异表达分析.html#cb30-19" tabindex="-1"></a>  deg <span class="ot">&lt;-</span> <span class="fu">calcNormFactors</span>(deg)</span>
+<span id="cb30-20"><a href="差异表达分析.html#cb30-20" tabindex="-1"></a>  </span>
+<span id="cb30-21"><a href="差异表达分析.html#cb30-21" tabindex="-1"></a>  <span class="co"># 设计矩阵</span></span>
+<span id="cb30-22"><a href="差异表达分析.html#cb30-22" tabindex="-1"></a>  design <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> group)</span>
+<span id="cb30-23"><a href="差异表达分析.html#cb30-23" tabindex="-1"></a>  </span>
+<span id="cb30-24"><a href="差异表达分析.html#cb30-24" tabindex="-1"></a>  <span class="co"># 估计离散度</span></span>
+<span id="cb30-25"><a href="差异表达分析.html#cb30-25" tabindex="-1"></a>  dge <span class="ot">&lt;-</span> <span class="fu">estimateDisp</span>(deg, design)</span>
+<span id="cb30-26"><a href="差异表达分析.html#cb30-26" tabindex="-1"></a>  </span>
+<span id="cb30-27"><a href="差异表达分析.html#cb30-27" tabindex="-1"></a>  <span class="co"># 进行广义线性模型拟合</span></span>
+<span id="cb30-28"><a href="差异表达分析.html#cb30-28" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">glmFit</span>(dge, design)</span>
+<span id="cb30-29"><a href="差异表达分析.html#cb30-29" tabindex="-1"></a>  </span>
+<span id="cb30-30"><a href="差异表达分析.html#cb30-30" tabindex="-1"></a>  <span class="co"># 进行差异表达检验</span></span>
+<span id="cb30-31"><a href="差异表达分析.html#cb30-31" tabindex="-1"></a>  qlf <span class="ot">&lt;-</span> <span class="fu">glmLRT</span>(fit, <span class="at">coef =</span> <span class="dv">2</span>)</span>
+<span id="cb30-32"><a href="差异表达分析.html#cb30-32" tabindex="-1"></a>  </span>
+<span id="cb30-33"><a href="差异表达分析.html#cb30-33" tabindex="-1"></a>  <span class="co"># 获取结果</span></span>
+<span id="cb30-34"><a href="差异表达分析.html#cb30-34" tabindex="-1"></a>  etp <span class="ot">=</span> <span class="fu">topTags</span>(qlf, <span class="at">n=</span><span class="cn">Inf</span>)</span>
+<span id="cb30-35"><a href="差异表达分析.html#cb30-35" tabindex="-1"></a>  </span>
+<span id="cb30-36"><a href="差异表达分析.html#cb30-36" tabindex="-1"></a>  <span class="do">## 获取数据 scale</span></span>
+<span id="cb30-37"><a href="差异表达分析.html#cb30-37" tabindex="-1"></a>  scale <span class="ot">=</span> dge<span class="sc">$</span>samples<span class="sc">$</span>lib.size <span class="sc">*</span> dge<span class="sc">$</span>samples<span class="sc">$</span>norm.factors</span>
+<span id="cb30-38"><a href="差异表达分析.html#cb30-38" tabindex="-1"></a></span>
+<span id="cb30-39"><a href="差异表达分析.html#cb30-39" tabindex="-1"></a>  <span class="do">## 获取标准化 counts</span></span>
+<span id="cb30-40"><a href="差异表达分析.html#cb30-40" tabindex="-1"></a>  normed <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">t</span>(<span class="fu">t</span>(selected_counts)<span class="sc">/</span>scale) <span class="sc">*</span> <span class="fu">mean</span>(scale))</span>
+<span id="cb30-41"><a href="差异表达分析.html#cb30-41" tabindex="-1"></a>  </span>
+<span id="cb30-42"><a href="差异表达分析.html#cb30-42" tabindex="-1"></a>  <span class="do">## 获取差异分析结果</span></span>
+<span id="cb30-43"><a href="差异表达分析.html#cb30-43" tabindex="-1"></a>  dat <span class="ot">=</span> etp<span class="sc">$</span>table <span class="sc">%&gt;%</span></span>
+<span id="cb30-44"><a href="差异表达分析.html#cb30-44" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb30-45"><a href="差异表达分析.html#cb30-45" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;SYMBOL&quot;</span>)</span>
+<span id="cb30-46"><a href="差异表达分析.html#cb30-46" tabindex="-1"></a>  <span class="fu">row.names</span>(dat) <span class="ot">=</span> dat[,<span class="dv">1</span>]</span>
+<span id="cb30-47"><a href="差异表达分析.html#cb30-47" tabindex="-1"></a>  </span>
+<span id="cb30-48"><a href="差异表达分析.html#cb30-48" tabindex="-1"></a>  <span class="co"># 整理结果</span></span>
+<span id="cb30-49"><a href="差异表达分析.html#cb30-49" tabindex="-1"></a>  <span class="do">## Create column placeholders.</span></span>
+<span id="cb30-50"><a href="差异表达分析.html#cb30-50" tabindex="-1"></a>  dat<span class="sc">$</span>baseMean <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb30-51"><a href="差异表达分析.html#cb30-51" tabindex="-1"></a>  dat<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb30-52"><a href="差异表达分析.html#cb30-52" tabindex="-1"></a>  dat<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb30-53"><a href="差异表达分析.html#cb30-53" tabindex="-1"></a>  dat<span class="sc">$</span>foldChange <span class="ot">=</span> <span class="dv">2</span> <span class="sc">^</span> dat<span class="sc">$</span>logFC</span>
+<span id="cb30-54"><a href="差异表达分析.html#cb30-54" tabindex="-1"></a>  dat<span class="sc">$</span>log2FoldChange<span class="ot">=</span>dat<span class="sc">$</span>logFC</span>
+<span id="cb30-55"><a href="差异表达分析.html#cb30-55" tabindex="-1"></a>  dat<span class="sc">$</span>pvalue <span class="ot">=</span> dat<span class="sc">$</span>PValue</span>
+<span id="cb30-56"><a href="差异表达分析.html#cb30-56" tabindex="-1"></a>  dat<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb30-57"><a href="差异表达分析.html#cb30-57" tabindex="-1"></a>  </span>
+<span id="cb30-58"><a href="差异表达分析.html#cb30-58" tabindex="-1"></a>  <span class="co"># Compute the adjusted p-value</span></span>
+<span id="cb30-59"><a href="差异表达分析.html#cb30-59" tabindex="-1"></a>  dat<span class="sc">$</span>padj <span class="ot">=</span> <span class="fu">p.adjust</span>(dat<span class="sc">$</span>pvalue, <span class="at">method=</span><span class="st">&quot;hochberg&quot;</span>)</span>
+<span id="cb30-60"><a href="差异表达分析.html#cb30-60" tabindex="-1"></a></span>
+<span id="cb30-61"><a href="差异表达分析.html#cb30-61" tabindex="-1"></a>  <span class="co"># Create a merged output that contains the normalized counts.</span></span>
+<span id="cb30-62"><a href="差异表达分析.html#cb30-62" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">merge</span>(dat, normed, <span class="at">by=</span><span class="st">&#39;row.names&#39;</span>)</span>
+<span id="cb30-63"><a href="差异表达分析.html#cb30-63" tabindex="-1"></a></span>
+<span id="cb30-64"><a href="差异表达分析.html#cb30-64" tabindex="-1"></a>  <span class="co"># Get rid of extra column it gained</span></span>
+<span id="cb30-65"><a href="差异表达分析.html#cb30-65" tabindex="-1"></a>  total <span class="ot">=</span> total[, <span class="dv">2</span><span class="sc">:</span><span class="fu">ncol</span>(total)]</span>
+<span id="cb30-66"><a href="差异表达分析.html#cb30-66" tabindex="-1"></a></span>
+<span id="cb30-67"><a href="差异表达分析.html#cb30-67" tabindex="-1"></a>  <span class="co"># Sort again by P-value.</span></span>
+<span id="cb30-68"><a href="差异表达分析.html#cb30-68" tabindex="-1"></a>  total <span class="ot">=</span> <span class="fu">arrange</span>(total, pvalue)</span>
+<span id="cb30-69"><a href="差异表达分析.html#cb30-69" tabindex="-1"></a>  </span>
+<span id="cb30-70"><a href="差异表达分析.html#cb30-70" tabindex="-1"></a>  <span class="co"># Compute the false discovery counts on the sorted table.</span></span>
+<span id="cb30-71"><a href="差异表达分析.html#cb30-71" tabindex="-1"></a>  total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(total) <span class="sc">*</span> total<span class="sc">$</span>FDR</span>
+<span id="cb30-72"><a href="差异表达分析.html#cb30-72" tabindex="-1"></a>  </span>
+<span id="cb30-73"><a href="差异表达分析.html#cb30-73" tabindex="-1"></a>  <span class="co"># Create the individual baseMean columns.</span></span>
+<span id="cb30-74"><a href="差异表达分析.html#cb30-74" tabindex="-1"></a>  total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, samples_group1])</span>
+<span id="cb30-75"><a href="差异表达分析.html#cb30-75" tabindex="-1"></a>  total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, samples_group2])</span>
+<span id="cb30-76"><a href="差异表达分析.html#cb30-76" tabindex="-1"></a>  total<span class="sc">$</span>baseMean <span class="ot">=</span> total<span class="sc">$</span>baseMeanA <span class="sc">+</span> total<span class="sc">$</span>baseMeanB</span>
+<span id="cb30-77"><a href="差异表达分析.html#cb30-77" tabindex="-1"></a>  </span>
+<span id="cb30-78"><a href="差异表达分析.html#cb30-78" tabindex="-1"></a>  <span class="co"># Round the numbers to make them look better</span></span>
+<span id="cb30-79"><a href="差异表达分析.html#cb30-79" tabindex="-1"></a>  <span class="co"># total$foldChange = round(total$foldChange, 3)</span></span>
+<span id="cb30-80"><a href="差异表达分析.html#cb30-80" tabindex="-1"></a>  <span class="co"># total$FDR = round(total$FDR, 4)</span></span>
+<span id="cb30-81"><a href="差异表达分析.html#cb30-81" tabindex="-1"></a>  <span class="co"># total$padj = round(total$padj, 4)</span></span>
+<span id="cb30-82"><a href="差异表达分析.html#cb30-82" tabindex="-1"></a>  <span class="co"># total$logCPM = round(total$logCPM, 1)</span></span>
+<span id="cb30-83"><a href="差异表达分析.html#cb30-83" tabindex="-1"></a>  <span class="co"># total$log2FoldChange = round(total$log2FoldChange, 1)</span></span>
+<span id="cb30-84"><a href="差异表达分析.html#cb30-84" tabindex="-1"></a>  <span class="co"># total$baseMean = round(total$baseMean, 1)</span></span>
+<span id="cb30-85"><a href="差异表达分析.html#cb30-85" tabindex="-1"></a>  <span class="co"># total$baseMeanA = round(total$baseMeanA, 1)</span></span>
+<span id="cb30-86"><a href="差异表达分析.html#cb30-86" tabindex="-1"></a>  <span class="co"># total$baseMeanB = round(total$baseMeanB, 1)</span></span>
+<span id="cb30-87"><a href="差异表达分析.html#cb30-87" tabindex="-1"></a>  <span class="co"># total$falsePos = round(total$falsePos, 0)</span></span>
+<span id="cb30-88"><a href="差异表达分析.html#cb30-88" tabindex="-1"></a></span>
+<span id="cb30-89"><a href="差异表达分析.html#cb30-89" tabindex="-1"></a>  <span class="co"># Reorganize columns names to make more sense.</span></span>
+<span id="cb30-90"><a href="差异表达分析.html#cb30-90" tabindex="-1"></a>  new_cols <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;baseMean&quot;</span>,<span class="st">&quot;baseMeanA&quot;</span>,<span class="st">&quot;baseMeanB&quot;</span>,</span>
+<span id="cb30-91"><a href="差异表达分析.html#cb30-91" tabindex="-1"></a>                <span class="st">&quot;logCPM&quot;</span>,<span class="st">&quot;foldChange&quot;</span>, <span class="st">&quot;log2FoldChange&quot;</span>,</span>
+<span id="cb30-92"><a href="差异表达分析.html#cb30-92" tabindex="-1"></a>                <span class="st">&quot;pvalue&quot;</span>,<span class="st">&quot;padj&quot;</span>, </span>
+<span id="cb30-93"><a href="差异表达分析.html#cb30-93" tabindex="-1"></a>                <span class="st">&quot;FDR&quot;</span>,<span class="st">&quot;falsePos&quot;</span>, samples_group1, samples_group2)</span>
+<span id="cb30-94"><a href="差异表达分析.html#cb30-94" tabindex="-1"></a></span>
+<span id="cb30-95"><a href="差异表达分析.html#cb30-95" tabindex="-1"></a>  total <span class="ot">=</span> total[, new_cols]</span>
+<span id="cb30-96"><a href="差异表达分析.html#cb30-96" tabindex="-1"></a></span>
+<span id="cb30-97"><a href="差异表达分析.html#cb30-97" tabindex="-1"></a></span>
+<span id="cb30-98"><a href="差异表达分析.html#cb30-98" tabindex="-1"></a>  <span class="co"># Reformat these columns as string.</span></span>
+<span id="cb30-99"><a href="差异表达分析.html#cb30-99" tabindex="-1"></a>  total<span class="sc">$</span>padj <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>padj, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb30-100"><a href="差异表达分析.html#cb30-100" tabindex="-1"></a>  total<span class="sc">$</span>pvalue <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>pvalue, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb30-101"><a href="差异表达分析.html#cb30-101" tabindex="-1"></a>  </span>
+<span id="cb30-102"><a href="差异表达分析.html#cb30-102" tabindex="-1"></a>  <span class="fu">return</span>(total)</span>
+<span id="cb30-103"><a href="差异表达分析.html#cb30-103" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="差异表达分析.html#cb31-1" tabindex="-1"></a><span class="co"># 进行两两比对并存储结果</span></span>
+<span id="cb31-2"><a href="差异表达分析.html#cb31-2" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/1_DEG_stat/edgeR&quot;</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning in dir.create(&quot;DEG_Analysis/1_DEG_stat/edgeR&quot;, recursive = TRUE):
+## &#39;DEG_Analysis/1_DEG_stat/edgeR&#39; already exists</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="差异表达分析.html#cb33-1" tabindex="-1"></a>comparison_results_edgeR <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">names</span>(group_compare), <span class="cf">function</span>(comp_name) {</span>
+<span id="cb33-2"><a href="差异表达分析.html#cb33-2" tabindex="-1"></a>  <span class="co"># 获取因子的水平</span></span>
+<span id="cb33-3"><a href="差异表达分析.html#cb33-3" tabindex="-1"></a>  groups <span class="ot">&lt;-</span> <span class="fu">levels</span>(group_compare[[comp_name]])</span>
+<span id="cb33-4"><a href="差异表达分析.html#cb33-4" tabindex="-1"></a>  group1 <span class="ot">&lt;-</span> groups[<span class="dv">1</span>]</span>
+<span id="cb33-5"><a href="差异表达分析.html#cb33-5" tabindex="-1"></a>  group2 <span class="ot">&lt;-</span> groups[<span class="dv">2</span>]</span>
+<span id="cb33-6"><a href="差异表达分析.html#cb33-6" tabindex="-1"></a>  </span>
+<span id="cb33-7"><a href="差异表达分析.html#cb33-7" tabindex="-1"></a>  <span class="co"># 打印调试信息</span></span>
+<span id="cb33-8"><a href="差异表达分析.html#cb33-8" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Comparing&quot;</span>, group1, <span class="st">&quot;vs&quot;</span>, group2))</span>
+<span id="cb33-9"><a href="差异表达分析.html#cb33-9" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">head</span>(group))</span>
+<span id="cb33-10"><a href="差异表达分析.html#cb33-10" tabindex="-1"></a>  </span>
+<span id="cb33-11"><a href="差异表达分析.html#cb33-11" tabindex="-1"></a>  <span class="co"># 运行 edgeR</span></span>
+<span id="cb33-12"><a href="差异表达分析.html#cb33-12" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">run_edger</span>(count, group, group1, group2)</span>
+<span id="cb33-13"><a href="差异表达分析.html#cb33-13" tabindex="-1"></a>  </span>
+<span id="cb33-14"><a href="差异表达分析.html#cb33-14" tabindex="-1"></a>  <span class="co"># 保存结果</span></span>
+<span id="cb33-15"><a href="差异表达分析.html#cb33-15" tabindex="-1"></a>  result_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(comp_name, <span class="st">&quot;_DEG_edgeR.csv&quot;</span>)</span>
+<span id="cb33-16"><a href="差异表达分析.html#cb33-16" tabindex="-1"></a>  <span class="fu">write.csv</span>(result, <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/1_DEG_stat/edgeR/&quot;</span>, result_file), <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb33-17"><a href="差异表达分析.html#cb33-17" tabindex="-1"></a>  </span>
+<span id="cb33-18"><a href="差异表达分析.html#cb33-18" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb33-19"><a href="差异表达分析.html#cb33-19" tabindex="-1"></a>})</span></code></pre></div>
+<pre><code>## [1] &quot;Comparing a vs b&quot;
+##   sample group
+## 1    a-1     a
+## 2    a-2     a
+## 3    a-3     a
+## 4    b-1     b
+## 5    b-2     b
+## 6    b-3     b
+## [1] &quot;Comparing c vs d&quot;
+##   sample group
+## 1    a-1     a
+## 2    a-2     a
+## 3    a-3     a
+## 4    b-1     b
+## 5    b-2     b
+## 6    b-3     b
+## [1] &quot;Comparing a vs c&quot;
+##   sample group
+## 1    a-1     a
+## 2    a-2     a
+## 3    a-3     a
+## 4    b-1     b
+## 5    b-2     b
+## 6    b-3     b</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="差异表达分析.html#cb35-1" tabindex="-1"></a><span class="fu">names</span>(comparison_results_edgeR) <span class="ot">&lt;-</span> <span class="fu">names</span>(group_compare)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="差异表达分析.html#cb36-1" tabindex="-1"></a><span class="fu">save</span>(comparison_results_edgeR, <span class="at">file =</span> <span class="st">&quot;Rdata/comparison_results_edgeR.Rdata&quot;</span>)</span></code></pre></div>
+
+</div>
+</div>
+<div id="差异表达基因筛选" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 差异表达基因筛选<a href="差异表达分析.html#差异表达基因筛选" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="差异表达分析.html#cb37-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Rdata/comparison_results_DESeq2.Rdata&quot;</span>)</span>
+<span id="cb37-2"><a href="差异表达分析.html#cb37-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Rdata/comparison_results_edgeR.Rdata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="差异表达分析.html#cb38-1" tabindex="-1"></a><span class="co"># 可以自定义设定筛选差异基因的参数</span></span>
+<span id="cb38-2"><a href="差异表达分析.html#cb38-2" tabindex="-1"></a>FDR_cutoff <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb38-3"><a href="差异表达分析.html#cb38-3" tabindex="-1"></a>log2FC_cutoff <span class="ot">&lt;-</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="差异表达分析.html#cb39-1" tabindex="-1"></a><span class="co"># 加载必要的包</span></span>
+<span id="cb39-2"><a href="差异表达分析.html#cb39-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb39-3"><a href="差异表达分析.html#cb39-3" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="差异表达分析.html#cb39-4" tabindex="-1"></a><span class="co"># 定义筛选差异基因的函数</span></span>
+<span id="cb39-5"><a href="差异表达分析.html#cb39-5" tabindex="-1"></a>filter_DEGs <span class="ot">&lt;-</span> <span class="cf">function</span>(df, <span class="at">FDR_cutoff =</span> <span class="fl">0.05</span>, <span class="at">log2FC_cutoff =</span> <span class="dv">1</span>) {</span>
+<span id="cb39-6"><a href="差异表达分析.html#cb39-6" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="差异表达分析.html#cb39-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">regulated =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-8"><a href="差异表达分析.html#cb39-8" tabindex="-1"></a>      FDR <span class="sc">&lt;</span> FDR_cutoff <span class="sc">&amp;</span> log2FoldChange <span class="sc">&gt;</span> log2FC_cutoff <span class="sc">~</span> <span class="st">&quot;up&quot;</span>,</span>
+<span id="cb39-9"><a href="差异表达分析.html#cb39-9" tabindex="-1"></a>      FDR <span class="sc">&lt;</span> FDR_cutoff <span class="sc">&amp;</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span>log2FC_cutoff <span class="sc">~</span> <span class="st">&quot;down&quot;</span>,</span>
+<span id="cb39-10"><a href="差异表达分析.html#cb39-10" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;normal&quot;</span></span>
+<span id="cb39-11"><a href="差异表达分析.html#cb39-11" tabindex="-1"></a>    ))</span>
+<span id="cb39-12"><a href="差异表达分析.html#cb39-12" tabindex="-1"></a>  <span class="fu">return</span>(df)</span>
+<span id="cb39-13"><a href="差异表达分析.html#cb39-13" tabindex="-1"></a>}</span>
+<span id="cb39-14"><a href="差异表达分析.html#cb39-14" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="差异表达分析.html#cb39-15" tabindex="-1"></a><span class="co"># 对列表中的每个数据框进行处理</span></span>
+<span id="cb39-16"><a href="差异表达分析.html#cb39-16" tabindex="-1"></a>cr_DESeq2 <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(comparison_results_DESeq2, filter_DEGs),</span>
+<span id="cb39-17"><a href="差异表达分析.html#cb39-17" tabindex="-1"></a>                      <span class="fu">names</span>(comparison_results_DESeq2))</span>
+<span id="cb39-18"><a href="差异表达分析.html#cb39-18" tabindex="-1"></a>cr_edgeR <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(comparison_results_edgeR, filter_DEGs),</span>
+<span id="cb39-19"><a href="差异表达分析.html#cb39-19" tabindex="-1"></a>                     <span class="fu">names</span>(comparison_results_edgeR))</span>
+<span id="cb39-20"><a href="差异表达分析.html#cb39-20" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="差异表达分析.html#cb39-21" tabindex="-1"></a><span class="co"># 导出处理后的数据框</span></span>
+<span id="cb39-22"><a href="差异表达分析.html#cb39-22" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(cr_DESeq2)) {</span>
+<span id="cb39-23"><a href="差异表达分析.html#cb39-23" tabindex="-1"></a>  <span class="fu">write.csv</span>(cr_DESeq2[[i]], </span>
+<span id="cb39-24"><a href="差异表达分析.html#cb39-24" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/1_DEG_stat/DESeq2/&quot;</span>, i, <span class="st">&quot;_regulated_DESeq2.csv&quot;</span>),</span>
+<span id="cb39-25"><a href="差异表达分析.html#cb39-25" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-26"><a href="差异表达分析.html#cb39-26" tabindex="-1"></a>}</span>
+<span id="cb39-27"><a href="差异表达分析.html#cb39-27" tabindex="-1"></a></span>
+<span id="cb39-28"><a href="差异表达分析.html#cb39-28" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(cr_edgeR)) {</span>
+<span id="cb39-29"><a href="差异表达分析.html#cb39-29" tabindex="-1"></a>  <span class="fu">write.csv</span>(cr_edgeR[[i]],</span>
+<span id="cb39-30"><a href="差异表达分析.html#cb39-30" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/1_DEG_stat/edgeR/&quot;</span>, i, <span class="st">&quot;_regulated_edgeR.csv&quot;</span>), </span>
+<span id="cb39-31"><a href="差异表达分析.html#cb39-31" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-32"><a href="差异表达分析.html#cb39-32" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="差异表达分析.html#cb40-1" tabindex="-1"></a><span class="fu">save</span>(cr_DESeq2, cr_edgeR, <span class="at">file =</span> <span class="st">&quot;Rdata/Regulated_DEG.Rdata&quot;</span>)</span></code></pre></div>
+
+</div>
+<div id="差异基因可视化" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 差异基因可视化<a href="差异表达分析.html#差异基因可视化" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="火山图" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> 火山图<a href="差异表达分析.html#火山图" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="差异表达分析.html#cb41-1" tabindex="-1"></a><span class="co"># 加载必要的包</span></span>
+<span id="cb41-2"><a href="差异表达分析.html#cb41-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb41-3"><a href="差异表达分析.html#cb41-3" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb41-4"><a href="差异表达分析.html#cb41-4" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="差异表达分析.html#cb41-5" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="差异表达分析.html#cb41-6" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="差异表达分析.html#cb41-7" tabindex="-1"></a><span class="co"># 定义画图函数</span></span>
+<span id="cb41-8"><a href="差异表达分析.html#cb41-8" tabindex="-1"></a> vol <span class="ot">&lt;-</span> <span class="cf">function</span>(data){</span>
+<span id="cb41-9"><a href="差异表达分析.html#cb41-9" tabindex="-1"></a>   </span>
+<span id="cb41-10"><a href="差异表达分析.html#cb41-10" tabindex="-1"></a>   <span class="co"># 统计上下调基因的数量</span></span>
+<span id="cb41-11"><a href="差异表达分析.html#cb41-11" tabindex="-1"></a>   regulated_counts <span class="ot">&lt;-</span> <span class="fu">table</span>(data<span class="sc">$</span>regulated)</span>
+<span id="cb41-12"><a href="差异表达分析.html#cb41-12" tabindex="-1"></a>   up_count <span class="ot">&lt;-</span> regulated_counts[<span class="st">&quot;up&quot;</span>]</span>
+<span id="cb41-13"><a href="差异表达分析.html#cb41-13" tabindex="-1"></a>   down_count <span class="ot">&lt;-</span> regulated_counts[<span class="st">&quot;down&quot;</span>]</span>
+<span id="cb41-14"><a href="差异表达分析.html#cb41-14" tabindex="-1"></a>   </span>
+<span id="cb41-15"><a href="差异表达分析.html#cb41-15" tabindex="-1"></a>   <span class="co"># 画图</span></span>
+<span id="cb41-16"><a href="差异表达分析.html#cb41-16" tabindex="-1"></a>   p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> log2FoldChange, <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(FDR))) <span class="sc">+</span></span>
+<span id="cb41-17"><a href="差异表达分析.html#cb41-17" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> regulated), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-18"><a href="差异表达分析.html#cb41-18" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;up&#39;</span> <span class="ot">=</span> <span class="st">&#39;#F07C79&#39;</span>, <span class="st">&#39;down&#39;</span> <span class="ot">=</span> <span class="st">&#39;#4588C8&#39;</span>, <span class="st">&#39;normal&#39;</span> <span class="ot">=</span> <span class="st">&#39;gray&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb41-19"><a href="差异表达分析.html#cb41-19" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(<span class="fl">0.05</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb41-20"><a href="差异表达分析.html#cb41-20" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb41-21"><a href="差异表达分析.html#cb41-21" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb41-22"><a href="差异表达分析.html#cb41-22" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb41-23"><a href="差异表达分析.html#cb41-23" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb41-24"><a href="差异表达分析.html#cb41-24" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb41-25"><a href="差异表达分析.html#cb41-25" tabindex="-1"></a>      <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb41-26"><a href="差异表达分析.html#cb41-26" tabindex="-1"></a>      <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb41-27"><a href="差异表达分析.html#cb41-27" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>)</span>
+<span id="cb41-28"><a href="差异表达分析.html#cb41-28" tabindex="-1"></a>    )</span>
+<span id="cb41-29"><a href="差异表达分析.html#cb41-29" tabindex="-1"></a>      </span>
+<span id="cb41-30"><a href="差异表达分析.html#cb41-30" tabindex="-1"></a>   <span class="co"># 计算图的范围</span></span>
+<span id="cb41-31"><a href="差异表达分析.html#cb41-31" tabindex="-1"></a>   x_range <span class="ot">&lt;-</span> <span class="fu">ggplot_build</span>(p)<span class="sc">$</span>layout<span class="sc">$</span>panel_params[[<span class="dv">1</span>]]<span class="sc">$</span>x.range</span>
+<span id="cb41-32"><a href="差异表达分析.html#cb41-32" tabindex="-1"></a>   y_range <span class="ot">&lt;-</span> <span class="fu">ggplot_build</span>(p)<span class="sc">$</span>layout<span class="sc">$</span>panel_params[[<span class="dv">1</span>]]<span class="sc">$</span>y.range</span>
+<span id="cb41-33"><a href="差异表达分析.html#cb41-33" tabindex="-1"></a></span>
+<span id="cb41-34"><a href="差异表达分析.html#cb41-34" tabindex="-1"></a>   <span class="co"># 定义注释位置</span></span>
+<span id="cb41-35"><a href="差异表达分析.html#cb41-35" tabindex="-1"></a>   x_left <span class="ot">&lt;-</span> x_range[<span class="dv">1</span>] <span class="sc">+</span> (x_range[<span class="dv">2</span>] <span class="sc">-</span> x_range[<span class="dv">1</span>]) <span class="sc">*</span> <span class="fl">0.05</span></span>
+<span id="cb41-36"><a href="差异表达分析.html#cb41-36" tabindex="-1"></a>   x_right <span class="ot">&lt;-</span> x_range[<span class="dv">2</span>] <span class="sc">-</span> (x_range[<span class="dv">2</span>] <span class="sc">-</span> x_range[<span class="dv">1</span>]) <span class="sc">*</span> <span class="fl">0.05</span></span>
+<span id="cb41-37"><a href="差异表达分析.html#cb41-37" tabindex="-1"></a>   y_top <span class="ot">&lt;-</span> y_range[<span class="dv">2</span>] <span class="sc">-</span> (y_range[<span class="dv">2</span>] <span class="sc">-</span> y_range[<span class="dv">1</span>]) <span class="sc">*</span> <span class="fl">0.05</span></span>
+<span id="cb41-38"><a href="差异表达分析.html#cb41-38" tabindex="-1"></a>  </span>
+<span id="cb41-39"><a href="差异表达分析.html#cb41-39" tabindex="-1"></a>   <span class="co"># 添加注释</span></span>
+<span id="cb41-40"><a href="差异表达分析.html#cb41-40" tabindex="-1"></a>  vol_p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb41-41"><a href="差异表达分析.html#cb41-41" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> x_right, <span class="at">y =</span> y_top, <span class="at">label =</span> <span class="fu">paste0</span>(up_count), <span class="at">size =</span> <span class="dv">7</span>, <span class="at">hjust =</span> <span class="dv">1</span>, </span>
+<span id="cb41-42"><a href="差异表达分析.html#cb41-42" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&#39;#F07C79&#39;</span>) <span class="sc">+</span></span>
+<span id="cb41-43"><a href="差异表达分析.html#cb41-43" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> x_left, <span class="at">y =</span> y_top, <span class="at">label =</span> <span class="fu">paste0</span>(down_count), <span class="at">size =</span> <span class="dv">7</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb41-44"><a href="差异表达分析.html#cb41-44" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&#39;#4588C8&#39;</span>)</span>
+<span id="cb41-45"><a href="差异表达分析.html#cb41-45" tabindex="-1"></a>      </span>
+<span id="cb41-46"><a href="差异表达分析.html#cb41-46" tabindex="-1"></a>  <span class="fu">return</span>(vol_p)</span>
+<span id="cb41-47"><a href="差异表达分析.html#cb41-47" tabindex="-1"></a>   }</span>
+<span id="cb41-48"><a href="差异表达分析.html#cb41-48" tabindex="-1"></a></span>
+<span id="cb41-49"><a href="差异表达分析.html#cb41-49" tabindex="-1"></a><span class="co"># 对列表中的每个数据框进行处理</span></span>
+<span id="cb41-50"><a href="差异表达分析.html#cb41-50" tabindex="-1"></a>vol_DESeq2 <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_DESeq2, vol),</span>
+<span id="cb41-51"><a href="差异表达分析.html#cb41-51" tabindex="-1"></a>                      <span class="fu">names</span>(cr_DESeq2))</span>
+<span id="cb41-52"><a href="差异表达分析.html#cb41-52" tabindex="-1"></a>vol_edgeR <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_edgeR, vol),</span>
+<span id="cb41-53"><a href="差异表达分析.html#cb41-53" tabindex="-1"></a>                     <span class="fu">names</span>(cr_edgeR))</span>
+<span id="cb41-54"><a href="差异表达分析.html#cb41-54" tabindex="-1"></a></span>
+<span id="cb41-55"><a href="差异表达分析.html#cb41-55" tabindex="-1"></a><span class="co"># 创建图像保存目录</span></span>
+<span id="cb41-56"><a href="差异表达分析.html#cb41-56" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/DESeq2&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb41-57"><a href="差异表达分析.html#cb41-57" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/edgeR&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb41-58"><a href="差异表达分析.html#cb41-58" tabindex="-1"></a></span>
+<span id="cb41-59"><a href="差异表达分析.html#cb41-59" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(vol_DESeq2)) {</span>
+<span id="cb41-60"><a href="差异表达分析.html#cb41-60" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/DESeq2/&quot;</span>, i, <span class="st">&quot;_volcano_DESeq2.pdf&quot;</span>),</span>
+<span id="cb41-61"><a href="差异表达分析.html#cb41-61" tabindex="-1"></a>            vol_DESeq2[[i]]</span>
+<span id="cb41-62"><a href="差异表达分析.html#cb41-62" tabindex="-1"></a>         )</span>
+<span id="cb41-63"><a href="差异表达分析.html#cb41-63" tabindex="-1"></a>}</span>
+<span id="cb41-64"><a href="差异表达分析.html#cb41-64" tabindex="-1"></a></span>
+<span id="cb41-65"><a href="差异表达分析.html#cb41-65" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(vol_edgeR)) {</span>
+<span id="cb41-66"><a href="差异表达分析.html#cb41-66" tabindex="-1"></a> <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/edgeR/&quot;</span>, i, <span class="st">&quot;_volcano_edgeR.pdf&quot;</span>), </span>
+<span id="cb41-67"><a href="差异表达分析.html#cb41-67" tabindex="-1"></a>        vol_edgeR[[i]]</span>
+<span id="cb41-68"><a href="差异表达分析.html#cb41-68" tabindex="-1"></a>        )</span>
+<span id="cb41-69"><a href="差异表达分析.html#cb41-69" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="热图" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> 热图<a href="差异表达分析.html#热图" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="差异表达分析.html#cb42-1" tabindex="-1"></a><span class="co"># 加载必要的包</span></span>
+<span id="cb42-2"><a href="差异表达分析.html#cb42-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb42-3"><a href="差异表达分析.html#cb42-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb42-4"><a href="差异表达分析.html#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="差异表达分析.html#cb42-5" tabindex="-1"></a><span class="co"># 定义画图函数</span></span>
+<span id="cb42-6"><a href="差异表达分析.html#cb42-6" tabindex="-1"></a> phe <span class="ot">&lt;-</span> <span class="cf">function</span>(DEG_exp){</span>
+<span id="cb42-7"><a href="差异表达分析.html#cb42-7" tabindex="-1"></a>   exp <span class="ot">&lt;-</span> DEG_exp <span class="sc">%&gt;%</span></span>
+<span id="cb42-8"><a href="差异表达分析.html#cb42-8" tabindex="-1"></a>     <span class="fu">filter</span>(regulated <span class="sc">==</span> <span class="st">&quot;up&quot;</span> <span class="sc">|</span> regulated <span class="sc">==</span> <span class="st">&quot;down&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-9"><a href="差异表达分析.html#cb42-9" tabindex="-1"></a>     <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">&quot;SYMBOL&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-10"><a href="差异表达分析.html#cb42-10" tabindex="-1"></a>     <span class="fu">select</span>(<span class="fu">any_of</span>(group<span class="sc">$</span>sample))</span>
+<span id="cb42-11"><a href="差异表达分析.html#cb42-11" tabindex="-1"></a>   </span>
+<span id="cb42-12"><a href="差异表达分析.html#cb42-12" tabindex="-1"></a>   phe_p <span class="ot">&lt;-</span> </span>
+<span id="cb42-13"><a href="差异表达分析.html#cb42-13" tabindex="-1"></a>     <span class="fu">pheatmap</span>(exp,</span>
+<span id="cb42-14"><a href="差异表达分析.html#cb42-14" tabindex="-1"></a>         <span class="at">show_colnames =</span>T,</span>
+<span id="cb42-15"><a href="差异表达分析.html#cb42-15" tabindex="-1"></a>         <span class="at">show_rownames =</span> F,</span>
+<span id="cb42-16"><a href="差异表达分析.html#cb42-16" tabindex="-1"></a>         <span class="at">scale =</span> <span class="st">&quot;row&quot;</span>,</span>
+<span id="cb42-17"><a href="差异表达分析.html#cb42-17" tabindex="-1"></a>         <span class="at">cluster_cols =</span> T</span>
+<span id="cb42-18"><a href="差异表达分析.html#cb42-18" tabindex="-1"></a>         )</span>
+<span id="cb42-19"><a href="差异表达分析.html#cb42-19" tabindex="-1"></a>   <span class="fu">return</span>(phe_p)</span>
+<span id="cb42-20"><a href="差异表达分析.html#cb42-20" tabindex="-1"></a> }</span>
+<span id="cb42-21"><a href="差异表达分析.html#cb42-21" tabindex="-1"></a> </span>
+<span id="cb42-22"><a href="差异表达分析.html#cb42-22" tabindex="-1"></a> <span class="co"># 对列表中的每个数据框进行处理</span></span>
+<span id="cb42-23"><a href="差异表达分析.html#cb42-23" tabindex="-1"></a>phe_DESeq2 <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_DESeq2, phe),</span>
+<span id="cb42-24"><a href="差异表达分析.html#cb42-24" tabindex="-1"></a>                      <span class="fu">names</span>(cr_DESeq2))</span></code></pre></div>
+<p><img src="08-DEG-visualization_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="08-DEG-visualization_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="08-DEG-visualization_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="差异表达分析.html#cb43-1" tabindex="-1"></a>phe_edgeR <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_edgeR, phe),</span>
+<span id="cb43-2"><a href="差异表达分析.html#cb43-2" tabindex="-1"></a>                     <span class="fu">names</span>(cr_edgeR))</span></code></pre></div>
+<p><img src="08-DEG-visualization_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="08-DEG-visualization_files/figure-html/unnamed-chunk-4-5.png" width="672" /><img src="08-DEG-visualization_files/figure-html/unnamed-chunk-4-6.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="差异表达分析.html#cb44-1" tabindex="-1"></a> </span>
+<span id="cb44-2"><a href="差异表达分析.html#cb44-2" tabindex="-1"></a><span class="co"># 创建图像保存目录</span></span>
+<span id="cb44-3"><a href="差异表达分析.html#cb44-3" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/DESeq2&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb44-4"><a href="差异表达分析.html#cb44-4" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/edgeR&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb44-5"><a href="差异表达分析.html#cb44-5" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="差异表达分析.html#cb44-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(phe_DESeq2)) {</span>
+<span id="cb44-7"><a href="差异表达分析.html#cb44-7" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/DESeq2/&quot;</span>, i, <span class="st">&quot;_pheatmap_DESeq2.pdf&quot;</span>),</span>
+<span id="cb44-8"><a href="差异表达分析.html#cb44-8" tabindex="-1"></a>            phe_DESeq2[[i]]</span>
+<span id="cb44-9"><a href="差异表达分析.html#cb44-9" tabindex="-1"></a>         )</span>
+<span id="cb44-10"><a href="差异表达分析.html#cb44-10" tabindex="-1"></a>}</span>
+<span id="cb44-11"><a href="差异表达分析.html#cb44-11" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="差异表达分析.html#cb44-12" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(phe_edgeR)) {</span>
+<span id="cb44-13"><a href="差异表达分析.html#cb44-13" tabindex="-1"></a> <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/2_DEG_visualization/edgeR/&quot;</span>, i, <span class="st">&quot;_pheatmap_edgeR.pdf&quot;</span>), </span>
+<span id="cb44-14"><a href="差异表达分析.html#cb44-14" tabindex="-1"></a>        phe_edgeR[[i]]</span>
+<span id="cb44-15"><a href="差异表达分析.html#cb44-15" tabindex="-1"></a>        )</span>
+<span id="cb44-16"><a href="差异表达分析.html#cb44-16" tabindex="-1"></a>}</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="基因表达定量.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="差异基因富集分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/smileszh/scRNA-Seq/edit/master/06-DEG-Analysis-DESeq2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

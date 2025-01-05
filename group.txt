@@ -1,0 +1,13 @@
+sample	group
+a-1	a
+a-2	a
+a-3	a
+b-1	b
+b-2	b
+b-3	b
+c-1	c
+c-2	c
+c-3	c
+d-1	d
+d-2	d
+d-3	d

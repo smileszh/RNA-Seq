@@ -1,0 +1,86 @@
+# 数据预处理
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(DT)
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	error = F,
+	message = FALSE,
+	warning = FALSE,
+	cache = T,
+	collapse = T
+)
+```
+
+## 物种
+
+```{r}
+species = 'human'
+```
+
+## Counts 数据预处理
+
+```{r}
+# 加载数据
+data<-data.table::fread("raw_counts.txt", data.table = F)
+head(data, 3)
+dim(data)
+
+data <- data[!duplicated(data$ID),]
+
+# ENSEMBLE ID to SYMBOL
+library(AnnoProbe)
+ids <- annoGene(data$ID, ID_type = 'ENSEMBL',species = species)
+ids=ids[!duplicated(ids$ENSEMBL),] # 重复ID直接删除
+ids=ids[!duplicated(ids$SYMBOL),] # 重复ID直接删除
+
+data = data[data$ID %in% ids$ENSEMBL,]
+pos = match(data$ID, ids$ENSEMBL)
+data = cbind(data, ids[pos, ])
+rownames(data) = NULL
+```
+
+
+## 构建样本分组信息
+
+```{r}
+library(stringr)
+library(tidyverse)
+count <- data %>%
+  tibble::column_to_rownames(var = "SYMBOL") %>%
+  select(-c("ID", "biotypes", "ENSEMBL", "chr", "start", "end"))
+
+## 也可以手动创建一个分组信息
+group_list <- str_split(colnames(count),'[-_]',simplify = T)[,1]
+group <- data.frame(sample = colnames(count), 
+                    group = group_list)
+
+table(group)
+```
+
+## 构建组间比较信息
+
+```{r}
+group_compare <- list(
+  a_vs_b = c("a", "b") %>% factor(levels = c("a", "b")),
+  c_vs_d = c("c", "d") %>% factor(levels = c("c", "d")),
+  a_vs_c = c("a", "c") %>% factor(levels = c("a", "c"))
+)
+```
+
+## 保存数据
+
+```{r}
+dir.create("Expression_Annotation/1_Expression_result", recursive = T)
+library(writexl)
+write_xlsx(data, "Expression_Annotation/1_Expression_result/All_gene_counts.xlsx")
+```
+
+```{r}
+dir.create("Rdata", recursive = T)
+save(species, count, data, group, group_compare, file = "Rdata/data.RData")
+```
+
+

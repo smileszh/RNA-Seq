@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 5 章 差异基因富集分析 | RNA-Seq</title>
+  <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 5 章 差异基因富集分析 | RNA-Seq" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="github-repo" content="smileszh/RNA-Seq" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 5 章 差异基因富集分析 | RNA-Seq" />
+  
+  <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
+  
+
+<meta name="author" content="苏总华" />
+
+
+<meta name="date" content="2025-01-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="差异表达分析.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RNA-Seq</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#物种"><i class="fa fa-check"></i><b>1.1</b> 物种</a></li>
+<li class="chapter" data-level="1.2" data-path="数据预处理.html"><a href="数据预处理.html#counts-数据预处理"><i class="fa fa-check"></i><b>1.2</b> Counts 数据预处理</a></li>
+<li class="chapter" data-level="1.3" data-path="数据预处理.html"><a href="数据预处理.html#构建样本分组信息"><i class="fa fa-check"></i><b>1.3</b> 构建样本分组信息</a></li>
+<li class="chapter" data-level="1.4" data-path="数据预处理.html"><a href="数据预处理.html#构建组间比较信息"><i class="fa fa-check"></i><b>1.4</b> 构建组间比较信息</a></li>
+<li class="chapter" data-level="1.5" data-path="数据预处理.html"><a href="数据预处理.html#保存数据"><i class="fa fa-check"></i><b>1.5</b> 保存数据</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="基因数据库注释.html"><a href="基因数据库注释.html"><i class="fa fa-check"></i><b>2</b> 基因数据库注释</a></li>
+<li class="chapter" data-level="3" data-path="基因表达定量.html"><a href="基因表达定量.html"><i class="fa fa-check"></i><b>3</b> 基因表达定量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="基因表达定量.html"><a href="基因表达定量.html#基因表达定量-1"><i class="fa fa-check"></i><b>3.1</b> 基因表达定量</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="基因表达定量.html"><a href="基因表达定量.html#fpkm-rpkm"><i class="fa fa-check"></i><b>3.1.1</b> FPKM / RPKM</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="基因表达定量.html"><a href="基因表达定量.html#基因表达分布"><i class="fa fa-check"></i><b>3.2</b> 基因表达分布</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="基因表达定量.html"><a href="基因表达定量.html#箱线图"><i class="fa fa-check"></i><b>3.2.1</b> 箱线图</a></li>
+<li class="chapter" data-level="3.2.2" data-path="基因表达定量.html"><a href="基因表达定量.html#密度图"><i class="fa fa-check"></i><b>3.2.2</b> 密度图</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="基因表达定量.html"><a href="基因表达定量.html#生物学重复相关性分析"><i class="fa fa-check"></i><b>3.3</b> 生物学重复相关性分析</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="基因表达定量.html"><a href="基因表达定量.html#样本间相关性点图"><i class="fa fa-check"></i><b>3.3.1</b> 样本间相关性点图</a></li>
+<li class="chapter" data-level="3.3.2" data-path="基因表达定量.html"><a href="基因表达定量.html#样本间相关性热图"><i class="fa fa-check"></i><b>3.3.2</b> 样本间相关性热图</a></li>
+<li class="chapter" data-level="3.3.3" data-path="基因表达定量.html"><a href="基因表达定量.html#样本-pca"><i class="fa fa-check"></i><b>3.3.3</b> 样本 PCA</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="差异表达分析.html"><a href="差异表达分析.html"><i class="fa fa-check"></i><b>4</b> 差异表达分析</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="差异表达分析.html"><a href="差异表达分析.html#差异表达分析-1"><i class="fa fa-check"></i><b>4.1</b> 差异表达分析</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="差异表达分析.html"><a href="差异表达分析.html#deseq2"><i class="fa fa-check"></i><b>4.1.1</b> DESeq2</a></li>
+<li class="chapter" data-level="4.1.2" data-path="差异表达分析.html"><a href="差异表达分析.html#edger"><i class="fa fa-check"></i><b>4.1.2</b> edgeR</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="差异表达分析.html"><a href="差异表达分析.html#差异表达基因筛选"><i class="fa fa-check"></i><b>4.2</b> 差异表达基因筛选</a></li>
+<li class="chapter" data-level="4.3" data-path="差异表达分析.html"><a href="差异表达分析.html#差异基因可视化"><i class="fa fa-check"></i><b>4.3</b> 差异基因可视化</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="差异表达分析.html"><a href="差异表达分析.html#火山图"><i class="fa fa-check"></i><b>4.3.1</b> 火山图</a></li>
+<li class="chapter" data-level="4.3.2" data-path="差异表达分析.html"><a href="差异表达分析.html#热图"><i class="fa fa-check"></i><b>4.3.2</b> 热图</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html"><i class="fa fa-check"></i><b>5</b> 差异基因富集分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>5.1</b> GO 富集分析</a></li>
+<li class="chapter" data-level="5.2" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>5.2</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="5.3" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>5.3</b> GSEA 分析</a></li>
+<li class="chapter" data-level="5.4" data-path="差异基因富集分析.html"><a href="差异基因富集分析.html#kegg数据库"><i class="fa fa-check"></i><b>5.4</b> KEGG数据库</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-Seq</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="差异基因富集分析" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">第 5 章</span> 差异基因富集分析<a href="差异基因富集分析.html#差异基因富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="差异基因富集分析.html#cb45-1" tabindex="-1"></a><span class="co"># 加载必要的包</span></span>
+<span id="cb45-2"><a href="差异基因富集分析.html#cb45-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb45-3"><a href="差异基因富集分析.html#cb45-3" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb45-4"><a href="差异基因富集分析.html#cb45-4" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb45-5"><a href="差异基因富集分析.html#cb45-5" tabindex="-1"></a><span class="fu">library</span>(org.Mm.eg.db)</span>
+<span id="cb45-6"><a href="差异基因富集分析.html#cb45-6" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="差异基因富集分析.html#cb45-7" tabindex="-1"></a><span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>) {</span>
+<span id="cb45-8"><a href="差异基因富集分析.html#cb45-8" tabindex="-1"></a>    org_db <span class="ot">&lt;-</span> <span class="st">&quot;org.Hs.eg.db&quot;</span></span>
+<span id="cb45-9"><a href="差异基因富集分析.html#cb45-9" tabindex="-1"></a>    kegg_prefix <span class="ot">&lt;-</span> <span class="st">&quot;hsa&quot;</span></span>
+<span id="cb45-10"><a href="差异基因富集分析.html#cb45-10" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;mouse&quot;</span>) {</span>
+<span id="cb45-11"><a href="差异基因富集分析.html#cb45-11" tabindex="-1"></a>    org_db <span class="ot">&lt;-</span> <span class="st">&quot;org.Mm.eg.db&quot;</span></span>
+<span id="cb45-12"><a href="差异基因富集分析.html#cb45-12" tabindex="-1"></a>    kegg_prefix <span class="ot">&lt;-</span> <span class="st">&quot;mmu&quot;</span></span>
+<span id="cb45-13"><a href="差异基因富集分析.html#cb45-13" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb45-14"><a href="差异基因富集分析.html#cb45-14" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Unsupported species. Please use &#39;human&#39; or &#39;mouse&#39;.&quot;</span>)</span>
+<span id="cb45-15"><a href="差异基因富集分析.html#cb45-15" tabindex="-1"></a>  }</span></code></pre></div>
+<div id="go-富集分析" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> GO 富集分析<a href="差异基因富集分析.html#go-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="差异基因富集分析.html#cb46-1" tabindex="-1"></a>GO <span class="ot">&lt;-</span> <span class="cf">function</span>(DEG_exp){</span>
+<span id="cb46-2"><a href="差异基因富集分析.html#cb46-2" tabindex="-1"></a>  geneList <span class="ot">&lt;-</span> DEG_exp<span class="sc">$</span>SYMBOL <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb46-3"><a href="差异基因富集分析.html#cb46-3" tabindex="-1"></a>  </span>
+<span id="cb46-4"><a href="差异基因富集分析.html#cb46-4" tabindex="-1"></a>  exp <span class="ot">&lt;-</span> DEG_exp <span class="sc">%&gt;%</span></span>
+<span id="cb46-5"><a href="差异基因富集分析.html#cb46-5" tabindex="-1"></a>    <span class="fu">filter</span>(regulated <span class="sc">==</span> <span class="st">&quot;up&quot;</span> <span class="sc">|</span> regulated <span class="sc">==</span> <span class="st">&quot;down&quot;</span>)</span>
+<span id="cb46-6"><a href="差异基因富集分析.html#cb46-6" tabindex="-1"></a>  gene <span class="ot">&lt;-</span> exp<span class="sc">$</span>SYMBOL <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb46-7"><a href="差异基因富集分析.html#cb46-7" tabindex="-1"></a>  </span>
+<span id="cb46-8"><a href="差异基因富集分析.html#cb46-8" tabindex="-1"></a>  ego <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(<span class="at">gene          =</span> gene,</span>
+<span id="cb46-9"><a href="差异基因富集分析.html#cb46-9" tabindex="-1"></a>                  <span class="at">universe      =</span> geneList,</span>
+<span id="cb46-10"><a href="差异基因富集分析.html#cb46-10" tabindex="-1"></a>                  <span class="at">OrgDb         =</span> org_db,</span>
+<span id="cb46-11"><a href="差异基因富集分析.html#cb46-11" tabindex="-1"></a>                  <span class="at">keyType       =</span> <span class="st">&#39;SYMBOL&#39;</span>,</span>
+<span id="cb46-12"><a href="差异基因富集分析.html#cb46-12" tabindex="-1"></a>                  <span class="at">ont           =</span> <span class="st">&quot;all&quot;</span>,</span>
+<span id="cb46-13"><a href="差异基因富集分析.html#cb46-13" tabindex="-1"></a>                  <span class="at">pAdjustMethod =</span> <span class="st">&quot;BH&quot;</span>,</span>
+<span id="cb46-14"><a href="差异基因富集分析.html#cb46-14" tabindex="-1"></a>                  <span class="at">pvalueCutoff  =</span> <span class="fl">0.99</span>,</span>
+<span id="cb46-15"><a href="差异基因富集分析.html#cb46-15" tabindex="-1"></a>                  <span class="at">qvalueCutoff  =</span> <span class="fl">0.99</span>,</span>
+<span id="cb46-16"><a href="差异基因富集分析.html#cb46-16" tabindex="-1"></a>                  <span class="at">readable      =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb46-17"><a href="差异基因富集分析.html#cb46-17" tabindex="-1"></a>  </span>
+<span id="cb46-18"><a href="差异基因富集分析.html#cb46-18" tabindex="-1"></a>  go_bar <span class="ot">&lt;-</span> <span class="fu">barplot</span>(ego, <span class="at">split=</span><span class="st">&quot;ONTOLOGY&quot;</span>, <span class="at">font.size =</span> <span class="dv">10</span>) <span class="sc">+</span> </span>
+<span id="cb46-19"><a href="差异基因富集分析.html#cb46-19" tabindex="-1"></a>      <span class="fu">facet_grid</span>(ONTOLOGY<span class="sc">~</span>., <span class="at">scales=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-20"><a href="差异基因富集分析.html#cb46-20" tabindex="-1"></a>      <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width=</span><span class="dv">50</span>))</span>
+<span id="cb46-21"><a href="差异基因富集分析.html#cb46-21" tabindex="-1"></a>  </span>
+<span id="cb46-22"><a href="差异基因富集分析.html#cb46-22" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">ego =</span> ego, <span class="at">go_bar =</span> go_bar))</span>
+<span id="cb46-23"><a href="差异基因富集分析.html#cb46-23" tabindex="-1"></a>}</span>
+<span id="cb46-24"><a href="差异基因富集分析.html#cb46-24" tabindex="-1"></a></span>
+<span id="cb46-25"><a href="差异基因富集分析.html#cb46-25" tabindex="-1"></a></span>
+<span id="cb46-26"><a href="差异基因富集分析.html#cb46-26" tabindex="-1"></a><span class="co"># 对列表中的每个数据框进行处理</span></span>
+<span id="cb46-27"><a href="差异基因富集分析.html#cb46-27" tabindex="-1"></a>GO_DESeq2 <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_DESeq2, GO),</span>
+<span id="cb46-28"><a href="差异基因富集分析.html#cb46-28" tabindex="-1"></a>                      <span class="fu">names</span>(cr_DESeq2))</span>
+<span id="cb46-29"><a href="差异基因富集分析.html#cb46-29" tabindex="-1"></a>GO_edgeR <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_edgeR, GO),</span>
+<span id="cb46-30"><a href="差异基因富集分析.html#cb46-30" tabindex="-1"></a>                     <span class="fu">names</span>(cr_edgeR))</span>
+<span id="cb46-31"><a href="差异基因富集分析.html#cb46-31" tabindex="-1"></a></span>
+<span id="cb46-32"><a href="差异基因富集分析.html#cb46-32" tabindex="-1"></a><span class="co"># 创建文件保存目录</span></span>
+<span id="cb46-33"><a href="差异基因富集分析.html#cb46-33" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/DESeq2&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb46-34"><a href="差异基因富集分析.html#cb46-34" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/edgeR&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb46-35"><a href="差异基因富集分析.html#cb46-35" tabindex="-1"></a></span>
+<span id="cb46-36"><a href="差异基因富集分析.html#cb46-36" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(GO_DESeq2)) {</span>
+<span id="cb46-37"><a href="差异基因富集分析.html#cb46-37" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/DESeq2/&quot;</span>, i, <span class="st">&quot;_GO_DESeq2.pdf&quot;</span>),</span>
+<span id="cb46-38"><a href="差异基因富集分析.html#cb46-38" tabindex="-1"></a>            GO_DESeq2[[i]]<span class="sc">$</span>go_bar</span>
+<span id="cb46-39"><a href="差异基因富集分析.html#cb46-39" tabindex="-1"></a>         )</span>
+<span id="cb46-40"><a href="差异基因富集分析.html#cb46-40" tabindex="-1"></a>  <span class="fu">write_csv</span>(GO_DESeq2[[i]]<span class="sc">$</span>ego<span class="sc">@</span>result, <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/DESeq2/&quot;</span>, i, <span class="st">&quot;_GO_DESeq2.csv&quot;</span>))</span>
+<span id="cb46-41"><a href="差异基因富集分析.html#cb46-41" tabindex="-1"></a>  </span>
+<span id="cb46-42"><a href="差异基因富集分析.html#cb46-42" tabindex="-1"></a>}</span>
+<span id="cb46-43"><a href="差异基因富集分析.html#cb46-43" tabindex="-1"></a></span>
+<span id="cb46-44"><a href="差异基因富集分析.html#cb46-44" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(GO_edgeR)) {</span>
+<span id="cb46-45"><a href="差异基因富集分析.html#cb46-45" tabindex="-1"></a> <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/edgeR/&quot;</span>, i, <span class="st">&quot;_GO_edgeR.pdf&quot;</span>), </span>
+<span id="cb46-46"><a href="差异基因富集分析.html#cb46-46" tabindex="-1"></a>        GO_edgeR[[i]]<span class="sc">$</span>go_bar</span>
+<span id="cb46-47"><a href="差异基因富集分析.html#cb46-47" tabindex="-1"></a>        )</span>
+<span id="cb46-48"><a href="差异基因富集分析.html#cb46-48" tabindex="-1"></a>  <span class="fu">write_csv</span>(GO_edgeR[[i]]<span class="sc">$</span>ego<span class="sc">@</span>result, <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/edgeR/&quot;</span>, i, <span class="st">&quot;_GO_edgeR.csv&quot;</span>))</span>
+<span id="cb46-49"><a href="差异基因富集分析.html#cb46-49" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="kegg-富集分析" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> KEGG 富集分析<a href="差异基因富集分析.html#kegg-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="差异基因富集分析.html#cb47-1" tabindex="-1"></a>KEGG <span class="ot">&lt;-</span> <span class="cf">function</span>(DEG_exp){</span>
+<span id="cb47-2"><a href="差异基因富集分析.html#cb47-2" tabindex="-1"></a>  </span>
+<span id="cb47-3"><a href="差异基因富集分析.html#cb47-3" tabindex="-1"></a>  exp <span class="ot">&lt;-</span> DEG_exp <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="差异基因富集分析.html#cb47-4" tabindex="-1"></a>    <span class="fu">filter</span>(regulated <span class="sc">==</span> <span class="st">&quot;up&quot;</span> <span class="sc">|</span> regulated <span class="sc">==</span> <span class="st">&quot;down&quot;</span>)</span>
+<span id="cb47-5"><a href="差异基因富集分析.html#cb47-5" tabindex="-1"></a>  gene <span class="ot">&lt;-</span> exp<span class="sc">$</span>SYMBOL <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb47-6"><a href="差异基因富集分析.html#cb47-6" tabindex="-1"></a>  </span>
+<span id="cb47-7"><a href="差异基因富集分析.html#cb47-7" tabindex="-1"></a>  gene_df <span class="ot">&lt;-</span> <span class="fu">bitr</span>(gene, <span class="at">fromType =</span> <span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb47-8"><a href="差异基因富集分析.html#cb47-8" tabindex="-1"></a>                  <span class="at">toType =</span> <span class="fu">c</span>(<span class="st">&quot;ENTREZID&quot;</span>),</span>
+<span id="cb47-9"><a href="差异基因富集分析.html#cb47-9" tabindex="-1"></a>                  <span class="at">OrgDb =</span> org_db)</span>
+<span id="cb47-10"><a href="差异基因富集分析.html#cb47-10" tabindex="-1"></a>  </span>
+<span id="cb47-11"><a href="差异基因富集分析.html#cb47-11" tabindex="-1"></a>  kk <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(<span class="at">gene        =</span> gene_df<span class="sc">$</span>ENTREZID,</span>
+<span id="cb47-12"><a href="差异基因富集分析.html#cb47-12" tabindex="-1"></a>                  <span class="at">organism     =</span> kegg_prefix,,</span>
+<span id="cb47-13"><a href="差异基因富集分析.html#cb47-13" tabindex="-1"></a>                  <span class="at">pvalueCutoff =</span> <span class="fl">0.999</span>,</span>
+<span id="cb47-14"><a href="差异基因富集分析.html#cb47-14" tabindex="-1"></a>                  <span class="at">qvalueCutoff =</span><span class="fl">0.999</span>)</span>
+<span id="cb47-15"><a href="差异基因富集分析.html#cb47-15" tabindex="-1"></a>  kk <span class="ot">&lt;-</span> DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk, </span>
+<span id="cb47-16"><a href="差异基因富集分析.html#cb47-16" tabindex="-1"></a>                          <span class="at">OrgDb =</span> org_db,</span>
+<span id="cb47-17"><a href="差异基因富集分析.html#cb47-17" tabindex="-1"></a>                          <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>) <span class="co">#按需替换</span></span>
+<span id="cb47-18"><a href="差异基因富集分析.html#cb47-18" tabindex="-1"></a>  </span>
+<span id="cb47-19"><a href="差异基因富集分析.html#cb47-19" tabindex="-1"></a>  kegg_bar <span class="ot">&lt;-</span> <span class="fu">barplot</span>(kk, <span class="at">showCategory=</span><span class="dv">20</span>)</span>
+<span id="cb47-20"><a href="差异基因富集分析.html#cb47-20" tabindex="-1"></a>  </span>
+<span id="cb47-21"><a href="差异基因富集分析.html#cb47-21" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">kk =</span> kk, <span class="at">kegg_bar =</span> kegg_bar))</span>
+<span id="cb47-22"><a href="差异基因富集分析.html#cb47-22" tabindex="-1"></a>}</span>
+<span id="cb47-23"><a href="差异基因富集分析.html#cb47-23" tabindex="-1"></a></span>
+<span id="cb47-24"><a href="差异基因富集分析.html#cb47-24" tabindex="-1"></a></span>
+<span id="cb47-25"><a href="差异基因富集分析.html#cb47-25" tabindex="-1"></a><span class="co"># 对列表中的每个数据框进行处理</span></span>
+<span id="cb47-26"><a href="差异基因富集分析.html#cb47-26" tabindex="-1"></a>KEGG_DESeq2 <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_DESeq2, KEGG),</span>
+<span id="cb47-27"><a href="差异基因富集分析.html#cb47-27" tabindex="-1"></a>                      <span class="fu">names</span>(cr_DESeq2))</span>
+<span id="cb47-28"><a href="差异基因富集分析.html#cb47-28" tabindex="-1"></a>KEGG_edgeR <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_edgeR, KEGG),</span>
+<span id="cb47-29"><a href="差异基因富集分析.html#cb47-29" tabindex="-1"></a>                     <span class="fu">names</span>(cr_edgeR))</span>
+<span id="cb47-30"><a href="差异基因富集分析.html#cb47-30" tabindex="-1"></a></span>
+<span id="cb47-31"><a href="差异基因富集分析.html#cb47-31" tabindex="-1"></a><span class="co"># 创建文件保存目录</span></span>
+<span id="cb47-32"><a href="差异基因富集分析.html#cb47-32" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/DESeq2&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb47-33"><a href="差异基因富集分析.html#cb47-33" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/edgeR&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb47-34"><a href="差异基因富集分析.html#cb47-34" tabindex="-1"></a></span>
+<span id="cb47-35"><a href="差异基因富集分析.html#cb47-35" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(KEGG_DESeq2)) {</span>
+<span id="cb47-36"><a href="差异基因富集分析.html#cb47-36" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/DESeq2/&quot;</span>, i, <span class="st">&quot;_KEGG_DESeq2.pdf&quot;</span>),</span>
+<span id="cb47-37"><a href="差异基因富集分析.html#cb47-37" tabindex="-1"></a>            KEGG_DESeq2[[i]]<span class="sc">$</span>kegg_bar</span>
+<span id="cb47-38"><a href="差异基因富集分析.html#cb47-38" tabindex="-1"></a>         )</span>
+<span id="cb47-39"><a href="差异基因富集分析.html#cb47-39" tabindex="-1"></a>  <span class="fu">write_csv</span>(KEGG_DESeq2[[i]]<span class="sc">$</span>kk<span class="sc">@</span>result, <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/DESeq2/&quot;</span>, i, <span class="st">&quot;_KEGG_DESeq2.csv&quot;</span>))</span>
+<span id="cb47-40"><a href="差异基因富集分析.html#cb47-40" tabindex="-1"></a>  </span>
+<span id="cb47-41"><a href="差异基因富集分析.html#cb47-41" tabindex="-1"></a>}</span>
+<span id="cb47-42"><a href="差异基因富集分析.html#cb47-42" tabindex="-1"></a></span>
+<span id="cb47-43"><a href="差异基因富集分析.html#cb47-43" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(KEGG_edgeR)) {</span>
+<span id="cb47-44"><a href="差异基因富集分析.html#cb47-44" tabindex="-1"></a> <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/edgeR/&quot;</span>, i, <span class="st">&quot;_KEGG_edgeR.pdf&quot;</span>), </span>
+<span id="cb47-45"><a href="差异基因富集分析.html#cb47-45" tabindex="-1"></a>        KEGG_edgeR[[i]]<span class="sc">$</span>kegg_bar</span>
+<span id="cb47-46"><a href="差异基因富集分析.html#cb47-46" tabindex="-1"></a>        )</span>
+<span id="cb47-47"><a href="差异基因富集分析.html#cb47-47" tabindex="-1"></a>  <span class="fu">write_csv</span>(KEGG_edgeR[[i]]<span class="sc">$</span>kk<span class="sc">@</span>result, <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/3_DEG_ORA/edgeR/&quot;</span>, i, <span class="st">&quot;_KEGG_edgeR.csv&quot;</span>))</span>
+<span id="cb47-48"><a href="差异基因富集分析.html#cb47-48" tabindex="-1"></a>}</span></code></pre></div>
+
+</div>
+<div id="gsea-分析" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> GSEA 分析<a href="差异基因富集分析.html#gsea-分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="差异基因富集分析.html#cb48-1" tabindex="-1"></a><span class="co"># 加载必要的包</span></span>
+<span id="cb48-2"><a href="差异基因富集分析.html#cb48-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb48-3"><a href="差异基因富集分析.html#cb48-3" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb48-4"><a href="差异基因富集分析.html#cb48-4" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb48-5"><a href="差异基因富集分析.html#cb48-5" tabindex="-1"></a><span class="fu">library</span>(org.Mm.eg.db)</span>
+<span id="cb48-6"><a href="差异基因富集分析.html#cb48-6" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="差异基因富集分析.html#cb48-7" tabindex="-1"></a><span class="co"># 确定物种</span></span>
+<span id="cb48-8"><a href="差异基因富集分析.html#cb48-8" tabindex="-1"></a><span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>) {</span>
+<span id="cb48-9"><a href="差异基因富集分析.html#cb48-9" tabindex="-1"></a>    org_db <span class="ot">&lt;-</span> <span class="st">&quot;org.Hs.eg.db&quot;</span></span>
+<span id="cb48-10"><a href="差异基因富集分析.html#cb48-10" tabindex="-1"></a>    kegg_prefix <span class="ot">&lt;-</span> <span class="st">&quot;hsa&quot;</span></span>
+<span id="cb48-11"><a href="差异基因富集分析.html#cb48-11" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;mouse&quot;</span>) {</span>
+<span id="cb48-12"><a href="差异基因富集分析.html#cb48-12" tabindex="-1"></a>    org_db <span class="ot">&lt;-</span> <span class="st">&quot;org.Mm.eg.db&quot;</span></span>
+<span id="cb48-13"><a href="差异基因富集分析.html#cb48-13" tabindex="-1"></a>    kegg_prefix <span class="ot">&lt;-</span> <span class="st">&quot;mmu&quot;</span></span>
+<span id="cb48-14"><a href="差异基因富集分析.html#cb48-14" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb48-15"><a href="差异基因富集分析.html#cb48-15" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Unsupported species. Please use &#39;human&#39; or &#39;mouse&#39;.&quot;</span>)</span>
+<span id="cb48-16"><a href="差异基因富集分析.html#cb48-16" tabindex="-1"></a>  }</span></code></pre></div>
+</div>
+<div id="kegg数据库" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> KEGG数据库<a href="差异基因富集分析.html#kegg数据库" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="差异基因富集分析.html#cb49-1" tabindex="-1"></a></span>
+<span id="cb49-2"><a href="差异基因富集分析.html#cb49-2" tabindex="-1"></a><span class="co"># 定义GSEA函数</span></span>
+<span id="cb49-3"><a href="差异基因富集分析.html#cb49-3" tabindex="-1"></a>GSE_kk <span class="ot">&lt;-</span> <span class="cf">function</span>(DEG_exp) {</span>
+<span id="cb49-4"><a href="差异基因富集分析.html#cb49-4" tabindex="-1"></a>  gene_df <span class="ot">&lt;-</span> <span class="fu">bitr</span>(DEG_exp<span class="sc">$</span>SYMBOL, <span class="at">fromType =</span> <span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb49-5"><a href="差异基因富集分析.html#cb49-5" tabindex="-1"></a>                  <span class="at">toType =</span> <span class="fu">c</span>(<span class="st">&quot;ENTREZID&quot;</span>),</span>
+<span id="cb49-6"><a href="差异基因富集分析.html#cb49-6" tabindex="-1"></a>                  <span class="at">OrgDb =</span> org_db) <span class="sc">%&gt;%</span></span>
+<span id="cb49-7"><a href="差异基因富集分析.html#cb49-7" tabindex="-1"></a>    <span class="fu">distinct</span>(SYMBOL, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-8"><a href="差异基因富集分析.html#cb49-8" tabindex="-1"></a>    </span>
+<span id="cb49-9"><a href="差异基因富集分析.html#cb49-9" tabindex="-1"></a>  DEG_exp <span class="ot">&lt;-</span> <span class="fu">left_join</span>(DEG_exp, gene_df, <span class="at">by =</span> <span class="st">&quot;SYMBOL&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-10"><a href="差异基因富集分析.html#cb49-10" tabindex="-1"></a>    <span class="fu">na.omit</span>()</span>
+<span id="cb49-11"><a href="差异基因富集分析.html#cb49-11" tabindex="-1"></a>  </span>
+<span id="cb49-12"><a href="差异基因富集分析.html#cb49-12" tabindex="-1"></a>  geneList <span class="ot">&lt;-</span> DEG_exp<span class="sc">$</span>log2FoldChange</span>
+<span id="cb49-13"><a href="差异基因富集分析.html#cb49-13" tabindex="-1"></a>  <span class="fu">names</span>(geneList) <span class="ot">&lt;-</span> DEG_exp<span class="sc">$</span>ENTREZID</span>
+<span id="cb49-14"><a href="差异基因富集分析.html#cb49-14" tabindex="-1"></a>  geneList <span class="ot">&lt;-</span> <span class="fu">sort</span>(geneList, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-15"><a href="差异基因富集分析.html#cb49-15" tabindex="-1"></a>  </span>
+<span id="cb49-16"><a href="差异基因富集分析.html#cb49-16" tabindex="-1"></a>  gse_kk <span class="ot">&lt;-</span> <span class="fu">gseKEGG</span>(<span class="at">geneList =</span> geneList,</span>
+<span id="cb49-17"><a href="差异基因富集分析.html#cb49-17" tabindex="-1"></a>                    <span class="at">organism =</span> kegg_prefix,</span>
+<span id="cb49-18"><a href="差异基因富集分析.html#cb49-18" tabindex="-1"></a>                    <span class="at">minGSSize =</span> <span class="dv">10</span>,</span>
+<span id="cb49-19"><a href="差异基因富集分析.html#cb49-19" tabindex="-1"></a>                    <span class="at">pvalueCutoff =</span> <span class="fl">0.99</span>,</span>
+<span id="cb49-20"><a href="差异基因富集分析.html#cb49-20" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb49-21"><a href="差异基因富集分析.html#cb49-21" tabindex="-1"></a>  </span>
+<span id="cb49-22"><a href="差异基因富集分析.html#cb49-22" tabindex="-1"></a>  gse_kk <span class="ot">&lt;-</span> DOSE<span class="sc">::</span><span class="fu">setReadable</span>(gse_kk, <span class="at">OrgDb =</span> org_db, <span class="at">keyType =</span> <span class="st">&#39;ENTREZID&#39;</span>)</span>
+<span id="cb49-23"><a href="差异基因富集分析.html#cb49-23" tabindex="-1"></a>  </span>
+<span id="cb49-24"><a href="差异基因富集分析.html#cb49-24" tabindex="-1"></a>  <span class="co"># 可视化</span></span>
+<span id="cb49-25"><a href="差异基因富集分析.html#cb49-25" tabindex="-1"></a>  up_k <span class="ot">&lt;-</span> gse_kk[<span class="fu">head</span>(<span class="fu">order</span>(gse_kk<span class="sc">$</span>enrichmentScore, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)), ]</span>
+<span id="cb49-26"><a href="差异基因富集分析.html#cb49-26" tabindex="-1"></a>  up_k<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb49-27"><a href="差异基因富集分析.html#cb49-27" tabindex="-1"></a>  down_k <span class="ot">&lt;-</span> gse_kk[<span class="fu">tail</span>(<span class="fu">order</span>(gse_kk<span class="sc">$</span>enrichmentScore, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)), ]</span>
+<span id="cb49-28"><a href="差异基因富集分析.html#cb49-28" tabindex="-1"></a>  down_k<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb49-29"><a href="差异基因富集分析.html#cb49-29" tabindex="-1"></a></span>
+<span id="cb49-30"><a href="差异基因富集分析.html#cb49-30" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(up_k, down_k)</span>
+<span id="cb49-31"><a href="差异基因富集分析.html#cb49-31" tabindex="-1"></a>  dat<span class="sc">$</span>pvalue <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(dat<span class="sc">$</span>pvalue)</span>
+<span id="cb49-32"><a href="差异基因富集分析.html#cb49-32" tabindex="-1"></a>  dat<span class="sc">$</span>pvalue <span class="ot">&lt;-</span> dat<span class="sc">$</span>pvalue <span class="sc">*</span> dat<span class="sc">$</span>group </span>
+<span id="cb49-33"><a href="差异基因富集分析.html#cb49-33" tabindex="-1"></a>  dat <span class="ot">&lt;-</span> dat[<span class="fu">order</span>(dat<span class="sc">$</span>pvalue, <span class="at">decreasing =</span> <span class="cn">FALSE</span>), ]</span>
+<span id="cb49-34"><a href="差异基因富集分析.html#cb49-34" tabindex="-1"></a></span>
+<span id="cb49-35"><a href="差异基因富集分析.html#cb49-35" tabindex="-1"></a>  gse_p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Description, <span class="fu">order</span>(pvalue, <span class="at">decreasing =</span> <span class="cn">FALSE</span>)),</span>
+<span id="cb49-36"><a href="差异基因富集分析.html#cb49-36" tabindex="-1"></a>                           <span class="at">y =</span> pvalue, <span class="at">fill =</span> group)) <span class="sc">+</span> </span>
+<span id="cb49-37"><a href="差异基因富集分析.html#cb49-37" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb49-38"><a href="差异基因富集分析.html#cb49-38" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#34bfb5&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#ff6633&quot;</span>, <span class="at">guide =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb49-39"><a href="差异基因富集分析.html#cb49-39" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Pathway names&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-40"><a href="差异基因富集分析.html#cb49-40" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">&quot;log10P-value&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-41"><a href="差异基因富集分析.html#cb49-41" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb49-42"><a href="差异基因富集分析.html#cb49-42" tabindex="-1"></a>    ggstatsplot<span class="sc">::</span><span class="fu">theme_ggstatsplot</span>() <span class="sc">+</span></span>
+<span id="cb49-43"><a href="差异基因富集分析.html#cb49-43" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  </span>
+<span id="cb49-44"><a href="差异基因富集分析.html#cb49-44" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">&#39;bold&#39;</span>),</span>
+<span id="cb49-45"><a href="差异基因富集分析.html#cb49-45" tabindex="-1"></a>          <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb49-46"><a href="差异基因富集分析.html#cb49-46" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Pathway Enrichment&quot;</span>)</span>
+<span id="cb49-47"><a href="差异基因富集分析.html#cb49-47" tabindex="-1"></a>  </span>
+<span id="cb49-48"><a href="差异基因富集分析.html#cb49-48" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">gse_kk =</span> gse_kk, <span class="at">gse_p =</span> gse_p))</span>
+<span id="cb49-49"><a href="差异基因富集分析.html#cb49-49" tabindex="-1"></a>}</span>
+<span id="cb49-50"><a href="差异基因富集分析.html#cb49-50" tabindex="-1"></a></span>
+<span id="cb49-51"><a href="差异基因富集分析.html#cb49-51" tabindex="-1"></a><span class="co"># 对列表中的每个数据框进行处理</span></span>
+<span id="cb49-52"><a href="差异基因富集分析.html#cb49-52" tabindex="-1"></a>GSE_kk_DESeq2 <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_DESeq2, GSE_kk), <span class="fu">names</span>(cr_DESeq2))</span>
+<span id="cb49-53"><a href="差异基因富集分析.html#cb49-53" tabindex="-1"></a>GSE_kk_edgeR <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">lapply</span>(cr_edgeR, GSE_kk), <span class="fu">names</span>(cr_edgeR))</span>
+<span id="cb49-54"><a href="差异基因富集分析.html#cb49-54" tabindex="-1"></a></span>
+<span id="cb49-55"><a href="差异基因富集分析.html#cb49-55" tabindex="-1"></a><span class="co"># 创建文件保存目录</span></span>
+<span id="cb49-56"><a href="差异基因富集分析.html#cb49-56" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/4_GSEA/DESeq2&quot;</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-57"><a href="差异基因富集分析.html#cb49-57" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;DEG_Analysis/4_GSEA/edgeR&quot;</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-58"><a href="差异基因富集分析.html#cb49-58" tabindex="-1"></a></span>
+<span id="cb49-59"><a href="差异基因富集分析.html#cb49-59" tabindex="-1"></a><span class="co"># 保存结果</span></span>
+<span id="cb49-60"><a href="差异基因富集分析.html#cb49-60" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(GSE_kk_DESeq2)) {</span>
+<span id="cb49-61"><a href="差异基因富集分析.html#cb49-61" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/4_GSEA/DESeq2/&quot;</span>, i, <span class="st">&quot;_GSE_kk_DESeq2.pdf&quot;</span>), </span>
+<span id="cb49-62"><a href="差异基因富集分析.html#cb49-62" tabindex="-1"></a>         GSE_kk_DESeq2[[i]]<span class="sc">$</span>gse_p)</span>
+<span id="cb49-63"><a href="差异基因富集分析.html#cb49-63" tabindex="-1"></a>  <span class="fu">write_csv</span>(GSE_kk_DESeq2[[i]]<span class="sc">$</span>gse_kk<span class="sc">@</span>result, </span>
+<span id="cb49-64"><a href="差异基因富集分析.html#cb49-64" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/4_GSEA/DESeq2/&quot;</span>, i, <span class="st">&quot;_GSE_kk_DESeq2.csv&quot;</span>))</span>
+<span id="cb49-65"><a href="差异基因富集分析.html#cb49-65" tabindex="-1"></a>}</span>
+<span id="cb49-66"><a href="差异基因富集分析.html#cb49-66" tabindex="-1"></a></span>
+<span id="cb49-67"><a href="差异基因富集分析.html#cb49-67" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(GSE_kk_edgeR)) {</span>
+<span id="cb49-68"><a href="差异基因富集分析.html#cb49-68" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/4_GSEA/edgeR/&quot;</span>, i, <span class="st">&quot;_GSE_kk_edgeR.pdf&quot;</span>), </span>
+<span id="cb49-69"><a href="差异基因富集分析.html#cb49-69" tabindex="-1"></a>         GSE_kk_edgeR[[i]]<span class="sc">$</span>gse_p)</span>
+<span id="cb49-70"><a href="差异基因富集分析.html#cb49-70" tabindex="-1"></a>  <span class="fu">write_csv</span>(GSE_kk_edgeR[[i]]<span class="sc">$</span>gse_kk<span class="sc">@</span>result, </span>
+<span id="cb49-71"><a href="差异基因富集分析.html#cb49-71" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;DEG_Analysis/4_GSEA/edgeR/&quot;</span>, i, <span class="st">&quot;_GSE_kk_edgeR.csv&quot;</span>))</span>
+<span id="cb49-72"><a href="差异基因富集分析.html#cb49-72" tabindex="-1"></a>}</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="差异表达分析.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/smileszh/scRNA-Seq/edit/master/09-DEG-ORA.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

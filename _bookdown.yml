@@ -1,0 +1,12 @@
+new_session: true
+output_dir: "docs"
+book_filename: "RNA-Seq"
+clean: [packages.bib, bookdown.bib]
+language:
+  label:
+    fig: "图 "
+    tab: "表 "
+  ui:
+    edit: "编辑"
+    chapter_name: ["第 ", " 章"]
+delete_merged_file: true
