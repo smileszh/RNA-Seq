@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>RNA-Seq</title>
+  <title>第 2 章 基因 ID 注释 | RNA-Seq</title>
   <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="RNA-Seq" />
+  <meta property="og:title" content="第 2 章 基因 ID 注释 | RNA-Seq" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="github-repo" content="smileszh/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="RNA-Seq" />
+  <meta name="twitter:title" content="第 2 章 基因 ID 注释 | RNA-Seq" />
   
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="数据预处理.html"/>
+<link rel="prev" href="数据预处理.html"/>
+<link rel="next" href="基因表达定量.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -211,15 +211,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">RNA-Seq</h1>
-<p class="author"><em>苏总华</em></p>
-<p class="date"><em>2025-01-06</em></p>
-</div>
-<div id="前言" class="section level1 unnumbered hasAnchor">
-<h1>前言<a href="index.html#前言" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>RNA-Seq Pipeline</p>
-<p>我不是代码的创作者，我只是代码的搬运工。</p>
+<div id="基因-id-注释" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">第 2 章</span> 基因 ID 注释<a href="基因-id-注释.html#基因-id-注释" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="基因-id-注释.html#cb7-1" tabindex="-1"></a><span class="co"># 安装并加载必要的包</span></span>
+<span id="cb7-2"><a href="基因-id-注释.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb7-3"><a href="基因-id-注释.html#cb7-3" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb7-4"><a href="基因-id-注释.html#cb7-4" tabindex="-1"></a><span class="fu">library</span>(org.Mm.eg.db)</span>
+<span id="cb7-5"><a href="基因-id-注释.html#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="基因-id-注释.html#cb7-6" tabindex="-1"></a>get_annotations <span class="ot">&lt;-</span> <span class="cf">function</span>(gene_list, <span class="at">species =</span> <span class="st">&quot;human&quot;</span>) {</span>
+<span id="cb7-7"><a href="基因-id-注释.html#cb7-7" tabindex="-1"></a>  <span class="co"># 设置物种相关信息</span></span>
+<span id="cb7-8"><a href="基因-id-注释.html#cb7-8" tabindex="-1"></a>  <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;human&quot;</span>) {</span>
+<span id="cb7-9"><a href="基因-id-注释.html#cb7-9" tabindex="-1"></a>    ensembl_dataset <span class="ot">&lt;-</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span></span>
+<span id="cb7-10"><a href="基因-id-注释.html#cb7-10" tabindex="-1"></a>    org_db <span class="ot">&lt;-</span> <span class="st">&quot;org.Hs.eg.db&quot;</span></span>
+<span id="cb7-11"><a href="基因-id-注释.html#cb7-11" tabindex="-1"></a>    kegg_prefix <span class="ot">&lt;-</span> <span class="st">&quot;hsa&quot;</span></span>
+<span id="cb7-12"><a href="基因-id-注释.html#cb7-12" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (species <span class="sc">==</span> <span class="st">&quot;mouse&quot;</span>) {</span>
+<span id="cb7-13"><a href="基因-id-注释.html#cb7-13" tabindex="-1"></a>    ensembl_dataset <span class="ot">&lt;-</span> <span class="st">&quot;mmusculus_gene_ensembl&quot;</span></span>
+<span id="cb7-14"><a href="基因-id-注释.html#cb7-14" tabindex="-1"></a>    org_db <span class="ot">&lt;-</span> <span class="st">&quot;org.Mm.eg.db&quot;</span></span>
+<span id="cb7-15"><a href="基因-id-注释.html#cb7-15" tabindex="-1"></a>    kegg_prefix <span class="ot">&lt;-</span> <span class="st">&quot;mmu&quot;</span></span>
+<span id="cb7-16"><a href="基因-id-注释.html#cb7-16" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb7-17"><a href="基因-id-注释.html#cb7-17" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Unsupported species. Please use &#39;human&#39; or &#39;mouse&#39;.&quot;</span>)</span>
+<span id="cb7-18"><a href="基因-id-注释.html#cb7-18" tabindex="-1"></a>  }</span>
+<span id="cb7-19"><a href="基因-id-注释.html#cb7-19" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="基因-id-注释.html#cb7-20" tabindex="-1"></a><span class="co"># 使用biomaRt获取基因基本注释信息</span></span>
+<span id="cb7-21"><a href="基因-id-注释.html#cb7-21" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> ensembl_dataset)</span>
+<span id="cb7-22"><a href="基因-id-注释.html#cb7-22" tabindex="-1"></a>attributes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb7-23"><a href="基因-id-注释.html#cb7-23" tabindex="-1"></a>  <span class="st">&#39;hgnc_symbol&#39;</span>, <span class="st">&#39;ensembl_gene_id&#39;</span>, <span class="st">&#39;entrezgene_id&#39;</span>,</span>
+<span id="cb7-24"><a href="基因-id-注释.html#cb7-24" tabindex="-1"></a>  <span class="st">&#39;description&#39;</span></span>
+<span id="cb7-25"><a href="基因-id-注释.html#cb7-25" tabindex="-1"></a>                )</span>
+<span id="cb7-26"><a href="基因-id-注释.html#cb7-26" tabindex="-1"></a>gene_annotations <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> attributes,</span>
+<span id="cb7-27"><a href="基因-id-注释.html#cb7-27" tabindex="-1"></a>                            <span class="at">filters =</span> <span class="st">&#39;hgnc_symbol&#39;</span>, </span>
+<span id="cb7-28"><a href="基因-id-注释.html#cb7-28" tabindex="-1"></a>                            <span class="at">values =</span> gene_list, </span>
+<span id="cb7-29"><a href="基因-id-注释.html#cb7-29" tabindex="-1"></a>                            <span class="at">mart =</span> ensembl)</span>
+<span id="cb7-30"><a href="基因-id-注释.html#cb7-30" tabindex="-1"></a>}</span>
+<span id="cb7-31"><a href="基因-id-注释.html#cb7-31" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="基因-id-注释.html#cb7-32" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="基因-id-注释.html#cb7-33" tabindex="-1"></a><span class="co"># 定义基因列表</span></span>
+<span id="cb7-34"><a href="基因-id-注释.html#cb7-34" tabindex="-1"></a>gene_list <span class="ot">&lt;-</span> data<span class="sc">$</span>SYMBOL</span>
+<span id="cb7-35"><a href="基因-id-注释.html#cb7-35" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="基因-id-注释.html#cb7-36" tabindex="-1"></a><span class="co"># 获取注释信息</span></span>
+<span id="cb7-37"><a href="基因-id-注释.html#cb7-37" tabindex="-1"></a>annotations <span class="ot">&lt;-</span> <span class="fu">get_annotations</span>(gene_list, species)</span>
+<span id="cb7-38"><a href="基因-id-注释.html#cb7-38" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="基因-id-注释.html#cb7-39" tabindex="-1"></a><span class="co"># 保存注释结果</span></span>
+<span id="cb7-40"><a href="基因-id-注释.html#cb7-40" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;Expression_Annotation/1_Expression_result/&quot;</span>, <span class="at">recursive =</span> T)</span>
+<span id="cb7-41"><a href="基因-id-注释.html#cb7-41" tabindex="-1"></a>writexl<span class="sc">::</span><span class="fu">write_xlsx</span>(annotations, </span>
+<span id="cb7-42"><a href="基因-id-注释.html#cb7-42" tabindex="-1"></a>                   <span class="st">&quot;Expression_Annotation/1_Expression_result/All_gene_annotations.xlsx&quot;</span>)</span></code></pre></div>
 
 </div>
             </section>
@@ -227,8 +262,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="数据预处理.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="数据预处理.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="基因表达定量.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -259,7 +294,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/smileszh/scRNA-Seq/edit/master/index.Rmd",
+"link": "https://github.com/smileszh/scRNA-Seq/edit/master/02-Gene-Database-Annotation-.Rmd",
 "text": "Edit"
 },
 "history": {

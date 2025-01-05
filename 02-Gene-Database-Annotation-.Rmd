@@ -1,4 +1,4 @@
-# 基因数据库注释
+# 基因 ID 注释
 ```{r setup, include=FALSE}
 library(knitr)
 library(kableExtra)
