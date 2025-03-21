@@ -1,7 +1,7 @@
 --- 
 title: "RNA-Seq"
 author:
-  - 苏总华
+  - 小苏
 date: "`r Sys.Date()`"
 documentclass: ctexbook
 bibliography: [book.bib, packages.bib]
