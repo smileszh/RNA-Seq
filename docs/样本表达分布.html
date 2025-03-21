@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 2 章 样本表达分布 | RNA-Seq</title>
+  <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 2 章 样本表达分布 | RNA-Seq" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="github-repo" content="smileszh/RNA-Seq" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 2 章 样本表达分布 | RNA-Seq" />
+  
+  <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
+  
+
+<meta name="author" content="苏总华" />
+
+
+<meta name="date" content="2025-03-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="数据预处理.html"/>
+<link rel="next" href="edger.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RNA-Seq</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="part"><span><b>I counts 数据预处理</b></span></li>
+<li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#加载数据"><i class="fa fa-check"></i><b>1.1</b> 加载数据</a></li>
+<li class="chapter" data-level="1.2" data-path="数据预处理.html"><a href="数据预处理.html#过滤低表达数据"><i class="fa fa-check"></i><b>1.2</b> 过滤低表达数据</a></li>
+<li class="chapter" data-level="1.3" data-path="数据预处理.html"><a href="数据预处理.html#转换基因-id"><i class="fa fa-check"></i><b>1.3</b> 转换基因 ID</a></li>
+<li class="chapter" data-level="1.4" data-path="数据预处理.html"><a href="数据预处理.html#保存变量"><i class="fa fa-check"></i><b>1.4</b> 保存变量</a></li>
+</ul></li>
+<li class="part"><span><b>II 样本表达分布</b></span></li>
+<li class="chapter" data-level="2" data-path="样本表达分布.html"><a href="样本表达分布.html"><i class="fa fa-check"></i><b>2</b> 样本表达分布</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="样本表达分布.html"><a href="样本表达分布.html#加载数据-1"><i class="fa fa-check"></i><b>2.1</b> 加载数据</a></li>
+<li class="chapter" data-level="2.2" data-path="样本表达分布.html"><a href="样本表达分布.html#箱线图"><i class="fa fa-check"></i><b>2.2</b> 箱线图</a></li>
+<li class="chapter" data-level="2.3" data-path="样本表达分布.html"><a href="样本表达分布.html#pca"><i class="fa fa-check"></i><b>2.3</b> PCA</a></li>
+<li class="chapter" data-level="2.4" data-path="样本表达分布.html"><a href="样本表达分布.html#基因热图"><i class="fa fa-check"></i><b>2.4</b> 基因热图</a></li>
+<li class="chapter" data-level="2.5" data-path="样本表达分布.html"><a href="样本表达分布.html#样本间相关性热图"><i class="fa fa-check"></i><b>2.5</b> 样本间相关性热图</a></li>
+</ul></li>
+<li class="part"><span><b>III 差异基因分析</b></span></li>
+<li class="chapter" data-level="3" data-path="edger.html"><a href="edger.html"><i class="fa fa-check"></i><b>3</b> edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="edger.html"><a href="edger.html#加载数据-2"><i class="fa fa-check"></i><b>3.1</b> 加载数据</a></li>
+<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger分析"><i class="fa fa-check"></i><b>3.2</b> edgeR分析</a></li>
+<li class="chapter" data-level="3.3" data-path="edger.html"><a href="edger.html#整理分析结果规范输出"><i class="fa fa-check"></i><b>3.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="3.4" data-path="edger.html"><a href="edger.html#保存结果"><i class="fa fa-check"></i><b>3.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因作图</b></span></li>
+<li class="chapter" data-level="4" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>4</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
+<li class="chapter" data-level="4.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>4.2</b> 火山图</a></li>
+<li class="chapter" data-level="4.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>4.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="4.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>V 富集分析</b></span></li>
+<li class="chapter" data-level="5" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>5</b> ORA 富集分析</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
+<li class="chapter" data-level="5.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>5.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="5.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>5.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="5.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>VI 富集分析</b></span></li>
+<li class="chapter" data-level="6" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>6</b> GSEA 富集分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>6.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="6.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-3"><i class="fa fa-check"></i><b>6.3</b> 保存结果</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-Seq</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="样本表达分布" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">第 2 章</span> 样本表达分布<a href="样本表达分布.html#样本表达分布" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="加载数据-1" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 加载数据<a href="样本表达分布.html#加载数据-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="样本表达分布.html#cb5-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb5-2"><a href="样本表达分布.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-3"><a href="样本表达分布.html#cb5-3" tabindex="-1"></a><span class="fu">library</span>(ggplotify)</span>
+<span id="cb5-4"><a href="样本表达分布.html#cb5-4" tabindex="-1"></a><span class="fu">library</span>(ggview)</span>
+<span id="cb5-5"><a href="样本表达分布.html#cb5-5" tabindex="-1"></a><span class="co"># 加载变量</span></span>
+<span id="cb5-6"><a href="样本表达分布.html#cb5-6" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>)</span>
+<span id="cb5-7"><a href="样本表达分布.html#cb5-7" tabindex="-1"></a><span class="co"># cpm 归一化</span></span>
+<span id="cb5-8"><a href="样本表达分布.html#cb5-8" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">log2</span>(edgeR<span class="sc">::</span><span class="fu">cpm</span>(symbol_matrix)<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb5-9"><a href="样本表达分布.html#cb5-9" tabindex="-1"></a>dat[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb5-10"><a href="样本表达分布.html#cb5-10" tabindex="-1"></a><span class="do">##        s_MiaFRFP_1 s_MiaFRFP_2 s_MiaFRFP_3 s_Part1Lag_1</span></span>
+<span id="cb5-11"><a href="样本表达分布.html#cb5-11" tabindex="-1"></a><span class="do">## TSPAN6  0.03721777    0.000000    0.000000    0.0317213</span></span>
+<span id="cb5-12"><a href="样本表达分布.html#cb5-12" tabindex="-1"></a><span class="do">## DPM1    5.71662319    6.098771    4.676184    6.4379710</span></span>
+<span id="cb5-13"><a href="样本表达分布.html#cb5-13" tabindex="-1"></a><span class="do">## SCYL3   4.25132942    4.357822    3.828210    3.6224149</span></span>
+<span id="cb5-14"><a href="样本表达分布.html#cb5-14" tabindex="-1"></a><span class="do">## FIRRM   5.22004517    5.615629    4.762597    4.6027733</span></span>
+<span id="cb5-15"><a href="样本表达分布.html#cb5-15" tabindex="-1"></a>pro <span class="ot">=</span> <span class="fu">paste0</span>(<span class="fu">levels</span>(group_list)[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, <span class="fu">levels</span>(group_list)[<span class="dv">2</span>]) <span class="co"># 希望的图Title</span></span></code></pre></div>
+</div>
+<div id="箱线图" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> 箱线图<a href="样本表达分布.html#箱线图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="样本表达分布.html#cb6-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb6-2"><a href="样本表达分布.html#cb6-2" tabindex="-1"></a><span class="fu">boxplot</span>(dat,<span class="at">las=</span><span class="dv">2</span>); <span class="fu">title</span>(pro)</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>也可以查看自己关注基因的表达情况</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="样本表达分布.html#cb7-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb7-2"><a href="样本表达分布.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb7-3"><a href="样本表达分布.html#cb7-3" tabindex="-1"></a><span class="co"># 以 GAPDH 基因为例</span></span>
+<span id="cb7-4"><a href="样本表达分布.html#cb7-4" tabindex="-1"></a>target_gene <span class="ot">=</span> <span class="st">&quot;GAPDH&quot;</span></span>
+<span id="cb7-5"><a href="样本表达分布.html#cb7-5" tabindex="-1"></a><span class="co"># 提取数据</span></span>
+<span id="cb7-6"><a href="样本表达分布.html#cb7-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">expression =</span> dat[target_gene, ], <span class="at">group =</span> group_list)</span>
+<span id="cb7-7"><a href="样本表达分布.html#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="样本表达分布.html#cb7-8" tabindex="-1"></a><span class="co"># 创建箱线图</span></span>
+<span id="cb7-9"><a href="样本表达分布.html#cb7-9" tabindex="-1"></a><span class="fu">ggboxplot</span>(df, </span>
+<span id="cb7-10"><a href="样本表达分布.html#cb7-10" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb7-11"><a href="样本表达分布.html#cb7-11" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;expression&quot;</span>,</span>
+<span id="cb7-12"><a href="样本表达分布.html#cb7-12" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">&quot;group&quot;</span>, </span>
+<span id="cb7-13"><a href="样本表达分布.html#cb7-13" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">&quot;jco&quot;</span>,</span>
+<span id="cb7-14"><a href="样本表达分布.html#cb7-14" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">&quot;jitter&quot;</span></span>
+<span id="cb7-15"><a href="样本表达分布.html#cb7-15" tabindex="-1"></a>          ) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="样本表达分布.html#cb7-16" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">&quot;t.test&quot;</span>,</span>
+<span id="cb7-17"><a href="样本表达分布.html#cb7-17" tabindex="-1"></a>                     <span class="at">label.y =</span> <span class="fu">max</span>(df<span class="sc">$</span>expression) <span class="sc">+</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="样本表达分布.html#cb7-18" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> target_gene, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Expression&quot;</span>) <span class="sc">+</span></span>
+<span id="cb7-19"><a href="样本表达分布.html#cb7-19" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb7-20"><a href="样本表达分布.html#cb7-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="样本表达分布.html#cb8-1" tabindex="-1"></a>  <span class="co"># canvas(10, 10, &quot;cm&quot;)</span></span></code></pre></div>
+</div>
+<div id="pca" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> PCA<a href="样本表达分布.html#pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="样本表达分布.html#cb9-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb9-2"><a href="样本表达分布.html#cb9-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;FactoMineR&quot;</span>)</span>
+<span id="cb9-3"><a href="样本表达分布.html#cb9-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;factoextra&quot;</span>)</span>
+<span id="cb9-4"><a href="样本表达分布.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="样本表达分布.html#cb9-5" tabindex="-1"></a><span class="co"># 画PCA图时要求是行名时样本名，列名是基因名，因此此时需要转换</span></span>
+<span id="cb9-6"><a href="样本表达分布.html#cb9-6" tabindex="-1"></a>exp<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">t</span>(dat))</span>
+<span id="cb9-7"><a href="样本表达分布.html#cb9-7" tabindex="-1"></a><span class="co"># PCA 计算</span></span>
+<span id="cb9-8"><a href="样本表达分布.html#cb9-8" tabindex="-1"></a>dat.pca <span class="ot">&lt;-</span> <span class="fu">PCA</span>(exp , <span class="at">graph =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-9"><a href="样本表达分布.html#cb9-9" tabindex="-1"></a><span class="co"># Tittle</span></span>
+<span id="cb9-10"><a href="样本表达分布.html#cb9-10" tabindex="-1"></a>this_title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(pro,<span class="st">&#39;_PCA&#39;</span>)</span>
+<span id="cb9-11"><a href="样本表达分布.html#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="样本表达分布.html#cb9-12" tabindex="-1"></a><span class="fu">fviz_pca_ind</span>(dat.pca,</span>
+<span id="cb9-13"><a href="样本表达分布.html#cb9-13" tabindex="-1"></a>             <span class="at">geom.ind =</span> <span class="st">&quot;point&quot;</span>,  <span class="co">#c( &quot;point&quot;, &quot;text&quot; )</span></span>
+<span id="cb9-14"><a href="样本表达分布.html#cb9-14" tabindex="-1"></a>             <span class="at">col.ind =</span> group_list, <span class="co"># color by groups</span></span>
+<span id="cb9-15"><a href="样本表达分布.html#cb9-15" tabindex="-1"></a>             <span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>,</span>
+<span id="cb9-16"><a href="样本表达分布.html#cb9-16" tabindex="-1"></a>             <span class="at">addEllipses =</span> <span class="cn">TRUE</span>, <span class="co"># Concentration ellipses</span></span>
+<span id="cb9-17"><a href="样本表达分布.html#cb9-17" tabindex="-1"></a>             <span class="at">legend.title =</span> <span class="st">&quot;Groups&quot;</span>)<span class="sc">+</span></span>
+<span id="cb9-18"><a href="样本表达分布.html#cb9-18" tabindex="-1"></a>  <span class="fu">ggtitle</span>(this_title)<span class="sc">+</span></span>
+<span id="cb9-19"><a href="样本表达分布.html#cb9-19" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb9-20"><a href="样本表达分布.html#cb9-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span> ,<span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="样本表达分布.html#cb10-1" tabindex="-1"></a>  <span class="co"># canvas(12, 10, &quot;cm&quot;)</span></span></code></pre></div>
+</div>
+<div id="基因热图" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> 基因热图<a href="样本表达分布.html#基因热图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>取方差最大的1000个基因，然后画热图</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="样本表达分布.html#cb11-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb11-2"><a href="样本表达分布.html#cb11-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb11-3"><a href="样本表达分布.html#cb11-3" tabindex="-1"></a><span class="co"># 取方差最大的1000个基因</span></span>
+<span id="cb11-4"><a href="样本表达分布.html#cb11-4" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">apply</span>(dat, <span class="dv">1</span>, sd)),<span class="dv">1000</span>))</span>
+<span id="cb11-5"><a href="样本表达分布.html#cb11-5" tabindex="-1"></a><span class="co"># 画热图</span></span>
+<span id="cb11-6"><a href="样本表达分布.html#cb11-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb11-7"><a href="样本表达分布.html#cb11-7" tabindex="-1"></a><span class="fu">pheatmap</span>(dat[cg,],<span class="at">show_colnames =</span>T,<span class="at">show_rownames =</span> F) </span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>对这1000个基因进行归一化，然后画热图，以及添加分组信息</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="样本表达分布.html#cb12-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb12-2"><a href="样本表达分布.html#cb12-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb12-3"><a href="样本表达分布.html#cb12-3" tabindex="-1"></a><span class="co"># 取方差最大的1000个基因</span></span>
+<span id="cb12-4"><a href="样本表达分布.html#cb12-4" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">apply</span>(dat, <span class="dv">1</span>, sd)),<span class="dv">1000</span>)) </span>
+<span id="cb12-5"><a href="样本表达分布.html#cb12-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">scale</span>(<span class="fu">t</span>(dat[cg,]))) <span class="co"># &#39;scale&#39;可以对log-ratio数值进行归一化</span></span>
+<span id="cb12-6"><a href="样本表达分布.html#cb12-6" tabindex="-1"></a>n[n<span class="sc">&gt;</span><span class="dv">2</span>] <span class="ot">=</span> <span class="dv">2</span> <span class="co"># 所有大于2的值都变成2</span></span>
+<span id="cb12-7"><a href="样本表达分布.html#cb12-7" tabindex="-1"></a>n[n<span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span> <span class="co"># 所有小于-2的值都变成-2</span></span>
+<span id="cb12-8"><a href="样本表达分布.html#cb12-8" tabindex="-1"></a><span class="co"># 添加分组信息</span></span>
+<span id="cb12-9"><a href="样本表达分布.html#cb12-9" tabindex="-1"></a>ac <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group=</span>group_list)</span>
+<span id="cb12-10"><a href="样本表达分布.html#cb12-10" tabindex="-1"></a><span class="fu">rownames</span>(ac) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(n)</span>
+<span id="cb12-11"><a href="样本表达分布.html#cb12-11" tabindex="-1"></a><span class="co"># 画热图</span></span>
+<span id="cb12-12"><a href="样本表达分布.html#cb12-12" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb12-13"><a href="样本表达分布.html#cb12-13" tabindex="-1"></a><span class="fu">pheatmap</span>(n,</span>
+<span id="cb12-14"><a href="样本表达分布.html#cb12-14" tabindex="-1"></a>         <span class="at">show_colnames =</span> F,</span>
+<span id="cb12-15"><a href="样本表达分布.html#cb12-15" tabindex="-1"></a>         <span class="at">show_rownames =</span> F,</span>
+<span id="cb12-16"><a href="样本表达分布.html#cb12-16" tabindex="-1"></a>         <span class="at">annotation_col=</span> ac)</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>对这1000个基因进行归一化后，然后画区间热图，以及添加分组信息</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="样本表达分布.html#cb13-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb13-2"><a href="样本表达分布.html#cb13-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb13-3"><a href="样本表达分布.html#cb13-3" tabindex="-1"></a><span class="co"># 取方差最大的1000个基因</span></span>
+<span id="cb13-4"><a href="样本表达分布.html#cb13-4" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">apply</span>(dat, <span class="dv">1</span>, sd)),<span class="dv">1000</span>)) </span>
+<span id="cb13-5"><a href="样本表达分布.html#cb13-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">scale</span>(<span class="fu">t</span>(dat[cg,]))) <span class="co"># &#39;scale&#39;可以对log-ratio数值进行归一化</span></span>
+<span id="cb13-6"><a href="样本表达分布.html#cb13-6" tabindex="-1"></a>n[n<span class="sc">&gt;</span><span class="dv">2</span>] <span class="ot">=</span> <span class="dv">2</span> <span class="co"># 所有大于2的值都变成2</span></span>
+<span id="cb13-7"><a href="样本表达分布.html#cb13-7" tabindex="-1"></a>n[n<span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span> <span class="co"># 所有小于-2的值都变成-2</span></span>
+<span id="cb13-8"><a href="样本表达分布.html#cb13-8" tabindex="-1"></a><span class="co"># 添加分组信息</span></span>
+<span id="cb13-9"><a href="样本表达分布.html#cb13-9" tabindex="-1"></a>ac<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">Group=</span>group_list)</span>
+<span id="cb13-10"><a href="样本表达分布.html#cb13-10" tabindex="-1"></a><span class="fu">rownames</span>(ac)<span class="ot">=</span><span class="fu">colnames</span>(n)</span>
+<span id="cb13-11"><a href="样本表达分布.html#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="样本表达分布.html#cb13-12" tabindex="-1"></a><span class="co"># 画热图</span></span>
+<span id="cb13-13"><a href="样本表达分布.html#cb13-13" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb13-14"><a href="样本表达分布.html#cb13-14" tabindex="-1"></a><span class="fu">pheatmap</span>(n,</span>
+<span id="cb13-15"><a href="样本表达分布.html#cb13-15" tabindex="-1"></a>         <span class="at">show_colnames =</span>F,</span>
+<span id="cb13-16"><a href="样本表达分布.html#cb13-16" tabindex="-1"></a>         <span class="at">show_rownames =</span> F,</span>
+<span id="cb13-17"><a href="样本表达分布.html#cb13-17" tabindex="-1"></a>         <span class="at">main =</span> pro,</span>
+<span id="cb13-18"><a href="样本表达分布.html#cb13-18" tabindex="-1"></a>         <span class="at">annotation_col=</span>ac,</span>
+<span id="cb13-19"><a href="样本表达分布.html#cb13-19" tabindex="-1"></a>         <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>,<span class="at">length.out =</span> <span class="dv">100</span>) <span class="co"># 添加区间</span></span>
+<span id="cb13-20"><a href="样本表达分布.html#cb13-20" tabindex="-1"></a>         )</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="样本间相关性热图" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> 样本间相关性热图<a href="样本表达分布.html#样本间相关性热图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>取方差最大的1000个基因，做样本间相关性热图</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="样本表达分布.html#cb14-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb14-2"><a href="样本表达分布.html#cb14-2" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb14-3"><a href="样本表达分布.html#cb14-3" tabindex="-1"></a><span class="co"># 取方差最大的1000个基因</span></span>
+<span id="cb14-4"><a href="样本表达分布.html#cb14-4" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>,sd)),<span class="dv">1000</span>))</span>
+<span id="cb14-5"><a href="样本表达分布.html#cb14-5" tabindex="-1"></a>exprSet<span class="ot">=</span>dat[cg,]</span>
+<span id="cb14-6"><a href="样本表达分布.html#cb14-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb14-7"><a href="样本表达分布.html#cb14-7" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">cor</span>(exprSet)) </span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-8-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>取方差最大的1000个基因，做样本间相关性热图，以及添加分组信息</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="样本表达分布.html#cb15-1" tabindex="-1"></a><span class="co"># 组内的样本的相似性应该是要高于组间的！</span></span>
+<span id="cb15-2"><a href="样本表达分布.html#cb15-2" tabindex="-1"></a>colD <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group=</span>group_list)</span>
+<span id="cb15-3"><a href="样本表达分布.html#cb15-3" tabindex="-1"></a><span class="fu">rownames</span>(colD) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(exprSet)</span>
+<span id="cb15-4"><a href="样本表达分布.html#cb15-4" tabindex="-1"></a>pheatmap<span class="sc">::</span><span class="fu">pheatmap</span>(<span class="fu">cor</span>(exprSet),</span>
+<span id="cb15-5"><a href="样本表达分布.html#cb15-5" tabindex="-1"></a>                   <span class="at">annotation_col =</span> colD,</span>
+<span id="cb15-6"><a href="样本表达分布.html#cb15-6" tabindex="-1"></a>                   <span class="at">show_rownames =</span> F)</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>取方差最大的1000个基因，做样本间相关性热图，以及添加分组信息,Title和相关性值</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="样本表达分布.html#cb16-1" tabindex="-1"></a><span class="co"># 取方差最大的1000个基因</span></span>
+<span id="cb16-2"><a href="样本表达分布.html#cb16-2" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">apply</span>(dat,<span class="dv">1</span>,sd)),<span class="dv">1000</span>))</span>
+<span id="cb16-3"><a href="样本表达分布.html#cb16-3" tabindex="-1"></a>exprSet<span class="ot">=</span>dat[cg,]</span>
+<span id="cb16-4"><a href="样本表达分布.html#cb16-4" tabindex="-1"></a>colD <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Group=</span>group_list)</span>
+<span id="cb16-5"><a href="样本表达分布.html#cb16-5" tabindex="-1"></a><span class="fu">rownames</span>(colD) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(exprSet)</span>
+<span id="cb16-6"><a href="样本表达分布.html#cb16-6" tabindex="-1"></a>pheatmap<span class="sc">::</span><span class="fu">pheatmap</span>(<span class="fu">cor</span>(exprSet),</span>
+<span id="cb16-7"><a href="样本表达分布.html#cb16-7" tabindex="-1"></a>                   <span class="at">annotation_col =</span> colD, <span class="co"># 添加分组信息</span></span>
+<span id="cb16-8"><a href="样本表达分布.html#cb16-8" tabindex="-1"></a>                   <span class="at">display_numbers =</span> T, <span class="co"># 显示相关性值</span></span>
+<span id="cb16-9"><a href="样本表达分布.html#cb16-9" tabindex="-1"></a>                   <span class="at">show_rownames =</span> F, </span>
+<span id="cb16-10"><a href="样本表达分布.html#cb16-10" tabindex="-1"></a>                   <span class="at">show_colnames =</span>F,</span>
+<span id="cb16-11"><a href="样本表达分布.html#cb16-11" tabindex="-1"></a>                   <span class="at">main =</span> pro)</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-10-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>取中位数偏差最大的500个基因，做样本间相关性热图，以及添加分组信息</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="样本表达分布.html#cb17-1" tabindex="-1"></a><span class="co"># 取中位数偏差最大的500个基因</span></span>
+<span id="cb17-2"><a href="样本表达分布.html#cb17-2" tabindex="-1"></a>exprSet_mad <span class="ot">&lt;-</span> exprSet[<span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">apply</span>(exprSet, <span class="dv">1</span>, mad),<span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>]),]</span>
+<span id="cb17-3"><a href="样本表达分布.html#cb17-3" tabindex="-1"></a>pheatmap<span class="sc">::</span><span class="fu">pheatmap</span>(<span class="fu">cor</span>(exprSet_mad), </span>
+<span id="cb17-4"><a href="样本表达分布.html#cb17-4" tabindex="-1"></a>                   <span class="at">annotation_col =</span> colD)</span></code></pre></div>
+<p><img src="02-1-Expression_distribution_files/figure-html/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="数据预处理.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="edger.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/smileszh/RNA-Seq/edit/master/02-1-Expression_distribution.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

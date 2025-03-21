@@ -1,0 +1,188 @@
+# (PART) 差异基因分析 {-}
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(DT)
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	error = F,
+	message = FALSE,
+	warning = FALSE,
+	cache = T,
+	collapse = T,
+	fig.width=6,
+	fig.height=4,
+	unit='cm',
+	fig.align='center'
+)
+
+rm(list = ls())  ## 魔幻操作，一键清空~
+options(stringsAsFactors = F)
+
+getOption('timeout')
+options(timeout=10000) 
+```
+
+# edgeR
+
+## 加载数据
+```{r}
+# 加载包
+pkgs <- c("edgeR", "tibble", "dplyr", "tools", "dplyr")
+status <- suppressPackageStartupMessages(
+  lapply(pkgs, library, character.only = TRUE)
+  )
+
+load(file = 'Rdata/symbol_matrix.Rdata')
+group <- group_list # 分组标准名字
+counts_df <- symbol_matrix # 计数矩阵标准名字
+
+# title
+title <- paste0(group[1], "_vs_", group[2])
+
+# 输出文件夹
+OUT_FOLDER <- "DEG_Analysis"
+dir.create(OUT_FOLDER, showWarnings = FALSE)
+# 输出文件名
+OUTPUT_FILE <- paste0(title, "_all_edger.csv")
+
+
+# 创建一个样本分组信息
+df = data.frame(
+  sample = colnames(symbol_matrix),
+  group = group
+)
+# 样本名
+sample_names <- df$sample
+col_names_A <- filter(df, group == levels(df$group)[1])$sample
+col_names_B <- filter(df, group == levels(df$group)[2])$sample
+
+# 计数矩阵取整
+counts_mat = round(counts_df[, sample_names])
+```
+
+## edgeR分析
+```{r}
+# 选择 GLM 方法
+method = 'glm'
+if (method=='glm') {
+  
+  cat("# Method: glm", "\n")
+  
+  # Following the recommended edger vignette here verbatim
+  dge <- DGEList(counts=counts_mat, group=group)
+  
+  # Filter by expression.
+  keep <- filterByExpr(dge)
+  
+  # Filter the expression
+  dge <- dge[keep, ,keep.lib.sizes=FALSE]
+  
+  # The design matrix.
+  design <- model.matrix(~group)
+  
+  # Calculate the normalization factors
+  dge <- calcNormFactors(dge)
+  dge <- estimateDisp(dge, design)
+  fit <- glmQLFit(dge, design)
+  qlf <- glmQLFTest(fit,coef=2)
+  etp = topTags(qlf, n=Inf)
+  
+} else {
+  
+  # 
+  # This is the classic mode of running EdgeR
+  #
+  cat("# Method: classic", "\n")
+  # Creates a DGEList object from a table of counts and group.
+  dge <- DGEList(counts=counts_mat, group=group)
+  
+  # Filter by expression.
+  keep <- filterByExpr(dge)
+  
+  # Filter the expression
+  dge <- dge[keep,,keep.lib.sizes=FALSE]
+  
+  # Maximizes the negative binomial conditional common likelihood to estimate a common dispersion value across all genes.
+  dge <- estimateCommonDisp(dge)
+  
+  # Estimates tagwise dispersion values by an empirical Bayes method based on weighted conditional maximum likelihood.
+  dge <- estimateTagwiseDisp(dge)
+  
+  # Compute genewise exact tests for differences in the means between the groups.
+  etx <- exactTest(dge)
+  
+  # Extracts the most differentially expressed genes.
+  etp <- topTags(etx, n=Inf)
+} 
+```
+
+## 整理分析结果，规范输出
+```{r}
+# 获取数据的缩放因子
+scale = dge$samples$lib.size * dge$samples$norm.factors
+# 得到标准化的 counts
+normed = round(t(t(counts_mat)/scale) * mean(scale))
+# 得到差异分析结果
+data = etp$table
+
+# 添加想要的列
+data$baseMean = 1
+data$baseMeanA = 1
+data$baseMeanB = 1
+data$foldChange = 2 ^ data$logFC
+data$log2FoldChange=data$logFC
+data$falsePos = 1
+# 计算调整过的 p-value
+data$PAdj = p.adjust(data$PValue, method="hochberg")
+
+# 合并差异分析结果和标准化的 counts
+total <- merge(data, normed, by='row.names')
+names(total)[1] <- 'SYMBOL'
+
+# 通过 P-value 排序
+total = arrange(total, PValue)
+# 计算 false discovery counts
+total$falsePos = 1:nrow(total) * total$FDR
+# 创建各组平均值
+total$baseMeanA = rowMeans(total[, col_names_A])
+total$baseMeanB = rowMeans(total[, col_names_B])
+total$baseMean = total$baseMeanA + total$baseMeanB
+
+# 重新组织列名
+new_cols = c( "SYMBOL",
+              "baseMean","baseMeanA","baseMeanB",
+              "foldChange", "log2FoldChange",
+              "PValue","PAdj", 
+              "FDR","falsePos", col_names_A, col_names_B)
+# Rearrange the data frame with new column order.
+total = total[, new_cols]
+
+
+# 将数字四舍五入，使其更美观
+#total$foldChange = round(total$foldChange, 3)
+#total$FDR = round(total$FDR, 4)
+#total$PAdj = round(total$PAdj, 4)
+#total$logCPM = round(total$logCPM, 1)
+#total$log2FoldChange = round(total$log2FoldChange, 3)
+total$baseMean = round(total$baseMean, 1)
+total$baseMeanA = round(total$baseMeanA, 1)
+total$baseMeanB = round(total$baseMeanB, 1)
+total$falsePos = round(total$falsePos, 0)
+# Reformat these columns as string.
+total$PAdj = formatC(total$PAdj, format = "e", digits = 2)
+total$PValue = formatC(total$PValue, format = "e", digits = 2)
+```
+
+## 保存结果
+保存结果
+```{r}
+write.csv(total, file=paste0(OUT_FOLDER, "/", OUTPUT_FILE), row.names = F, quote = F)
+```
+
+保存变量
+```{r}
+save(total, file = "Rdata/DEG_edgeR.Rdata") 
+```

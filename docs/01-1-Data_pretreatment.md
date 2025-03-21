@@ -1,5 +1,7 @@
 # (PART) counts 数据预处理 {-}
 
+
+
 # 数据预处理
 
 ## 加载数据
@@ -63,7 +65,6 @@ head(counts)
 # 将基因 ID 作为行名
 mat <- dplyr::select(counts, design$sample)
 rownames(mat) <- counts$name
-
 # 筛选出至少在两个样本中表达的基因
 keep_feature <- rowSums (mat > 1) >= 2 ;table(keep_feature)
 ## keep_feature
@@ -110,5 +111,5 @@ symbol_matrix <- All_gene_counts %>%
   distinct(SYMBOL, .keep_all = T) %>%
   column_to_rownames("SYMBOL") %>%
   dplyr::select(design$sample)
-save(symbol_matrix, design, group_list,file = 'symbol_matrix.Rdata')
+save(symbol_matrix, design, group_list,file = 'Rdata/symbol_matrix.Rdata')
 ```
