@@ -4,23 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 5 章 ORA 富集分析 | RNA-Seq</title>
+  <title>第 7 章 ORA 富集分析 | RNA-Seq</title>
   <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 5 章 ORA 富集分析 | RNA-Seq" />
+  <meta property="og:title" content="第 7 章 ORA 富集分析 | RNA-Seq" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="github-repo" content="smileszh/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 5 章 ORA 富集分析 | RNA-Seq" />
+  <meta name="twitter:title" content="第 7 章 ORA 富集分析 | RNA-Seq" />
   
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
 
-<meta name="author" content="苏总华" />
+<meta name="author" content="小苏" />
 
 
 <meta name="date" content="2025-03-22" />
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
-<li class="part"><span><b>I counts 数据预处理</b></span></li>
+<li class="part"><span><b>I 数据预处理</b></span></li>
 <li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#加载数据"><i class="fa fa-check"></i><b>1.1</b> 加载数据</a></li>
@@ -162,31 +162,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="edger.html"><a href="edger.html"><i class="fa fa-check"></i><b>3</b> edgeR</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="edger.html"><a href="edger.html#加载数据-2"><i class="fa fa-check"></i><b>3.1</b> 加载数据</a></li>
-<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger分析"><i class="fa fa-check"></i><b>3.2</b> edgeR分析</a></li>
+<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger-分析"><i class="fa fa-check"></i><b>3.2</b> edgeR 分析</a></li>
 <li class="chapter" data-level="3.3" data-path="edger.html"><a href="edger.html#整理分析结果规范输出"><i class="fa fa-check"></i><b>3.3</b> 整理分析结果，规范输出</a></li>
 <li class="chapter" data-level="3.4" data-path="edger.html"><a href="edger.html#保存结果"><i class="fa fa-check"></i><b>3.4</b> 保存结果</a></li>
 </ul></li>
-<li class="part"><span><b>IV 差异基因作图</b></span></li>
-<li class="chapter" data-level="4" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>4</b> 差异基因作图</a>
+<li class="chapter" data-level="4" data-path="deseq2.html"><a href="deseq2.html"><i class="fa fa-check"></i><b>4</b> DESeq2</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
-<li class="chapter" data-level="4.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>4.2</b> 火山图</a></li>
-<li class="chapter" data-level="4.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>4.3</b> 差异基因热图</a></li>
-<li class="chapter" data-level="4.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+<li class="chapter" data-level="4.1" data-path="deseq2.html"><a href="deseq2.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
+<li class="chapter" data-level="4.2" data-path="deseq2.html"><a href="deseq2.html#deseq2-分析"><i class="fa fa-check"></i><b>4.2</b> DESeq2 分析</a></li>
+<li class="chapter" data-level="4.3" data-path="deseq2.html"><a href="deseq2.html#整理分析结果规范输出-1"><i class="fa fa-check"></i><b>4.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="4.4" data-path="deseq2.html"><a href="deseq2.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="limma-voom.html"><a href="limma-voom.html"><i class="fa fa-check"></i><b>5</b> limma-voom</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="limma-voom.html"><a href="limma-voom.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
+<li class="chapter" data-level="5.2" data-path="limma-voom.html"><a href="limma-voom.html#limma-voom-分析"><i class="fa fa-check"></i><b>5.2</b> limma-voom 分析</a></li>
+<li class="chapter" data-level="5.3" data-path="limma-voom.html"><a href="limma-voom.html#整理分析结果规范输出-2"><i class="fa fa-check"></i><b>5.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="5.4" data-path="limma-voom.html"><a href="limma-voom.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因可视化</b></span></li>
+<li class="chapter" data-level="6" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>6</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>6.2</b> 火山图</a></li>
+<li class="chapter" data-level="6.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>6.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="6.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>6.4</b> 保存结果</a></li>
 </ul></li>
 <li class="part"><span><b>V 富集分析</b></span></li>
-<li class="chapter" data-level="5" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>5</b> ORA 富集分析</a>
+<li class="chapter" data-level="7" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>7</b> ORA 富集分析</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
-<li class="chapter" data-level="5.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>5.2</b> GO 富集分析</a></li>
-<li class="chapter" data-level="5.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>5.3</b> KEGG 富集分析</a></li>
-<li class="chapter" data-level="5.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+<li class="chapter" data-level="7.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
+<li class="chapter" data-level="7.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>7.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="7.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>7.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="7.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>6</b> GSEA 富集分析</a>
+<li class="chapter" data-level="8" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>8</b> GSEA 富集分析</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
-<li class="chapter" data-level="6.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>6.2</b> GSEA 分析</a></li>
-<li class="chapter" data-level="6.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-3"><i class="fa fa-check"></i><b>6.3</b> 保存结果</a></li>
+<li class="chapter" data-level="8.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
+<li class="chapter" data-level="8.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>8.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="8.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>8.3</b> 保存结果</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -208,119 +222,119 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ora-富集分析" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">第 5 章</span> ORA 富集分析<a href="ora-富集分析.html#ora-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="加载数据-4" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> 加载数据<a href="ora-富集分析.html#加载数据-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="ora-富集分析.html#cb29-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
-<span id="cb29-2"><a href="ora-富集分析.html#cb29-2" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
-<span id="cb29-3"><a href="ora-富集分析.html#cb29-3" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
-<span id="cb29-4"><a href="ora-富集分析.html#cb29-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb29-5"><a href="ora-富集分析.html#cb29-5" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb29-6"><a href="ora-富集分析.html#cb29-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb29-7"><a href="ora-富集分析.html#cb29-7" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="ora-富集分析.html#cb29-8" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&quot;Rdata/DEG_edgeR_reg.Rdata&quot;</span>)</span>
-<span id="cb29-9"><a href="ora-富集分析.html#cb29-9" tabindex="-1"></a><span class="fu">colnames</span>(total)</span>
-<span id="cb29-10"><a href="ora-富集分析.html#cb29-10" tabindex="-1"></a><span class="do">##  [1] &quot;SYMBOL&quot;         &quot;baseMean&quot;       &quot;baseMeanA&quot;      &quot;baseMeanB&quot;     </span></span>
-<span id="cb29-11"><a href="ora-富集分析.html#cb29-11" tabindex="-1"></a><span class="do">##  [5] &quot;foldChange&quot;     &quot;log2FoldChange&quot; &quot;PValue&quot;         &quot;PAdj&quot;          </span></span>
-<span id="cb29-12"><a href="ora-富集分析.html#cb29-12" tabindex="-1"></a><span class="do">##  [9] &quot;FDR&quot;            &quot;falsePos&quot;       &quot;s_MiaFRFP_1&quot;    &quot;s_MiaFRFP_2&quot;   </span></span>
-<span id="cb29-13"><a href="ora-富集分析.html#cb29-13" tabindex="-1"></a><span class="do">## [13] &quot;s_MiaFRFP_3&quot;    &quot;s_Part1Lag_1&quot;   &quot;s_Part1Lag_2&quot;   &quot;s_Part1Lag_3&quot;  </span></span>
-<span id="cb29-14"><a href="ora-富集分析.html#cb29-14" tabindex="-1"></a><span class="do">## [17] &quot;regulation&quot;</span></span>
-<span id="cb29-15"><a href="ora-富集分析.html#cb29-15" tabindex="-1"></a></span>
-<span id="cb29-16"><a href="ora-富集分析.html#cb29-16" tabindex="-1"></a>gene_up <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span></span>
-<span id="cb29-17"><a href="ora-富集分析.html#cb29-17" tabindex="-1"></a>  <span class="fu">filter</span>(regulation <span class="sc">==</span> <span class="st">&quot;up&quot;</span>)</span>
-<span id="cb29-18"><a href="ora-富集分析.html#cb29-18" tabindex="-1"></a>gene_up <span class="ot">&lt;-</span> gene_up<span class="sc">$</span>SYMBOL  </span>
-<span id="cb29-19"><a href="ora-富集分析.html#cb29-19" tabindex="-1"></a></span>
-<span id="cb29-20"><a href="ora-富集分析.html#cb29-20" tabindex="-1"></a>gene_down <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span></span>
-<span id="cb29-21"><a href="ora-富集分析.html#cb29-21" tabindex="-1"></a>  <span class="fu">filter</span>(regulation <span class="sc">==</span> <span class="st">&quot;down&quot;</span>)</span>
-<span id="cb29-22"><a href="ora-富集分析.html#cb29-22" tabindex="-1"></a>gene_down <span class="ot">&lt;-</span> gene_down<span class="sc">$</span>SYMBOL</span>
-<span id="cb29-23"><a href="ora-富集分析.html#cb29-23" tabindex="-1"></a></span>
-<span id="cb29-24"><a href="ora-富集分析.html#cb29-24" tabindex="-1"></a><span class="fu">length</span>(gene_up);<span class="fu">length</span>(gene_down)</span>
-<span id="cb29-25"><a href="ora-富集分析.html#cb29-25" tabindex="-1"></a><span class="do">## [1] 3880</span></span>
-<span id="cb29-26"><a href="ora-富集分析.html#cb29-26" tabindex="-1"></a><span class="do">## [1] 2207</span></span>
-<span id="cb29-27"><a href="ora-富集分析.html#cb29-27" tabindex="-1"></a></span>
-<span id="cb29-28"><a href="ora-富集分析.html#cb29-28" tabindex="-1"></a>gene_up<span class="ot">=</span><span class="fu">as.character</span>(<span class="fu">na.omit</span>(AnnotationDbi<span class="sc">::</span><span class="fu">select</span>(org.Hs.eg.db,<span class="at">keys =</span> gene_up,<span class="at">columns =</span> <span class="st">&#39;ENTREZID&#39;</span>,<span class="at">keytype =</span> <span class="st">&#39;SYMBOL&#39;</span>)[,<span class="dv">2</span>]))</span>
-<span id="cb29-29"><a href="ora-富集分析.html#cb29-29" tabindex="-1"></a>gene_down<span class="ot">=</span><span class="fu">as.character</span>(<span class="fu">na.omit</span>(AnnotationDbi<span class="sc">::</span><span class="fu">select</span>(org.Hs.eg.db,<span class="at">keys =</span> gene_down,<span class="at">columns =</span> <span class="st">&#39;ENTREZID&#39;</span>,<span class="at">keytype =</span> <span class="st">&#39;SYMBOL&#39;</span>)[,<span class="dv">2</span>]))</span>
-<span id="cb29-30"><a href="ora-富集分析.html#cb29-30" tabindex="-1"></a></span>
-<span id="cb29-31"><a href="ora-富集分析.html#cb29-31" tabindex="-1"></a></span>
-<span id="cb29-32"><a href="ora-富集分析.html#cb29-32" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
-<span id="cb29-33"><a href="ora-富集分析.html#cb29-33" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;Anno_enrichment/ORA&quot;</span></span>
-<span id="cb29-34"><a href="ora-富集分析.html#cb29-34" tabindex="-1"></a><span class="fu">dir.create</span>(OUT_FOLDER, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div id="ora-富集分析" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">第 7 章</span> ORA 富集分析<a href="ora-富集分析.html#ora-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="加载数据-6" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> 加载数据<a href="ora-富集分析.html#加载数据-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ora-富集分析.html#cb40-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb40-2"><a href="ora-富集分析.html#cb40-2" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb40-3"><a href="ora-富集分析.html#cb40-3" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb40-4"><a href="ora-富集分析.html#cb40-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb40-5"><a href="ora-富集分析.html#cb40-5" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb40-6"><a href="ora-富集分析.html#cb40-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb40-7"><a href="ora-富集分析.html#cb40-7" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="ora-富集分析.html#cb40-8" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&quot;Rdata/DEG_edgeR_reg.Rdata&quot;</span>)</span>
+<span id="cb40-9"><a href="ora-富集分析.html#cb40-9" tabindex="-1"></a><span class="fu">colnames</span>(total)</span>
+<span id="cb40-10"><a href="ora-富集分析.html#cb40-10" tabindex="-1"></a><span class="do">##  [1] &quot;SYMBOL&quot;         &quot;baseMean&quot;       &quot;baseMeanA&quot;      &quot;baseMeanB&quot;     </span></span>
+<span id="cb40-11"><a href="ora-富集分析.html#cb40-11" tabindex="-1"></a><span class="do">##  [5] &quot;foldChange&quot;     &quot;log2FoldChange&quot; &quot;PValue&quot;         &quot;PAdj&quot;          </span></span>
+<span id="cb40-12"><a href="ora-富集分析.html#cb40-12" tabindex="-1"></a><span class="do">##  [9] &quot;FDR&quot;            &quot;falsePos&quot;       &quot;s_MiaFRFP_1&quot;    &quot;s_MiaFRFP_2&quot;   </span></span>
+<span id="cb40-13"><a href="ora-富集分析.html#cb40-13" tabindex="-1"></a><span class="do">## [13] &quot;s_MiaFRFP_3&quot;    &quot;s_Part1Lag_1&quot;   &quot;s_Part1Lag_2&quot;   &quot;s_Part1Lag_3&quot;  </span></span>
+<span id="cb40-14"><a href="ora-富集分析.html#cb40-14" tabindex="-1"></a><span class="do">## [17] &quot;regulation&quot;</span></span>
+<span id="cb40-15"><a href="ora-富集分析.html#cb40-15" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="ora-富集分析.html#cb40-16" tabindex="-1"></a>gene_up <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span></span>
+<span id="cb40-17"><a href="ora-富集分析.html#cb40-17" tabindex="-1"></a>  <span class="fu">filter</span>(regulation <span class="sc">==</span> <span class="st">&quot;up&quot;</span>)</span>
+<span id="cb40-18"><a href="ora-富集分析.html#cb40-18" tabindex="-1"></a>gene_up <span class="ot">&lt;-</span> gene_up<span class="sc">$</span>SYMBOL  </span>
+<span id="cb40-19"><a href="ora-富集分析.html#cb40-19" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="ora-富集分析.html#cb40-20" tabindex="-1"></a>gene_down <span class="ot">&lt;-</span> total <span class="sc">%&gt;%</span></span>
+<span id="cb40-21"><a href="ora-富集分析.html#cb40-21" tabindex="-1"></a>  <span class="fu">filter</span>(regulation <span class="sc">==</span> <span class="st">&quot;down&quot;</span>)</span>
+<span id="cb40-22"><a href="ora-富集分析.html#cb40-22" tabindex="-1"></a>gene_down <span class="ot">&lt;-</span> gene_down<span class="sc">$</span>SYMBOL</span>
+<span id="cb40-23"><a href="ora-富集分析.html#cb40-23" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="ora-富集分析.html#cb40-24" tabindex="-1"></a><span class="fu">length</span>(gene_up);<span class="fu">length</span>(gene_down)</span>
+<span id="cb40-25"><a href="ora-富集分析.html#cb40-25" tabindex="-1"></a><span class="do">## [1] 3880</span></span>
+<span id="cb40-26"><a href="ora-富集分析.html#cb40-26" tabindex="-1"></a><span class="do">## [1] 2207</span></span>
+<span id="cb40-27"><a href="ora-富集分析.html#cb40-27" tabindex="-1"></a></span>
+<span id="cb40-28"><a href="ora-富集分析.html#cb40-28" tabindex="-1"></a>gene_up<span class="ot">=</span><span class="fu">as.character</span>(<span class="fu">na.omit</span>(AnnotationDbi<span class="sc">::</span><span class="fu">select</span>(org.Hs.eg.db,<span class="at">keys =</span> gene_up,<span class="at">columns =</span> <span class="st">&#39;ENTREZID&#39;</span>,<span class="at">keytype =</span> <span class="st">&#39;SYMBOL&#39;</span>)[,<span class="dv">2</span>]))</span>
+<span id="cb40-29"><a href="ora-富集分析.html#cb40-29" tabindex="-1"></a>gene_down<span class="ot">=</span><span class="fu">as.character</span>(<span class="fu">na.omit</span>(AnnotationDbi<span class="sc">::</span><span class="fu">select</span>(org.Hs.eg.db,<span class="at">keys =</span> gene_down,<span class="at">columns =</span> <span class="st">&#39;ENTREZID&#39;</span>,<span class="at">keytype =</span> <span class="st">&#39;SYMBOL&#39;</span>)[,<span class="dv">2</span>]))</span>
+<span id="cb40-30"><a href="ora-富集分析.html#cb40-30" tabindex="-1"></a></span>
+<span id="cb40-31"><a href="ora-富集分析.html#cb40-31" tabindex="-1"></a></span>
+<span id="cb40-32"><a href="ora-富集分析.html#cb40-32" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
+<span id="cb40-33"><a href="ora-富集分析.html#cb40-33" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;Anno_enrichment/ORA&quot;</span></span>
+<span id="cb40-34"><a href="ora-富集分析.html#cb40-34" tabindex="-1"></a><span class="fu">dir.create</span>(OUT_FOLDER, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
-<div id="go-富集分析" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> GO 富集分析<a href="ora-富集分析.html#go-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ora-富集分析.html#cb30-1" tabindex="-1"></a><span class="do">## up</span></span>
-<span id="cb30-2"><a href="ora-富集分析.html#cb30-2" tabindex="-1"></a>go_up <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(gene_up, <span class="at">OrgDb =</span> <span class="st">&quot;org.Hs.eg.db&quot;</span>, <span class="at">ont=</span><span class="st">&quot;all&quot;</span>,  </span>
-<span id="cb30-3"><a href="ora-富集分析.html#cb30-3" tabindex="-1"></a>                  <span class="at">pvalueCutoff =</span> <span class="fl">0.999</span>,</span>
-<span id="cb30-4"><a href="ora-富集分析.html#cb30-4" tabindex="-1"></a>                  <span class="at">qvalueCutoff =</span> <span class="fl">0.999</span>)  </span>
-<span id="cb30-5"><a href="ora-富集分析.html#cb30-5" tabindex="-1"></a>go_up<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(go_up, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>) </span>
-<span id="cb30-6"><a href="ora-富集分析.html#cb30-6" tabindex="-1"></a><span class="do">## down</span></span>
-<span id="cb30-7"><a href="ora-富集分析.html#cb30-7" tabindex="-1"></a>go_down <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(gene_down, <span class="at">OrgDb =</span> <span class="st">&quot;org.Hs.eg.db&quot;</span>, <span class="at">ont=</span><span class="st">&quot;all&quot;</span>,</span>
-<span id="cb30-8"><a href="ora-富集分析.html#cb30-8" tabindex="-1"></a>                    <span class="at">pvalueCutoff =</span> <span class="fl">0.999</span>,</span>
-<span id="cb30-9"><a href="ora-富集分析.html#cb30-9" tabindex="-1"></a>                    <span class="at">qvalueCutoff =</span> <span class="fl">0.999</span>)  </span>
-<span id="cb30-10"><a href="ora-富集分析.html#cb30-10" tabindex="-1"></a>go_down<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(go_down, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="ora-富集分析.html#cb31-1" tabindex="-1"></a><span class="do">## up</span></span>
-<span id="cb31-2"><a href="ora-富集分析.html#cb31-2" tabindex="-1"></a><span class="fu">barplot</span>(go_up, <span class="at">split=</span><span class="st">&quot;ONTOLOGY&quot;</span>, <span class="at">font.size =</span> <span class="dv">8</span>)<span class="sc">+</span> </span>
-<span id="cb31-3"><a href="ora-富集分析.html#cb31-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ONTOLOGY<span class="sc">~</span>., <span class="at">scale=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb31-4"><a href="ora-富集分析.html#cb31-4" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width=</span><span class="dv">50</span>)) </span>
-<span id="cb31-5"><a href="ora-富集分析.html#cb31-5" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="ora-富集分析.html#cb31-6" tabindex="-1"></a><span class="do">## down </span></span>
-<span id="cb31-7"><a href="ora-富集分析.html#cb31-7" tabindex="-1"></a><span class="fu">barplot</span>(go_down, <span class="at">split=</span><span class="st">&quot;ONTOLOGY&quot;</span>, <span class="at">font.size =</span><span class="dv">10</span>)<span class="sc">+</span> </span>
-<span id="cb31-8"><a href="ora-富集分析.html#cb31-8" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ONTOLOGY<span class="sc">~</span>., <span class="at">scale=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb31-9"><a href="ora-富集分析.html#cb31-9" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width=</span><span class="dv">50</span>)) </span></code></pre></div>
+<div id="go-富集分析" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> GO 富集分析<a href="ora-富集分析.html#go-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="ora-富集分析.html#cb41-1" tabindex="-1"></a><span class="do">## up</span></span>
+<span id="cb41-2"><a href="ora-富集分析.html#cb41-2" tabindex="-1"></a>go_up <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(gene_up, <span class="at">OrgDb =</span> <span class="st">&quot;org.Hs.eg.db&quot;</span>, <span class="at">ont=</span><span class="st">&quot;all&quot;</span>,  </span>
+<span id="cb41-3"><a href="ora-富集分析.html#cb41-3" tabindex="-1"></a>                  <span class="at">pvalueCutoff =</span> <span class="fl">0.999</span>,</span>
+<span id="cb41-4"><a href="ora-富集分析.html#cb41-4" tabindex="-1"></a>                  <span class="at">qvalueCutoff =</span> <span class="fl">0.999</span>)  </span>
+<span id="cb41-5"><a href="ora-富集分析.html#cb41-5" tabindex="-1"></a>go_up<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(go_up, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>) </span>
+<span id="cb41-6"><a href="ora-富集分析.html#cb41-6" tabindex="-1"></a><span class="do">## down</span></span>
+<span id="cb41-7"><a href="ora-富集分析.html#cb41-7" tabindex="-1"></a>go_down <span class="ot">&lt;-</span> <span class="fu">enrichGO</span>(gene_down, <span class="at">OrgDb =</span> <span class="st">&quot;org.Hs.eg.db&quot;</span>, <span class="at">ont=</span><span class="st">&quot;all&quot;</span>,</span>
+<span id="cb41-8"><a href="ora-富集分析.html#cb41-8" tabindex="-1"></a>                    <span class="at">pvalueCutoff =</span> <span class="fl">0.999</span>,</span>
+<span id="cb41-9"><a href="ora-富集分析.html#cb41-9" tabindex="-1"></a>                    <span class="at">qvalueCutoff =</span> <span class="fl">0.999</span>)  </span>
+<span id="cb41-10"><a href="ora-富集分析.html#cb41-10" tabindex="-1"></a>go_down<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(go_down, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ora-富集分析.html#cb42-1" tabindex="-1"></a><span class="do">## up</span></span>
+<span id="cb42-2"><a href="ora-富集分析.html#cb42-2" tabindex="-1"></a><span class="fu">barplot</span>(go_up, <span class="at">split=</span><span class="st">&quot;ONTOLOGY&quot;</span>, <span class="at">font.size =</span> <span class="dv">8</span>)<span class="sc">+</span> </span>
+<span id="cb42-3"><a href="ora-富集分析.html#cb42-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ONTOLOGY<span class="sc">~</span>., <span class="at">scale=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb42-4"><a href="ora-富集分析.html#cb42-4" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width=</span><span class="dv">50</span>)) </span>
+<span id="cb42-5"><a href="ora-富集分析.html#cb42-5" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="ora-富集分析.html#cb42-6" tabindex="-1"></a><span class="do">## down </span></span>
+<span id="cb42-7"><a href="ora-富集分析.html#cb42-7" tabindex="-1"></a><span class="fu">barplot</span>(go_down, <span class="at">split=</span><span class="st">&quot;ONTOLOGY&quot;</span>, <span class="at">font.size =</span><span class="dv">10</span>)<span class="sc">+</span> </span>
+<span id="cb42-8"><a href="ora-富集分析.html#cb42-8" tabindex="-1"></a>  <span class="fu">facet_grid</span>(ONTOLOGY<span class="sc">~</span>., <span class="at">scale=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb42-9"><a href="ora-富集分析.html#cb42-9" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels=</span><span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width=</span><span class="dv">50</span>)) </span></code></pre></div>
 <p><img src="05-1-ORA_files/figure-html/unnamed-chunk-3-1.png" width="49%" /><img src="05-1-ORA_files/figure-html/unnamed-chunk-3-2.png" width="49%" /></p>
 </div>
-<div id="kegg-富集分析" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> KEGG 富集分析<a href="ora-富集分析.html#kegg-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ora-富集分析.html#cb32-1" tabindex="-1"></a>kk_up <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_up,</span>
-<span id="cb32-2"><a href="ora-富集分析.html#cb32-2" tabindex="-1"></a>                    <span class="at">organism =</span> <span class="st">&#39;hsa&#39;</span>,</span>
-<span id="cb32-3"><a href="ora-富集分析.html#cb32-3" tabindex="-1"></a>                    <span class="at">pvalueCutoff =</span> <span class="fl">0.9</span>,</span>
-<span id="cb32-4"><a href="ora-富集分析.html#cb32-4" tabindex="-1"></a>                    <span class="at">qvalueCutoff =</span><span class="fl">0.9</span>)</span>
-<span id="cb32-5"><a href="ora-富集分析.html#cb32-5" tabindex="-1"></a>kk_up<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk_up, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)<span class="co">#按需替换</span></span>
-<span id="cb32-6"><a href="ora-富集分析.html#cb32-6" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="ora-富集分析.html#cb32-7" tabindex="-1"></a>kk_down <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_down,</span>
-<span id="cb32-8"><a href="ora-富集分析.html#cb32-8" tabindex="-1"></a>                      <span class="at">organism =</span> <span class="st">&#39;hsa&#39;</span>,</span>
-<span id="cb32-9"><a href="ora-富集分析.html#cb32-9" tabindex="-1"></a>                      <span class="at">pvalueCutoff =</span> <span class="fl">0.9</span>,</span>
-<span id="cb32-10"><a href="ora-富集分析.html#cb32-10" tabindex="-1"></a>                      <span class="at">qvalueCutoff =</span><span class="fl">0.9</span>)</span>
-<span id="cb32-11"><a href="ora-富集分析.html#cb32-11" tabindex="-1"></a>kk_down<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk_down, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)<span class="co">#按需替换</span></span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="ora-富集分析.html#cb33-1" tabindex="-1"></a><span class="fu">dotplot</span>(kk_up, <span class="at">showCategory=</span><span class="dv">10</span>)</span>
-<span id="cb33-2"><a href="ora-富集分析.html#cb33-2" tabindex="-1"></a><span class="fu">dotplot</span>(kk_down, <span class="at">showCategory=</span><span class="dv">10</span>)</span></code></pre></div>
+<div id="kegg-富集分析" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> KEGG 富集分析<a href="ora-富集分析.html#kegg-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="ora-富集分析.html#cb43-1" tabindex="-1"></a>kk_up <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_up,</span>
+<span id="cb43-2"><a href="ora-富集分析.html#cb43-2" tabindex="-1"></a>                    <span class="at">organism =</span> <span class="st">&#39;hsa&#39;</span>,</span>
+<span id="cb43-3"><a href="ora-富集分析.html#cb43-3" tabindex="-1"></a>                    <span class="at">pvalueCutoff =</span> <span class="fl">0.9</span>,</span>
+<span id="cb43-4"><a href="ora-富集分析.html#cb43-4" tabindex="-1"></a>                    <span class="at">qvalueCutoff =</span><span class="fl">0.9</span>)</span>
+<span id="cb43-5"><a href="ora-富集分析.html#cb43-5" tabindex="-1"></a>kk_up<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk_up, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)<span class="co">#按需替换</span></span>
+<span id="cb43-6"><a href="ora-富集分析.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="ora-富集分析.html#cb43-7" tabindex="-1"></a>kk_down <span class="ot">&lt;-</span> <span class="fu">enrichKEGG</span>(<span class="at">gene =</span> gene_down,</span>
+<span id="cb43-8"><a href="ora-富集分析.html#cb43-8" tabindex="-1"></a>                      <span class="at">organism =</span> <span class="st">&#39;hsa&#39;</span>,</span>
+<span id="cb43-9"><a href="ora-富集分析.html#cb43-9" tabindex="-1"></a>                      <span class="at">pvalueCutoff =</span> <span class="fl">0.9</span>,</span>
+<span id="cb43-10"><a href="ora-富集分析.html#cb43-10" tabindex="-1"></a>                      <span class="at">qvalueCutoff =</span><span class="fl">0.9</span>)</span>
+<span id="cb43-11"><a href="ora-富集分析.html#cb43-11" tabindex="-1"></a>kk_down<span class="ot">=</span>DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk_down, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)<span class="co">#按需替换</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ora-富集分析.html#cb44-1" tabindex="-1"></a><span class="fu">dotplot</span>(kk_up, <span class="at">showCategory=</span><span class="dv">10</span>)</span>
+<span id="cb44-2"><a href="ora-富集分析.html#cb44-2" tabindex="-1"></a><span class="fu">dotplot</span>(kk_down, <span class="at">showCategory=</span><span class="dv">10</span>)</span></code></pre></div>
 <p><img src="05-1-ORA_files/figure-html/unnamed-chunk-5-1.png" width="49%" /><img src="05-1-ORA_files/figure-html/unnamed-chunk-5-2.png" width="49%" /></p>
 <p>将上调和下调的 KEGG 数据合并画图</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ora-富集分析.html#cb34-1" tabindex="-1"></a>up_kegg <span class="ot">&lt;-</span> kk_up[kk_up<span class="sc">@</span>result<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.01</span>,];up_kegg<span class="sc">$</span>group<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb34-2"><a href="ora-富集分析.html#cb34-2" tabindex="-1"></a>down_kegg <span class="ot">&lt;-</span> kk_down[kk_down<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.01</span>,];down_kegg<span class="sc">$</span>group<span class="ot">=</span><span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb34-3"><a href="ora-富集分析.html#cb34-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">head</span>(up_kegg, <span class="dv">10</span>), <span class="fu">head</span>(down_kegg, <span class="dv">10</span>))</span>
-<span id="cb34-4"><a href="ora-富集分析.html#cb34-4" tabindex="-1"></a><span class="co"># 计算负对数 p 值</span></span>
-<span id="cb34-5"><a href="ora-富集分析.html#cb34-5" tabindex="-1"></a>dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(dat<span class="sc">$</span>pvalue)<span class="sc">*</span> dat<span class="sc">$</span>group</span>
-<span id="cb34-6"><a href="ora-富集分析.html#cb34-6" tabindex="-1"></a><span class="co"># 按照 p 值排序</span></span>
-<span id="cb34-7"><a href="ora-富集分析.html#cb34-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="fu">order</span>(dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span>, <span class="at">decreasing =</span> <span class="cn">FALSE</span>),]</span>
-<span id="cb34-8"><a href="ora-富集分析.html#cb34-8" tabindex="-1"></a><span class="co"># 移除描述中的特定字符串</span></span>
-<span id="cb34-9"><a href="ora-富集分析.html#cb34-9" tabindex="-1"></a>dat<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39; - Mus musculus </span><span class="sc">\\</span><span class="st">(house mouse</span><span class="sc">\\</span><span class="st">)&#39;</span>, <span class="st">&#39;&#39;</span>, dat<span class="sc">$</span>Description)</span>
-<span id="cb34-10"><a href="ora-富集分析.html#cb34-10" tabindex="-1"></a></span>
-<span id="cb34-11"><a href="ora-富集分析.html#cb34-11" tabindex="-1"></a><span class="co"># 使用 ggplot2 绘制图形</span></span>
-<span id="cb34-12"><a href="ora-富集分析.html#cb34-12" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Description, <span class="fu">order</span>(<span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span>, <span class="at">decreasing =</span> <span class="cn">FALSE</span>)), <span class="at">y =</span> <span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span>, <span class="at">fill =</span> group)) <span class="sc">+</span> </span>
-<span id="cb34-13"><a href="ora-富集分析.html#cb34-13" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb34-14"><a href="ora-富集分析.html#cb34-14" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#34bfb5&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#ff6633&quot;</span>, <span class="at">guide =</span> <span class="st">&#39;none&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb34-15"><a href="ora-富集分析.html#cb34-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;log10P-value&quot;</span>) <span class="sc">+</span></span>
-<span id="cb34-16"><a href="ora-富集分析.html#cb34-16" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
-<span id="cb34-17"><a href="ora-富集分析.html#cb34-17" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;KEGG Enrichment&quot;</span>) <span class="sc">+</span></span>
-<span id="cb34-18"><a href="ora-富集分析.html#cb34-18" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb34-19"><a href="ora-富集分析.html#cb34-19" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb34-20"><a href="ora-富集分析.html#cb34-20" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  </span>
-<span id="cb34-21"><a href="ora-富集分析.html#cb34-21" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb34-22"><a href="ora-富集分析.html#cb34-22" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb34-23"><a href="ora-富集分析.html#cb34-23" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ora-富集分析.html#cb45-1" tabindex="-1"></a>up_kegg <span class="ot">&lt;-</span> kk_up[kk_up<span class="sc">@</span>result<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.01</span>,];up_kegg<span class="sc">$</span>group<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb45-2"><a href="ora-富集分析.html#cb45-2" tabindex="-1"></a>down_kegg <span class="ot">&lt;-</span> kk_down[kk_down<span class="sc">$</span>pvalue <span class="sc">&lt;</span> <span class="fl">0.01</span>,];down_kegg<span class="sc">$</span>group<span class="ot">=</span><span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb45-3"><a href="ora-富集分析.html#cb45-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">head</span>(up_kegg, <span class="dv">10</span>), <span class="fu">head</span>(down_kegg, <span class="dv">10</span>))</span>
+<span id="cb45-4"><a href="ora-富集分析.html#cb45-4" tabindex="-1"></a><span class="co"># 计算负对数 p 值</span></span>
+<span id="cb45-5"><a href="ora-富集分析.html#cb45-5" tabindex="-1"></a>dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(dat<span class="sc">$</span>pvalue)<span class="sc">*</span> dat<span class="sc">$</span>group</span>
+<span id="cb45-6"><a href="ora-富集分析.html#cb45-6" tabindex="-1"></a><span class="co"># 按照 p 值排序</span></span>
+<span id="cb45-7"><a href="ora-富集分析.html#cb45-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="fu">order</span>(dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span>, <span class="at">decreasing =</span> <span class="cn">FALSE</span>),]</span>
+<span id="cb45-8"><a href="ora-富集分析.html#cb45-8" tabindex="-1"></a><span class="co"># 移除描述中的特定字符串</span></span>
+<span id="cb45-9"><a href="ora-富集分析.html#cb45-9" tabindex="-1"></a>dat<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39; - Mus musculus </span><span class="sc">\\</span><span class="st">(house mouse</span><span class="sc">\\</span><span class="st">)&#39;</span>, <span class="st">&#39;&#39;</span>, dat<span class="sc">$</span>Description)</span>
+<span id="cb45-10"><a href="ora-富集分析.html#cb45-10" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="ora-富集分析.html#cb45-11" tabindex="-1"></a><span class="co"># 使用 ggplot2 绘制图形</span></span>
+<span id="cb45-12"><a href="ora-富集分析.html#cb45-12" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Description, <span class="fu">order</span>(<span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span>, <span class="at">decreasing =</span> <span class="cn">FALSE</span>)), <span class="at">y =</span> <span class="st">`</span><span class="at">-log10PValue</span><span class="st">`</span>, <span class="at">fill =</span> group)) <span class="sc">+</span> </span>
+<span id="cb45-13"><a href="ora-富集分析.html#cb45-13" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb45-14"><a href="ora-富集分析.html#cb45-14" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#34bfb5&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#ff6633&quot;</span>, <span class="at">guide =</span> <span class="st">&#39;none&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb45-15"><a href="ora-富集分析.html#cb45-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;log10P-value&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-16"><a href="ora-富集分析.html#cb45-16" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb45-17"><a href="ora-富集分析.html#cb45-17" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;KEGG Enrichment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-18"><a href="ora-富集分析.html#cb45-18" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb45-19"><a href="ora-富集分析.html#cb45-19" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb45-20"><a href="ora-富集分析.html#cb45-20" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  </span>
+<span id="cb45-21"><a href="ora-富集分析.html#cb45-21" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb45-22"><a href="ora-富集分析.html#cb45-22" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb45-23"><a href="ora-富集分析.html#cb45-23" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="05-1-ORA_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;" /></p>
 </div>
-<div id="保存结果-2" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> 保存结果<a href="ora-富集分析.html#保存结果-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="保存结果-4" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> 保存结果<a href="ora-富集分析.html#保存结果-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>保存结果</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="ora-富集分析.html#cb35-1" tabindex="-1"></a><span class="fu">write.csv</span>(go_up, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/go_up.csv&#39;</span>))</span>
-<span id="cb35-2"><a href="ora-富集分析.html#cb35-2" tabindex="-1"></a><span class="fu">write.csv</span>(go_down, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/go_down.csv&#39;</span>))</span>
-<span id="cb35-3"><a href="ora-富集分析.html#cb35-3" tabindex="-1"></a><span class="fu">write.csv</span>(kk_up, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/kegg_up.csv&#39;</span>))</span>
-<span id="cb35-4"><a href="ora-富集分析.html#cb35-4" tabindex="-1"></a><span class="fu">write.csv</span>(kk_down, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/kegg_down.csv&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ora-富集分析.html#cb46-1" tabindex="-1"></a><span class="fu">write.csv</span>(go_up, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/go_up.csv&#39;</span>))</span>
+<span id="cb46-2"><a href="ora-富集分析.html#cb46-2" tabindex="-1"></a><span class="fu">write.csv</span>(go_down, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/go_down.csv&#39;</span>))</span>
+<span id="cb46-3"><a href="ora-富集分析.html#cb46-3" tabindex="-1"></a><span class="fu">write.csv</span>(kk_up, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/kegg_up.csv&#39;</span>))</span>
+<span id="cb46-4"><a href="ora-富集分析.html#cb46-4" tabindex="-1"></a><span class="fu">write.csv</span>(kk_down, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/kegg_down.csv&#39;</span>))</span></code></pre></div>
 <p>保存变量</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ora-富集分析.html#cb36-1" tabindex="-1"></a><span class="fu">save</span>(go_up, go_down, kk_up, kk_down, <span class="at">file =</span> <span class="st">&#39;Rdata/ORA.Rdata&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="ora-富集分析.html#cb47-1" tabindex="-1"></a><span class="fu">save</span>(go_up, go_down, kk_up, kk_down, <span class="at">file =</span> <span class="st">&#39;Rdata/ORA.Rdata&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>

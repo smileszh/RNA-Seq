@@ -20,7 +20,7 @@
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
 
-<meta name="author" content="苏总华" />
+<meta name="author" content="小苏" />
 
 
 <meta name="date" content="2025-03-22" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="样本表达分布.html"/>
-<link rel="next" href="差异基因作图.html"/>
+<link rel="next" href="deseq2.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
-<li class="part"><span><b>I counts 数据预处理</b></span></li>
+<li class="part"><span><b>I 数据预处理</b></span></li>
 <li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#加载数据"><i class="fa fa-check"></i><b>1.1</b> 加载数据</a></li>
@@ -162,31 +162,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="edger.html"><a href="edger.html"><i class="fa fa-check"></i><b>3</b> edgeR</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="edger.html"><a href="edger.html#加载数据-2"><i class="fa fa-check"></i><b>3.1</b> 加载数据</a></li>
-<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger分析"><i class="fa fa-check"></i><b>3.2</b> edgeR分析</a></li>
+<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger-分析"><i class="fa fa-check"></i><b>3.2</b> edgeR 分析</a></li>
 <li class="chapter" data-level="3.3" data-path="edger.html"><a href="edger.html#整理分析结果规范输出"><i class="fa fa-check"></i><b>3.3</b> 整理分析结果，规范输出</a></li>
 <li class="chapter" data-level="3.4" data-path="edger.html"><a href="edger.html#保存结果"><i class="fa fa-check"></i><b>3.4</b> 保存结果</a></li>
 </ul></li>
-<li class="part"><span><b>IV 差异基因作图</b></span></li>
-<li class="chapter" data-level="4" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>4</b> 差异基因作图</a>
+<li class="chapter" data-level="4" data-path="deseq2.html"><a href="deseq2.html"><i class="fa fa-check"></i><b>4</b> DESeq2</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
-<li class="chapter" data-level="4.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>4.2</b> 火山图</a></li>
-<li class="chapter" data-level="4.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>4.3</b> 差异基因热图</a></li>
-<li class="chapter" data-level="4.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+<li class="chapter" data-level="4.1" data-path="deseq2.html"><a href="deseq2.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
+<li class="chapter" data-level="4.2" data-path="deseq2.html"><a href="deseq2.html#deseq2-分析"><i class="fa fa-check"></i><b>4.2</b> DESeq2 分析</a></li>
+<li class="chapter" data-level="4.3" data-path="deseq2.html"><a href="deseq2.html#整理分析结果规范输出-1"><i class="fa fa-check"></i><b>4.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="4.4" data-path="deseq2.html"><a href="deseq2.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="limma-voom.html"><a href="limma-voom.html"><i class="fa fa-check"></i><b>5</b> limma-voom</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="limma-voom.html"><a href="limma-voom.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
+<li class="chapter" data-level="5.2" data-path="limma-voom.html"><a href="limma-voom.html#limma-voom-分析"><i class="fa fa-check"></i><b>5.2</b> limma-voom 分析</a></li>
+<li class="chapter" data-level="5.3" data-path="limma-voom.html"><a href="limma-voom.html#整理分析结果规范输出-2"><i class="fa fa-check"></i><b>5.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="5.4" data-path="limma-voom.html"><a href="limma-voom.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因可视化</b></span></li>
+<li class="chapter" data-level="6" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>6</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>6.2</b> 火山图</a></li>
+<li class="chapter" data-level="6.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>6.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="6.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>6.4</b> 保存结果</a></li>
 </ul></li>
 <li class="part"><span><b>V 富集分析</b></span></li>
-<li class="chapter" data-level="5" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>5</b> ORA 富集分析</a>
+<li class="chapter" data-level="7" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>7</b> ORA 富集分析</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
-<li class="chapter" data-level="5.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>5.2</b> GO 富集分析</a></li>
-<li class="chapter" data-level="5.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>5.3</b> KEGG 富集分析</a></li>
-<li class="chapter" data-level="5.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+<li class="chapter" data-level="7.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
+<li class="chapter" data-level="7.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>7.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="7.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>7.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="7.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>6</b> GSEA 富集分析</a>
+<li class="chapter" data-level="8" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>8</b> GSEA 富集分析</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
-<li class="chapter" data-level="6.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>6.2</b> GSEA 分析</a></li>
-<li class="chapter" data-level="6.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-3"><i class="fa fa-check"></i><b>6.3</b> 保存结果</a></li>
+<li class="chapter" data-level="8.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
+<li class="chapter" data-level="8.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>8.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="8.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>8.3</b> 保存结果</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -220,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-6"><a href="edger.html#cb18-6" tabindex="-1"></a></span>
 <span id="cb18-7"><a href="edger.html#cb18-7" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>)</span>
 <span id="cb18-8"><a href="edger.html#cb18-8" tabindex="-1"></a>group <span class="ot">&lt;-</span> group_list <span class="co"># 分组标准名字</span></span>
-<span id="cb18-9"><a href="edger.html#cb18-9" tabindex="-1"></a>counts_df <span class="ot">&lt;-</span> symbol_matrix <span class="co"># 计数矩阵标准名字</span></span>
+<span id="cb18-9"><a href="edger.html#cb18-9" tabindex="-1"></a>counts_data <span class="ot">&lt;-</span> symbol_matrix <span class="co"># 计数矩阵标准名字</span></span>
 <span id="cb18-10"><a href="edger.html#cb18-10" tabindex="-1"></a></span>
 <span id="cb18-11"><a href="edger.html#cb18-11" tabindex="-1"></a><span class="co"># title</span></span>
 <span id="cb18-12"><a href="edger.html#cb18-12" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(group[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, group[<span class="dv">2</span>])</span>
@@ -243,10 +257,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-29"><a href="edger.html#cb18-29" tabindex="-1"></a>col_names_B <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, group <span class="sc">==</span> <span class="fu">levels</span>(df<span class="sc">$</span>group)[<span class="dv">2</span>])<span class="sc">$</span>sample</span>
 <span id="cb18-30"><a href="edger.html#cb18-30" tabindex="-1"></a></span>
 <span id="cb18-31"><a href="edger.html#cb18-31" tabindex="-1"></a><span class="co"># 计数矩阵取整</span></span>
-<span id="cb18-32"><a href="edger.html#cb18-32" tabindex="-1"></a>counts_mat <span class="ot">=</span> <span class="fu">round</span>(counts_df[, sample_names])</span></code></pre></div>
+<span id="cb18-32"><a href="edger.html#cb18-32" tabindex="-1"></a>counts_mat <span class="ot">=</span> <span class="fu">round</span>(counts_data[, sample_names])</span></code></pre></div>
 </div>
-<div id="edger分析" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> edgeR分析<a href="edger.html#edger分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="edger-分析" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> edgeR 分析<a href="edger.html#edger-分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="edger.html#cb19-1" tabindex="-1"></a><span class="co"># 选择 GLM 方法</span></span>
 <span id="cb19-2"><a href="edger.html#cb19-2" tabindex="-1"></a>method <span class="ot">=</span> <span class="st">&#39;glm&#39;</span></span>
 <span id="cb19-3"><a href="edger.html#cb19-3" tabindex="-1"></a><span class="cf">if</span> (method<span class="sc">==</span><span class="st">&#39;glm&#39;</span>) {</span>
@@ -306,56 +320,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="edger.html#cb20-1" tabindex="-1"></a><span class="co"># 获取数据的缩放因子</span></span>
 <span id="cb20-2"><a href="edger.html#cb20-2" tabindex="-1"></a>scale <span class="ot">=</span> dge<span class="sc">$</span>samples<span class="sc">$</span>lib.size <span class="sc">*</span> dge<span class="sc">$</span>samples<span class="sc">$</span>norm.factors</span>
 <span id="cb20-3"><a href="edger.html#cb20-3" tabindex="-1"></a><span class="co"># 得到标准化的 counts</span></span>
-<span id="cb20-4"><a href="edger.html#cb20-4" tabindex="-1"></a>normed <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">t</span>(<span class="fu">t</span>(counts_mat)<span class="sc">/</span>scale) <span class="sc">*</span> <span class="fu">mean</span>(scale))</span>
-<span id="cb20-5"><a href="edger.html#cb20-5" tabindex="-1"></a><span class="co"># 得到差异分析结果</span></span>
-<span id="cb20-6"><a href="edger.html#cb20-6" tabindex="-1"></a>data <span class="ot">=</span> etp<span class="sc">$</span>table</span>
-<span id="cb20-7"><a href="edger.html#cb20-7" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="edger.html#cb20-8" tabindex="-1"></a><span class="co"># 添加想要的列</span></span>
-<span id="cb20-9"><a href="edger.html#cb20-9" tabindex="-1"></a>data<span class="sc">$</span>baseMean <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb20-10"><a href="edger.html#cb20-10" tabindex="-1"></a>data<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb20-11"><a href="edger.html#cb20-11" tabindex="-1"></a>data<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb20-12"><a href="edger.html#cb20-12" tabindex="-1"></a>data<span class="sc">$</span>foldChange <span class="ot">=</span> <span class="dv">2</span> <span class="sc">^</span> data<span class="sc">$</span>logFC</span>
-<span id="cb20-13"><a href="edger.html#cb20-13" tabindex="-1"></a>data<span class="sc">$</span>log2FoldChange<span class="ot">=</span>data<span class="sc">$</span>logFC</span>
-<span id="cb20-14"><a href="edger.html#cb20-14" tabindex="-1"></a>data<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb20-15"><a href="edger.html#cb20-15" tabindex="-1"></a><span class="co"># 计算调整过的 p-value</span></span>
-<span id="cb20-16"><a href="edger.html#cb20-16" tabindex="-1"></a>data<span class="sc">$</span>PAdj <span class="ot">=</span> <span class="fu">p.adjust</span>(data<span class="sc">$</span>PValue, <span class="at">method=</span><span class="st">&quot;hochberg&quot;</span>)</span>
-<span id="cb20-17"><a href="edger.html#cb20-17" tabindex="-1"></a></span>
-<span id="cb20-18"><a href="edger.html#cb20-18" tabindex="-1"></a><span class="co"># 合并差异分析结果和标准化的 counts</span></span>
-<span id="cb20-19"><a href="edger.html#cb20-19" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">merge</span>(data, normed, <span class="at">by=</span><span class="st">&#39;row.names&#39;</span>)</span>
-<span id="cb20-20"><a href="edger.html#cb20-20" tabindex="-1"></a><span class="fu">names</span>(total)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&#39;SYMBOL&#39;</span></span>
-<span id="cb20-21"><a href="edger.html#cb20-21" tabindex="-1"></a></span>
-<span id="cb20-22"><a href="edger.html#cb20-22" tabindex="-1"></a><span class="co"># 通过 P-value 排序</span></span>
-<span id="cb20-23"><a href="edger.html#cb20-23" tabindex="-1"></a>total <span class="ot">=</span> <span class="fu">arrange</span>(total, PValue)</span>
-<span id="cb20-24"><a href="edger.html#cb20-24" tabindex="-1"></a><span class="co"># 计算 false discovery counts</span></span>
-<span id="cb20-25"><a href="edger.html#cb20-25" tabindex="-1"></a>total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(total) <span class="sc">*</span> total<span class="sc">$</span>FDR</span>
-<span id="cb20-26"><a href="edger.html#cb20-26" tabindex="-1"></a><span class="co"># 创建各组平均值</span></span>
-<span id="cb20-27"><a href="edger.html#cb20-27" tabindex="-1"></a>total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, col_names_A])</span>
-<span id="cb20-28"><a href="edger.html#cb20-28" tabindex="-1"></a>total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, col_names_B])</span>
-<span id="cb20-29"><a href="edger.html#cb20-29" tabindex="-1"></a>total<span class="sc">$</span>baseMean <span class="ot">=</span> total<span class="sc">$</span>baseMeanA <span class="sc">+</span> total<span class="sc">$</span>baseMeanB</span>
-<span id="cb20-30"><a href="edger.html#cb20-30" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="edger.html#cb20-31" tabindex="-1"></a><span class="co"># 重新组织列名</span></span>
-<span id="cb20-32"><a href="edger.html#cb20-32" tabindex="-1"></a>new_cols <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;SYMBOL&quot;</span>,</span>
-<span id="cb20-33"><a href="edger.html#cb20-33" tabindex="-1"></a>              <span class="st">&quot;baseMean&quot;</span>,<span class="st">&quot;baseMeanA&quot;</span>,<span class="st">&quot;baseMeanB&quot;</span>,</span>
-<span id="cb20-34"><a href="edger.html#cb20-34" tabindex="-1"></a>              <span class="st">&quot;foldChange&quot;</span>, <span class="st">&quot;log2FoldChange&quot;</span>,</span>
-<span id="cb20-35"><a href="edger.html#cb20-35" tabindex="-1"></a>              <span class="st">&quot;PValue&quot;</span>,<span class="st">&quot;PAdj&quot;</span>, </span>
-<span id="cb20-36"><a href="edger.html#cb20-36" tabindex="-1"></a>              <span class="st">&quot;FDR&quot;</span>,<span class="st">&quot;falsePos&quot;</span>, col_names_A, col_names_B)</span>
-<span id="cb20-37"><a href="edger.html#cb20-37" tabindex="-1"></a><span class="co"># Rearrange the data frame with new column order.</span></span>
-<span id="cb20-38"><a href="edger.html#cb20-38" tabindex="-1"></a>total <span class="ot">=</span> total[, new_cols]</span>
-<span id="cb20-39"><a href="edger.html#cb20-39" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="edger.html#cb20-4" tabindex="-1"></a>normed <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">t</span>(counts_mat)<span class="sc">/</span>scale) <span class="sc">*</span> <span class="fu">mean</span>(scale)</span>
+<span id="cb20-5"><a href="edger.html#cb20-5" tabindex="-1"></a><span class="co"># normed = round(t(t(counts_mat)/scale) * mean(scale))</span></span>
+<span id="cb20-6"><a href="edger.html#cb20-6" tabindex="-1"></a><span class="co"># 得到差异分析结果</span></span>
+<span id="cb20-7"><a href="edger.html#cb20-7" tabindex="-1"></a>data <span class="ot">=</span> etp<span class="sc">$</span>table</span>
+<span id="cb20-8"><a href="edger.html#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="edger.html#cb20-9" tabindex="-1"></a><span class="co"># 添加想要的列</span></span>
+<span id="cb20-10"><a href="edger.html#cb20-10" tabindex="-1"></a>data<span class="sc">$</span>baseMean <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb20-11"><a href="edger.html#cb20-11" tabindex="-1"></a>data<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb20-12"><a href="edger.html#cb20-12" tabindex="-1"></a>data<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb20-13"><a href="edger.html#cb20-13" tabindex="-1"></a>data<span class="sc">$</span>foldChange <span class="ot">=</span> <span class="dv">2</span> <span class="sc">^</span> data<span class="sc">$</span>logFC</span>
+<span id="cb20-14"><a href="edger.html#cb20-14" tabindex="-1"></a>data<span class="sc">$</span>log2FoldChange<span class="ot">=</span>data<span class="sc">$</span>logFC</span>
+<span id="cb20-15"><a href="edger.html#cb20-15" tabindex="-1"></a>data<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb20-16"><a href="edger.html#cb20-16" tabindex="-1"></a><span class="co"># 计算调整过的 p-value</span></span>
+<span id="cb20-17"><a href="edger.html#cb20-17" tabindex="-1"></a>data<span class="sc">$</span>PAdj <span class="ot">=</span> <span class="fu">p.adjust</span>(data<span class="sc">$</span>PValue, <span class="at">method=</span><span class="st">&quot;hochberg&quot;</span>)</span>
+<span id="cb20-18"><a href="edger.html#cb20-18" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="edger.html#cb20-19" tabindex="-1"></a><span class="co"># 合并差异分析结果和标准化的 counts</span></span>
+<span id="cb20-20"><a href="edger.html#cb20-20" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">merge</span>(data, normed, <span class="at">by=</span><span class="st">&#39;row.names&#39;</span>)</span>
+<span id="cb20-21"><a href="edger.html#cb20-21" tabindex="-1"></a><span class="fu">names</span>(total)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&#39;SYMBOL&#39;</span></span>
+<span id="cb20-22"><a href="edger.html#cb20-22" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="edger.html#cb20-23" tabindex="-1"></a><span class="co"># 通过 P-value 排序</span></span>
+<span id="cb20-24"><a href="edger.html#cb20-24" tabindex="-1"></a>total <span class="ot">=</span> <span class="fu">arrange</span>(total, PValue)</span>
+<span id="cb20-25"><a href="edger.html#cb20-25" tabindex="-1"></a><span class="co"># 计算 false discovery counts</span></span>
+<span id="cb20-26"><a href="edger.html#cb20-26" tabindex="-1"></a>total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(total) <span class="sc">*</span> total<span class="sc">$</span>FDR</span>
+<span id="cb20-27"><a href="edger.html#cb20-27" tabindex="-1"></a><span class="co"># 创建各组平均值</span></span>
+<span id="cb20-28"><a href="edger.html#cb20-28" tabindex="-1"></a>total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, col_names_A])</span>
+<span id="cb20-29"><a href="edger.html#cb20-29" tabindex="-1"></a>total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, col_names_B])</span>
+<span id="cb20-30"><a href="edger.html#cb20-30" tabindex="-1"></a>total<span class="sc">$</span>baseMean <span class="ot">=</span> total<span class="sc">$</span>baseMeanA <span class="sc">+</span> total<span class="sc">$</span>baseMeanB</span>
+<span id="cb20-31"><a href="edger.html#cb20-31" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="edger.html#cb20-32" tabindex="-1"></a><span class="co"># 重新组织列名</span></span>
+<span id="cb20-33"><a href="edger.html#cb20-33" tabindex="-1"></a>new_cols <span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb20-34"><a href="edger.html#cb20-34" tabindex="-1"></a>              <span class="st">&quot;baseMean&quot;</span>,<span class="st">&quot;baseMeanA&quot;</span>,<span class="st">&quot;baseMeanB&quot;</span>,</span>
+<span id="cb20-35"><a href="edger.html#cb20-35" tabindex="-1"></a>              <span class="st">&quot;foldChange&quot;</span>, <span class="st">&quot;log2FoldChange&quot;</span>,</span>
+<span id="cb20-36"><a href="edger.html#cb20-36" tabindex="-1"></a>              <span class="st">&quot;PValue&quot;</span>,<span class="st">&quot;PAdj&quot;</span>, </span>
+<span id="cb20-37"><a href="edger.html#cb20-37" tabindex="-1"></a>              <span class="st">&quot;FDR&quot;</span>,<span class="st">&quot;falsePos&quot;</span>, col_names_A, col_names_B)</span>
+<span id="cb20-38"><a href="edger.html#cb20-38" tabindex="-1"></a><span class="co"># Rearrange the data frame with new column order.</span></span>
+<span id="cb20-39"><a href="edger.html#cb20-39" tabindex="-1"></a>total <span class="ot">=</span> total[, new_cols]</span>
 <span id="cb20-40"><a href="edger.html#cb20-40" tabindex="-1"></a></span>
-<span id="cb20-41"><a href="edger.html#cb20-41" tabindex="-1"></a><span class="co"># 将数字四舍五入，使其更美观</span></span>
-<span id="cb20-42"><a href="edger.html#cb20-42" tabindex="-1"></a><span class="co">#total$foldChange = round(total$foldChange, 3)</span></span>
-<span id="cb20-43"><a href="edger.html#cb20-43" tabindex="-1"></a><span class="co">#total$FDR = round(total$FDR, 4)</span></span>
-<span id="cb20-44"><a href="edger.html#cb20-44" tabindex="-1"></a><span class="co">#total$PAdj = round(total$PAdj, 4)</span></span>
-<span id="cb20-45"><a href="edger.html#cb20-45" tabindex="-1"></a><span class="co">#total$logCPM = round(total$logCPM, 1)</span></span>
-<span id="cb20-46"><a href="edger.html#cb20-46" tabindex="-1"></a><span class="co">#total$log2FoldChange = round(total$log2FoldChange, 3)</span></span>
-<span id="cb20-47"><a href="edger.html#cb20-47" tabindex="-1"></a>total<span class="sc">$</span>baseMean <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMean, <span class="dv">1</span>)</span>
-<span id="cb20-48"><a href="edger.html#cb20-48" tabindex="-1"></a>total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMeanA, <span class="dv">1</span>)</span>
-<span id="cb20-49"><a href="edger.html#cb20-49" tabindex="-1"></a>total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMeanB, <span class="dv">1</span>)</span>
-<span id="cb20-50"><a href="edger.html#cb20-50" tabindex="-1"></a>total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>falsePos, <span class="dv">0</span>)</span>
-<span id="cb20-51"><a href="edger.html#cb20-51" tabindex="-1"></a><span class="co"># Reformat these columns as string.</span></span>
-<span id="cb20-52"><a href="edger.html#cb20-52" tabindex="-1"></a>total<span class="sc">$</span>PAdj <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>PAdj, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb20-53"><a href="edger.html#cb20-53" tabindex="-1"></a>total<span class="sc">$</span>PValue <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>PValue, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<span id="cb20-41"><a href="edger.html#cb20-41" tabindex="-1"></a></span>
+<span id="cb20-42"><a href="edger.html#cb20-42" tabindex="-1"></a><span class="co"># 将数字四舍五入，使其更美观</span></span>
+<span id="cb20-43"><a href="edger.html#cb20-43" tabindex="-1"></a><span class="co">#total$foldChange = round(total$foldChange, 3)</span></span>
+<span id="cb20-44"><a href="edger.html#cb20-44" tabindex="-1"></a><span class="co">#total$FDR = round(total$FDR, 4)</span></span>
+<span id="cb20-45"><a href="edger.html#cb20-45" tabindex="-1"></a><span class="co">#total$PAdj = round(total$PAdj, 4)</span></span>
+<span id="cb20-46"><a href="edger.html#cb20-46" tabindex="-1"></a><span class="co">#total$logCPM = round(total$logCPM, 1)</span></span>
+<span id="cb20-47"><a href="edger.html#cb20-47" tabindex="-1"></a><span class="co">#total$log2FoldChange = round(total$log2FoldChange, 3)</span></span>
+<span id="cb20-48"><a href="edger.html#cb20-48" tabindex="-1"></a>total<span class="sc">$</span>baseMean <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMean, <span class="dv">1</span>)</span>
+<span id="cb20-49"><a href="edger.html#cb20-49" tabindex="-1"></a>total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMeanA, <span class="dv">1</span>)</span>
+<span id="cb20-50"><a href="edger.html#cb20-50" tabindex="-1"></a>total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMeanB, <span class="dv">1</span>)</span>
+<span id="cb20-51"><a href="edger.html#cb20-51" tabindex="-1"></a>total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>falsePos, <span class="dv">0</span>)</span>
+<span id="cb20-52"><a href="edger.html#cb20-52" tabindex="-1"></a><span class="co"># Reformat these columns as string.</span></span>
+<span id="cb20-53"><a href="edger.html#cb20-53" tabindex="-1"></a>total<span class="sc">$</span>PAdj <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>PAdj, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb20-54"><a href="edger.html#cb20-54" tabindex="-1"></a>total<span class="sc">$</span>PValue <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>PValue, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
 </div>
 <div id="保存结果" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> 保存结果<a href="edger.html#保存结果" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -366,16 +381,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
 <a href="样本表达分布.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="差异基因作图.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="deseq2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -37,7 +37,7 @@ status <- suppressPackageStartupMessages(
 
 load(file = 'Rdata/symbol_matrix.Rdata')
 group <- group_list # 分组标准名字
-counts_df <- symbol_matrix # 计数矩阵标准名字
+counts_data <- symbol_matrix # 计数矩阵标准名字
 
 # title
 title <- paste0(group[1], "_vs_", group[2])
@@ -60,10 +60,10 @@ col_names_A <- filter(df, group == levels(df$group)[1])$sample
 col_names_B <- filter(df, group == levels(df$group)[2])$sample
 
 # 计数矩阵取整
-counts_mat = round(counts_df[, sample_names])
+counts_mat = round(counts_data[, sample_names])
 ```
 
-## edgeR分析
+## edgeR 分析
 ```{r}
 # 选择 GLM 方法
 method = 'glm'
@@ -124,7 +124,8 @@ if (method=='glm') {
 # 获取数据的缩放因子
 scale = dge$samples$lib.size * dge$samples$norm.factors
 # 得到标准化的 counts
-normed = round(t(t(counts_mat)/scale) * mean(scale))
+normed = t(t(counts_mat)/scale) * mean(scale)
+# normed = round(t(t(counts_mat)/scale) * mean(scale))
 # 得到差异分析结果
 data = etp$table
 
@@ -172,8 +173,8 @@ total$baseMeanA = round(total$baseMeanA, 1)
 total$baseMeanB = round(total$baseMeanB, 1)
 total$falsePos = round(total$falsePos, 0)
 # Reformat these columns as string.
-total$PAdj = formatC(total$PAdj, format = "e", digits = 2)
-total$PValue = formatC(total$PValue, format = "e", digits = 2)
+total$PAdj = formatC(total$PAdj, format = "e", digits = 3)
+total$PValue = formatC(total$PValue, format = "e", digits = 3)
 ```
 
 ## 保存结果

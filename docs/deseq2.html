@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 4 章 DESeq2 | RNA-Seq</title>
+  <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 4 章 DESeq2 | RNA-Seq" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="github-repo" content="smileszh/RNA-Seq" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 4 章 DESeq2 | RNA-Seq" />
+  
+  <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
+  
+
+<meta name="author" content="小苏" />
+
+
+<meta name="date" content="2025-03-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="edger.html"/>
+<link rel="next" href="limma-voom.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RNA-Seq</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="part"><span><b>I 数据预处理</b></span></li>
+<li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#加载数据"><i class="fa fa-check"></i><b>1.1</b> 加载数据</a></li>
+<li class="chapter" data-level="1.2" data-path="数据预处理.html"><a href="数据预处理.html#过滤低表达数据"><i class="fa fa-check"></i><b>1.2</b> 过滤低表达数据</a></li>
+<li class="chapter" data-level="1.3" data-path="数据预处理.html"><a href="数据预处理.html#转换基因-id"><i class="fa fa-check"></i><b>1.3</b> 转换基因 ID</a></li>
+<li class="chapter" data-level="1.4" data-path="数据预处理.html"><a href="数据预处理.html#保存变量"><i class="fa fa-check"></i><b>1.4</b> 保存变量</a></li>
+</ul></li>
+<li class="part"><span><b>II 样本表达分布</b></span></li>
+<li class="chapter" data-level="2" data-path="样本表达分布.html"><a href="样本表达分布.html"><i class="fa fa-check"></i><b>2</b> 样本表达分布</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="样本表达分布.html"><a href="样本表达分布.html#加载数据-1"><i class="fa fa-check"></i><b>2.1</b> 加载数据</a></li>
+<li class="chapter" data-level="2.2" data-path="样本表达分布.html"><a href="样本表达分布.html#箱线图"><i class="fa fa-check"></i><b>2.2</b> 箱线图</a></li>
+<li class="chapter" data-level="2.3" data-path="样本表达分布.html"><a href="样本表达分布.html#pca"><i class="fa fa-check"></i><b>2.3</b> PCA</a></li>
+<li class="chapter" data-level="2.4" data-path="样本表达分布.html"><a href="样本表达分布.html#基因热图"><i class="fa fa-check"></i><b>2.4</b> 基因热图</a></li>
+<li class="chapter" data-level="2.5" data-path="样本表达分布.html"><a href="样本表达分布.html#样本间相关性热图"><i class="fa fa-check"></i><b>2.5</b> 样本间相关性热图</a></li>
+</ul></li>
+<li class="part"><span><b>III 差异基因分析</b></span></li>
+<li class="chapter" data-level="3" data-path="edger.html"><a href="edger.html"><i class="fa fa-check"></i><b>3</b> edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="edger.html"><a href="edger.html#加载数据-2"><i class="fa fa-check"></i><b>3.1</b> 加载数据</a></li>
+<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger-分析"><i class="fa fa-check"></i><b>3.2</b> edgeR 分析</a></li>
+<li class="chapter" data-level="3.3" data-path="edger.html"><a href="edger.html#整理分析结果规范输出"><i class="fa fa-check"></i><b>3.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="3.4" data-path="edger.html"><a href="edger.html#保存结果"><i class="fa fa-check"></i><b>3.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="deseq2.html"><a href="deseq2.html"><i class="fa fa-check"></i><b>4</b> DESeq2</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="deseq2.html"><a href="deseq2.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
+<li class="chapter" data-level="4.2" data-path="deseq2.html"><a href="deseq2.html#deseq2-分析"><i class="fa fa-check"></i><b>4.2</b> DESeq2 分析</a></li>
+<li class="chapter" data-level="4.3" data-path="deseq2.html"><a href="deseq2.html#整理分析结果规范输出-1"><i class="fa fa-check"></i><b>4.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="4.4" data-path="deseq2.html"><a href="deseq2.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="limma-voom.html"><a href="limma-voom.html"><i class="fa fa-check"></i><b>5</b> limma-voom</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="limma-voom.html"><a href="limma-voom.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
+<li class="chapter" data-level="5.2" data-path="limma-voom.html"><a href="limma-voom.html#limma-voom-分析"><i class="fa fa-check"></i><b>5.2</b> limma-voom 分析</a></li>
+<li class="chapter" data-level="5.3" data-path="limma-voom.html"><a href="limma-voom.html#整理分析结果规范输出-2"><i class="fa fa-check"></i><b>5.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="5.4" data-path="limma-voom.html"><a href="limma-voom.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因可视化</b></span></li>
+<li class="chapter" data-level="6" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>6</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>6.2</b> 火山图</a></li>
+<li class="chapter" data-level="6.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>6.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="6.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>6.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>V 富集分析</b></span></li>
+<li class="chapter" data-level="7" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>7</b> ORA 富集分析</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
+<li class="chapter" data-level="7.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>7.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="7.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>7.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="7.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>8</b> GSEA 富集分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
+<li class="chapter" data-level="8.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>8.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="8.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>8.3</b> 保存结果</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-Seq</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="deseq2" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">第 4 章</span> DESeq2<a href="deseq2.html#deseq2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="加载数据-3" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 加载数据<a href="deseq2.html#加载数据-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="deseq2.html#cb23-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb23-2"><a href="deseq2.html#cb23-2" tabindex="-1"></a>bio.p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;DESeq2&quot;</span>, <span class="st">&quot;tibble&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;tools&quot;</span>)</span>
+<span id="cb23-3"><a href="deseq2.html#cb23-3" tabindex="-1"></a>status <span class="ot">=</span> <span class="fu">suppressPackageStartupMessages</span>(</span>
+<span id="cb23-4"><a href="deseq2.html#cb23-4" tabindex="-1"></a>  <span class="fu">lapply</span>(bio.p, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-5"><a href="deseq2.html#cb23-5" tabindex="-1"></a>  )</span>
+<span id="cb23-6"><a href="deseq2.html#cb23-6" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="deseq2.html#cb23-7" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>)</span>
+<span id="cb23-8"><a href="deseq2.html#cb23-8" tabindex="-1"></a>group <span class="ot">&lt;-</span> group_list <span class="co"># 分组标准名字</span></span>
+<span id="cb23-9"><a href="deseq2.html#cb23-9" tabindex="-1"></a>count_data <span class="ot">&lt;-</span> symbol_matrix <span class="co"># 计数矩阵标准名字</span></span>
+<span id="cb23-10"><a href="deseq2.html#cb23-10" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="deseq2.html#cb23-11" tabindex="-1"></a><span class="co"># title</span></span>
+<span id="cb23-12"><a href="deseq2.html#cb23-12" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(group[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, group[<span class="dv">2</span>])</span>
+<span id="cb23-13"><a href="deseq2.html#cb23-13" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="deseq2.html#cb23-14" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
+<span id="cb23-15"><a href="deseq2.html#cb23-15" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;DEG_Analysis&quot;</span></span>
+<span id="cb23-16"><a href="deseq2.html#cb23-16" tabindex="-1"></a><span class="fu">dir.create</span>(OUT_FOLDER, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-17"><a href="deseq2.html#cb23-17" tabindex="-1"></a><span class="co"># 输出文件名</span></span>
+<span id="cb23-18"><a href="deseq2.html#cb23-18" tabindex="-1"></a>OUTPUT_FILE <span class="ot">&lt;-</span> <span class="fu">paste0</span>(title, <span class="st">&quot;_all_DESeq2.csv&quot;</span>)</span>
+<span id="cb23-19"><a href="deseq2.html#cb23-19" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="deseq2.html#cb23-20" tabindex="-1"></a><span class="co"># 创建一个样本分组信息</span></span>
+<span id="cb23-21"><a href="deseq2.html#cb23-21" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-22"><a href="deseq2.html#cb23-22" tabindex="-1"></a>  <span class="at">sample =</span> <span class="fu">colnames</span>(symbol_matrix),</span>
+<span id="cb23-23"><a href="deseq2.html#cb23-23" tabindex="-1"></a>  <span class="at">group =</span> group</span>
+<span id="cb23-24"><a href="deseq2.html#cb23-24" tabindex="-1"></a>)</span>
+<span id="cb23-25"><a href="deseq2.html#cb23-25" tabindex="-1"></a><span class="co"># 样本名</span></span>
+<span id="cb23-26"><a href="deseq2.html#cb23-26" tabindex="-1"></a>sample_names <span class="ot">&lt;-</span> df<span class="sc">$</span>sample</span>
+<span id="cb23-27"><a href="deseq2.html#cb23-27" tabindex="-1"></a>col_names_A <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, group <span class="sc">==</span> <span class="fu">levels</span>(df<span class="sc">$</span>group)[<span class="dv">1</span>])<span class="sc">$</span>sample</span>
+<span id="cb23-28"><a href="deseq2.html#cb23-28" tabindex="-1"></a>col_names_B <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, group <span class="sc">==</span> <span class="fu">levels</span>(df<span class="sc">$</span>group)[<span class="dv">2</span>])<span class="sc">$</span>sample</span></code></pre></div>
+</div>
+<div id="deseq2-分析" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> DESeq2 分析<a href="deseq2.html#deseq2-分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="deseq2.html#cb24-1" tabindex="-1"></a><span class="co"># 创建 DESeq2 数据集</span></span>
+<span id="cb24-2"><a href="deseq2.html#cb24-2" tabindex="-1"></a>dds <span class="ot">=</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
+<span id="cb24-3"><a href="deseq2.html#cb24-3" tabindex="-1"></a>  <span class="at">countData =</span> count_data,</span>
+<span id="cb24-4"><a href="deseq2.html#cb24-4" tabindex="-1"></a>  <span class="at">colData =</span> df,</span>
+<span id="cb24-5"><a href="deseq2.html#cb24-5" tabindex="-1"></a>  <span class="at">design =</span> <span class="sc">~</span> group</span>
+<span id="cb24-6"><a href="deseq2.html#cb24-6" tabindex="-1"></a>)</span>
+<span id="cb24-7"><a href="deseq2.html#cb24-7" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="deseq2.html#cb24-8" tabindex="-1"></a><span class="co"># 过滤低表达基因</span></span>
+<span id="cb24-9"><a href="deseq2.html#cb24-9" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">3</span></span>
+<span id="cb24-10"><a href="deseq2.html#cb24-10" tabindex="-1"></a><span class="co"># 严格过滤：至少 3 个样本有 10 个以上的计数</span></span>
+<span id="cb24-11"><a href="deseq2.html#cb24-11" tabindex="-1"></a><span class="co"># keep &lt;- rowSums(counts(dds) &gt;= 10) &gt;= 3</span></span>
+<span id="cb24-12"><a href="deseq2.html#cb24-12" tabindex="-1"></a><span class="co"># 过滤</span></span>
+<span id="cb24-13"><a href="deseq2.html#cb24-13" tabindex="-1"></a>dds <span class="ot">&lt;-</span> dds[keep, ]</span>
+<span id="cb24-14"><a href="deseq2.html#cb24-14" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="deseq2.html#cb24-15" tabindex="-1"></a><span class="co"># 运行 DESeq2</span></span>
+<span id="cb24-16"><a href="deseq2.html#cb24-16" tabindex="-1"></a>dds <span class="ot">=</span> <span class="fu">DESeq</span>(dds)</span>
+<span id="cb24-17"><a href="deseq2.html#cb24-17" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="deseq2.html#cb24-18" tabindex="-1"></a><span class="co"># 得到归一化的 counts 矩阵</span></span>
+<span id="cb24-19"><a href="deseq2.html#cb24-19" tabindex="-1"></a>normed <span class="ot">=</span> <span class="fu">counts</span>(dds, <span class="at">normalized=</span><span class="cn">TRUE</span>)</span>
+<span id="cb24-20"><a href="deseq2.html#cb24-20" tabindex="-1"></a>normed <span class="ot">=</span> <span class="fu">round</span>(normed, <span class="dv">1</span>)</span>
+<span id="cb24-21"><a href="deseq2.html#cb24-21" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="deseq2.html#cb24-22" tabindex="-1"></a><span class="co"># 提取差异基因</span></span>
+<span id="cb24-23"><a href="deseq2.html#cb24-23" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">results</span>(dds)</span></code></pre></div>
+</div>
+<div id="整理分析结果规范输出-1" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 整理分析结果，规范输出<a href="deseq2.html#整理分析结果规范输出-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="deseq2.html#cb25-1" tabindex="-1"></a><span class="co"># 差异分析结果</span></span>
+<span id="cb25-2"><a href="deseq2.html#cb25-2" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">as.data.frame</span>(res)</span>
+<span id="cb25-3"><a href="deseq2.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="deseq2.html#cb25-4" tabindex="-1"></a><span class="co"># 添加想要的信息</span></span>
+<span id="cb25-5"><a href="deseq2.html#cb25-5" tabindex="-1"></a>data<span class="sc">$</span>foldChange <span class="ot">=</span> <span class="dv">2</span> <span class="sc">^</span> data<span class="sc">$</span>log2FoldChange</span>
+<span id="cb25-6"><a href="deseq2.html#cb25-6" tabindex="-1"></a>data <span class="ot">=</span>  dplyr<span class="sc">::</span><span class="fu">rename</span>(data, <span class="at">PValue=</span>pvalue, <span class="at">FDR=</span>padj)</span>
+<span id="cb25-7"><a href="deseq2.html#cb25-7" tabindex="-1"></a>data<span class="sc">$</span>FDR[<span class="fu">is.na</span>(data<span class="sc">$</span>FDR)] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb25-8"><a href="deseq2.html#cb25-8" tabindex="-1"></a>data<span class="sc">$</span>PAdj <span class="ot">=</span> <span class="fu">p.adjust</span>(data<span class="sc">$</span>PValue, <span class="at">method=</span><span class="st">&quot;hochberg&quot;</span>)</span>
+<span id="cb25-9"><a href="deseq2.html#cb25-9" tabindex="-1"></a>data<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb25-10"><a href="deseq2.html#cb25-10" tabindex="-1"></a>data<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb25-11"><a href="deseq2.html#cb25-11" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="deseq2.html#cb25-12" tabindex="-1"></a><span class="co"># 合并差异分析结果和标准化的 counts</span></span>
+<span id="cb25-13"><a href="deseq2.html#cb25-13" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(data, normed) <span class="sc">%&gt;%</span></span>
+<span id="cb25-14"><a href="deseq2.html#cb25-14" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;SYMBOL&quot;</span>)</span>
+<span id="cb25-15"><a href="deseq2.html#cb25-15" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="deseq2.html#cb25-16" tabindex="-1"></a><span class="co"># 按照 P-value排序</span></span>
+<span id="cb25-17"><a href="deseq2.html#cb25-17" tabindex="-1"></a>total <span class="ot">=</span> <span class="fu">arrange</span>(total, FDR)</span>
+<span id="cb25-18"><a href="deseq2.html#cb25-18" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="deseq2.html#cb25-19" tabindex="-1"></a><span class="co"># 计算 false discovery counts</span></span>
+<span id="cb25-20"><a href="deseq2.html#cb25-20" tabindex="-1"></a>total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(total) <span class="sc">*</span> total<span class="sc">$</span>FDR</span>
+<span id="cb25-21"><a href="deseq2.html#cb25-21" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="deseq2.html#cb25-22" tabindex="-1"></a><span class="co"># 创建各组平均值</span></span>
+<span id="cb25-23"><a href="deseq2.html#cb25-23" tabindex="-1"></a>total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, col_names_A])</span>
+<span id="cb25-24"><a href="deseq2.html#cb25-24" tabindex="-1"></a>total<span class="sc">$</span>baseMeanB <span class="ot">=</span> <span class="fu">rowMeans</span>(total[, col_names_B])</span>
+<span id="cb25-25"><a href="deseq2.html#cb25-25" tabindex="-1"></a>total<span class="sc">$</span>baseMean <span class="ot">=</span> total<span class="sc">$</span>baseMeanA <span class="sc">+</span> total<span class="sc">$</span>baseMeanB</span>
+<span id="cb25-26"><a href="deseq2.html#cb25-26" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="deseq2.html#cb25-27" tabindex="-1"></a><span class="co"># # 将数字四舍五入，使其更美观</span></span>
+<span id="cb25-28"><a href="deseq2.html#cb25-28" tabindex="-1"></a><span class="co"># total$foldChange = round(total$foldChange, 3)</span></span>
+<span id="cb25-29"><a href="deseq2.html#cb25-29" tabindex="-1"></a><span class="co"># total$log2FoldChange = round(total$log2FoldChange, 1)</span></span>
+<span id="cb25-30"><a href="deseq2.html#cb25-30" tabindex="-1"></a>total<span class="sc">$</span>baseMean  <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMean, <span class="dv">1</span>)</span>
+<span id="cb25-31"><a href="deseq2.html#cb25-31" tabindex="-1"></a>total<span class="sc">$</span>baseMeanA <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>baseMeanA, <span class="dv">1</span>)</span>
+<span id="cb25-32"><a href="deseq2.html#cb25-32" tabindex="-1"></a>total<span class="sc">$</span>baseMeanB <span class="ot">=</span>  <span class="fu">round</span>(total<span class="sc">$</span>baseMeanB, <span class="dv">1</span>)</span>
+<span id="cb25-33"><a href="deseq2.html#cb25-33" tabindex="-1"></a>total<span class="sc">$</span>lfcSE <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>lfcSE, <span class="dv">2</span>)</span>
+<span id="cb25-34"><a href="deseq2.html#cb25-34" tabindex="-1"></a>total<span class="sc">$</span>stat <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>stat, <span class="dv">2</span>)</span>
+<span id="cb25-35"><a href="deseq2.html#cb25-35" tabindex="-1"></a><span class="co"># total$FDR = round(total$FDR, 4)</span></span>
+<span id="cb25-36"><a href="deseq2.html#cb25-36" tabindex="-1"></a>total<span class="sc">$</span>falsePos <span class="ot">=</span> <span class="fu">round</span>(total<span class="sc">$</span>falsePos, <span class="dv">0</span>)</span>
+<span id="cb25-37"><a href="deseq2.html#cb25-37" tabindex="-1"></a>total<span class="sc">$</span>PAdj <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>PAdj, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb25-38"><a href="deseq2.html#cb25-38" tabindex="-1"></a>total<span class="sc">$</span>PValue <span class="ot">=</span> <span class="fu">formatC</span>(total<span class="sc">$</span>PValue, <span class="at">format =</span> <span class="st">&quot;e&quot;</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb25-39"><a href="deseq2.html#cb25-39" tabindex="-1"></a></span>
+<span id="cb25-40"><a href="deseq2.html#cb25-40" tabindex="-1"></a><span class="co"># 重新组织列名</span></span>
+<span id="cb25-41"><a href="deseq2.html#cb25-41" tabindex="-1"></a>new_cols <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, </span>
+<span id="cb25-42"><a href="deseq2.html#cb25-42" tabindex="-1"></a>             <span class="st">&quot;baseMean&quot;</span>,<span class="st">&quot;baseMeanA&quot;</span>,<span class="st">&quot;baseMeanB&quot;</span>,</span>
+<span id="cb25-43"><a href="deseq2.html#cb25-43" tabindex="-1"></a>             <span class="st">&quot;foldChange&quot;</span>, <span class="st">&quot;log2FoldChange&quot;</span>,</span>
+<span id="cb25-44"><a href="deseq2.html#cb25-44" tabindex="-1"></a>             <span class="st">&quot;lfcSE&quot;</span>,<span class="st">&quot;stat&quot;</span>,<span class="st">&quot;PValue&quot;</span>,<span class="st">&quot;PAdj&quot;</span>, </span>
+<span id="cb25-45"><a href="deseq2.html#cb25-45" tabindex="-1"></a>             <span class="st">&quot;FDR&quot;</span>,<span class="st">&quot;falsePos&quot;</span>, col_names_A, col_names_B)</span>
+<span id="cb25-46"><a href="deseq2.html#cb25-46" tabindex="-1"></a>total <span class="ot">=</span> total[, new_cols]</span></code></pre></div>
+</div>
+<div id="保存结果-1" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 保存结果<a href="deseq2.html#保存结果-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>保存结果</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="deseq2.html#cb26-1" tabindex="-1"></a><span class="fu">write.csv</span>(total, <span class="at">file=</span><span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&quot;/&quot;</span>, OUTPUT_FILE), <span class="at">row.names =</span> F, <span class="at">quote =</span> F)</span></code></pre></div>
+<p>保存变量</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="deseq2.html#cb27-1" tabindex="-1"></a><span class="fu">save</span>(total, <span class="at">file =</span> <span class="st">&quot;Rdata/DEG_DESeq2.Rdata&quot;</span>) </span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="edger.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="limma-voom.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/smileszh/RNA-Seq/edit/master/03-2-DEG_Analysis_DESeq2.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
