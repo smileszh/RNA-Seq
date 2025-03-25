@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 8 章 GSEA 富集分析 | RNA-Seq</title>
+  <title>第 9 章 GSEA 富集分析 | RNA-Seq</title>
   <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 8 章 GSEA 富集分析 | RNA-Seq" />
+  <meta property="og:title" content="第 9 章 GSEA 富集分析 | RNA-Seq" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="github-repo" content="smileszh/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 8 章 GSEA 富集分析 | RNA-Seq" />
+  <meta name="twitter:title" content="第 9 章 GSEA 富集分析 | RNA-Seq" />
   
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-22" />
+<meta name="date" content="2025-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="ora-富集分析.html"/>
-
+<link rel="next" href="wgcna.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -180,27 +180,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="limma-voom.html"><a href="limma-voom.html#整理分析结果规范输出-2"><i class="fa fa-check"></i><b>5.3</b> 整理分析结果，规范输出</a></li>
 <li class="chapter" data-level="5.4" data-path="limma-voom.html"><a href="limma-voom.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
 </ul></li>
-<li class="part"><span><b>IV 差异基因可视化</b></span></li>
-<li class="chapter" data-level="6" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>6</b> 差异基因作图</a>
+<li class="chapter" data-level="6" data-path="一致性评估.html"><a href="一致性评估.html"><i class="fa fa-check"></i><b>6</b> 一致性评估</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
-<li class="chapter" data-level="6.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>6.2</b> 火山图</a></li>
-<li class="chapter" data-level="6.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>6.3</b> 差异基因热图</a></li>
-<li class="chapter" data-level="6.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>6.4</b> 保存结果</a></li>
+<li class="chapter" data-level="6.1" data-path="一致性评估.html"><a href="一致性评估.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="一致性评估.html"><a href="一致性评估.html#可视化"><i class="fa fa-check"></i><b>6.2</b> 可视化</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="一致性评估.html"><a href="一致性评估.html#韦恩图"><i class="fa fa-check"></i><b>6.2.1</b> 韦恩图</a></li>
+<li class="chapter" data-level="6.2.2" data-path="一致性评估.html"><a href="一致性评估.html#upset图"><i class="fa fa-check"></i><b>6.2.2</b> UpSet图</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因可视化</b></span></li>
+<li class="chapter" data-level="7" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>7</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
+<li class="chapter" data-level="7.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>7.2</b> 火山图</a></li>
+<li class="chapter" data-level="7.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>7.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="7.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
 </ul></li>
 <li class="part"><span><b>V 富集分析</b></span></li>
-<li class="chapter" data-level="7" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>7</b> ORA 富集分析</a>
+<li class="chapter" data-level="8" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>8</b> ORA 富集分析</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
-<li class="chapter" data-level="7.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>7.2</b> GO 富集分析</a></li>
-<li class="chapter" data-level="7.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>7.3</b> KEGG 富集分析</a></li>
-<li class="chapter" data-level="7.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
+<li class="chapter" data-level="8.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
+<li class="chapter" data-level="8.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>8.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="8.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>8.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="8.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>8.4</b> 保存结果</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>8</b> GSEA 富集分析</a>
+<li class="chapter" data-level="9" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>9</b> GSEA 富集分析</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
-<li class="chapter" data-level="8.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>8.2</b> GSEA 分析</a></li>
-<li class="chapter" data-level="8.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>8.3</b> 保存结果</a></li>
+<li class="chapter" data-level="9.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-8"><i class="fa fa-check"></i><b>9.1</b> 加载数据</a></li>
+<li class="chapter" data-level="9.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>9.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="9.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>9.3</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>VI 高级分析</b></span></li>
+<li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
+<li class="chapter" data-level="10.3.2" data-path="wgcna.html"><a href="wgcna.html#样本层级聚类查看有无离群值"><i class="fa fa-check"></i><b>10.3.2</b> 样本层级聚类，查看有无离群值</a></li>
+<li class="chapter" data-level="10.3.3" data-path="wgcna.html"><a href="wgcna.html#检查表型信息"><i class="fa fa-check"></i><b>10.3.3</b> 检查表型信息</a></li>
+<li class="chapter" data-level="10.3.4" data-path="wgcna.html"><a href="wgcna.html#软阈值筛选"><i class="fa fa-check"></i><b>10.3.4</b> 软阈值筛选</a></li>
+<li class="chapter" data-level="10.3.5" data-path="wgcna.html"><a href="wgcna.html#构建网络"><i class="fa fa-check"></i><b>10.3.5</b> 构建网络</a></li>
+<li class="chapter" data-level="10.3.6" data-path="wgcna.html"><a href="wgcna.html#保存每个模块的基因"><i class="fa fa-check"></i><b>10.3.6</b> 保存每个模块的基因</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="wgcna.html"><a href="wgcna.html#模块与表型的相关性"><i class="fa fa-check"></i><b>10.4</b> 模块与表型的相关性</a></li>
+<li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
+<li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
+<li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -222,125 +250,128 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="gsea-富集分析" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">第 8 章</span> GSEA 富集分析<a href="gsea-富集分析.html#gsea-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="加载数据-7" class="section level2 hasAnchor" number="8.1">
-<h2><span class="header-section-number">8.1</span> 加载数据<a href="gsea-富集分析.html#加载数据-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="gsea-富集分析.html#cb48-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
-<span id="cb48-2"><a href="gsea-富集分析.html#cb48-2" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
-<span id="cb48-3"><a href="gsea-富集分析.html#cb48-3" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
-<span id="cb48-4"><a href="gsea-富集分析.html#cb48-4" tabindex="-1"></a><span class="fu">library</span>(ggstatsplot)</span>
-<span id="cb48-5"><a href="gsea-富集分析.html#cb48-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb48-6"><a href="gsea-富集分析.html#cb48-6" tabindex="-1"></a></span>
-<span id="cb48-7"><a href="gsea-富集分析.html#cb48-7" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&quot;Rdata/DEG_edgeR_reg.Rdata&quot;</span>)</span>
-<span id="cb48-8"><a href="gsea-富集分析.html#cb48-8" tabindex="-1"></a><span class="fu">colnames</span>(total)</span>
-<span id="cb48-9"><a href="gsea-富集分析.html#cb48-9" tabindex="-1"></a><span class="do">##  [1] &quot;SYMBOL&quot;         &quot;baseMean&quot;       &quot;baseMeanA&quot;      &quot;baseMeanB&quot;     </span></span>
-<span id="cb48-10"><a href="gsea-富集分析.html#cb48-10" tabindex="-1"></a><span class="do">##  [5] &quot;foldChange&quot;     &quot;log2FoldChange&quot; &quot;PValue&quot;         &quot;PAdj&quot;          </span></span>
-<span id="cb48-11"><a href="gsea-富集分析.html#cb48-11" tabindex="-1"></a><span class="do">##  [9] &quot;FDR&quot;            &quot;falsePos&quot;       &quot;s_MiaFRFP_1&quot;    &quot;s_MiaFRFP_2&quot;   </span></span>
-<span id="cb48-12"><a href="gsea-富集分析.html#cb48-12" tabindex="-1"></a><span class="do">## [13] &quot;s_MiaFRFP_3&quot;    &quot;s_Part1Lag_1&quot;   &quot;s_Part1Lag_2&quot;   &quot;s_Part1Lag_3&quot;  </span></span>
-<span id="cb48-13"><a href="gsea-富集分析.html#cb48-13" tabindex="-1"></a><span class="do">## [17] &quot;regulation&quot;</span></span>
-<span id="cb48-14"><a href="gsea-富集分析.html#cb48-14" tabindex="-1"></a></span>
-<span id="cb48-15"><a href="gsea-富集分析.html#cb48-15" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
-<span id="cb48-16"><a href="gsea-富集分析.html#cb48-16" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;Anno_enrichment/GSEA&quot;</span></span>
-<span id="cb48-17"><a href="gsea-富集分析.html#cb48-17" tabindex="-1"></a><span class="fu">dir.create</span>(OUT_FOLDER, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb48-18"><a href="gsea-富集分析.html#cb48-18" tabindex="-1"></a></span>
-<span id="cb48-19"><a href="gsea-富集分析.html#cb48-19" tabindex="-1"></a><span class="co"># 数据预处理</span></span>
-<span id="cb48-20"><a href="gsea-富集分析.html#cb48-20" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span>  total[, <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;log2FoldChange&quot;</span>, <span class="st">&quot;FDR&quot;</span>)]</span>
-<span id="cb48-21"><a href="gsea-富集分析.html#cb48-21" tabindex="-1"></a><span class="fu">colnames</span>(nrDEG) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&#39;log2FC&#39;</span>, <span class="st">&#39;FDR&#39;</span>)</span>
-<span id="cb48-22"><a href="gsea-富集分析.html#cb48-22" tabindex="-1"></a>gene <span class="ot">&lt;-</span> <span class="fu">bitr</span>(nrDEG<span class="sc">$</span>SYMBOL, </span>
-<span id="cb48-23"><a href="gsea-富集分析.html#cb48-23" tabindex="-1"></a>             <span class="at">fromType =</span> <span class="st">&quot;SYMBOL&quot;</span>,</span>
-<span id="cb48-24"><a href="gsea-富集分析.html#cb48-24" tabindex="-1"></a>             <span class="at">toType =</span>  <span class="st">&quot;ENTREZID&quot;</span>,</span>
-<span id="cb48-25"><a href="gsea-富集分析.html#cb48-25" tabindex="-1"></a>             <span class="at">OrgDb =</span> org.Hs.eg.db)</span>
-<span id="cb48-26"><a href="gsea-富集分析.html#cb48-26" tabindex="-1"></a><span class="fu">head</span>(gene)</span>
-<span id="cb48-27"><a href="gsea-富集分析.html#cb48-27" tabindex="-1"></a><span class="do">##     SYMBOL ENTREZID</span></span>
-<span id="cb48-28"><a href="gsea-富集分析.html#cb48-28" tabindex="-1"></a><span class="do">## 1 HLA-DQA1     3117</span></span>
-<span id="cb48-29"><a href="gsea-富集分析.html#cb48-29" tabindex="-1"></a><span class="do">## 2 HLA-DQB2     3120</span></span>
-<span id="cb48-30"><a href="gsea-富集分析.html#cb48-30" tabindex="-1"></a><span class="do">## 3     LCP1     3936</span></span>
-<span id="cb48-31"><a href="gsea-富集分析.html#cb48-31" tabindex="-1"></a><span class="do">## 4    CSF1R     1436</span></span>
-<span id="cb48-32"><a href="gsea-富集分析.html#cb48-32" tabindex="-1"></a><span class="do">## 5    MMP14     4323</span></span>
-<span id="cb48-33"><a href="gsea-富集分析.html#cb48-33" tabindex="-1"></a><span class="do">## 6      LYZ     4069</span></span>
-<span id="cb48-34"><a href="gsea-富集分析.html#cb48-34" tabindex="-1"></a><span class="fu">head</span>(nrDEG)</span>
-<span id="cb48-35"><a href="gsea-富集分析.html#cb48-35" tabindex="-1"></a><span class="do">##     SYMBOL   log2FC          FDR</span></span>
-<span id="cb48-36"><a href="gsea-富集分析.html#cb48-36" tabindex="-1"></a><span class="do">## 1 HLA-DQA1 11.68556 5.873859e-07</span></span>
-<span id="cb48-37"><a href="gsea-富集分析.html#cb48-37" tabindex="-1"></a><span class="do">## 2 HLA-DQB2 10.52826 5.873859e-07</span></span>
-<span id="cb48-38"><a href="gsea-富集分析.html#cb48-38" tabindex="-1"></a><span class="do">## 3     LCP1 11.80748 5.873859e-07</span></span>
-<span id="cb48-39"><a href="gsea-富集分析.html#cb48-39" tabindex="-1"></a><span class="do">## 4    CSF1R 11.49362 5.873859e-07</span></span>
-<span id="cb48-40"><a href="gsea-富集分析.html#cb48-40" tabindex="-1"></a><span class="do">## 5    MMP14 10.99624 5.873859e-07</span></span>
-<span id="cb48-41"><a href="gsea-富集分析.html#cb48-41" tabindex="-1"></a><span class="do">## 6      LYZ 10.73787 7.767493e-07</span></span>
-<span id="cb48-42"><a href="gsea-富集分析.html#cb48-42" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span> nrDEG[nrDEG<span class="sc">$</span>SYMBOL <span class="sc">%in%</span> gene<span class="sc">$</span>SYMBOL,]</span>
-<span id="cb48-43"><a href="gsea-富集分析.html#cb48-43" tabindex="-1"></a>nrDEG<span class="sc">$</span>ENTREZID <span class="ot">&lt;-</span> gene<span class="sc">$</span>ENTREZID[<span class="fu">match</span>(nrDEG<span class="sc">$</span>SYMBOL, gene<span class="sc">$</span>SYMBOL)]</span>
-<span id="cb48-44"><a href="gsea-富集分析.html#cb48-44" tabindex="-1"></a></span>
-<span id="cb48-45"><a href="gsea-富集分析.html#cb48-45" tabindex="-1"></a>geneList <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>log2FC</span>
-<span id="cb48-46"><a href="gsea-富集分析.html#cb48-46" tabindex="-1"></a><span class="fu">names</span>(geneList) <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>ENTREZID</span>
-<span id="cb48-47"><a href="gsea-富集分析.html#cb48-47" tabindex="-1"></a>geneList <span class="ot">&lt;-</span> <span class="fu">sort</span>(geneList, <span class="at">decreasing =</span> T)</span>
-<span id="cb48-48"><a href="gsea-富集分析.html#cb48-48" tabindex="-1"></a><span class="fu">head</span>(geneList)</span>
-<span id="cb48-49"><a href="gsea-富集分析.html#cb48-49" tabindex="-1"></a><span class="do">##    54947     7078     7048     3553   219285    56944 </span></span>
-<span id="cb48-50"><a href="gsea-富集分析.html#cb48-50" tabindex="-1"></a><span class="do">## 13.29961 13.26271 12.84913 12.69912 12.67004 12.56760</span></span></code></pre></div>
+<div id="gsea-富集分析" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">第 9 章</span> GSEA 富集分析<a href="gsea-富集分析.html#gsea-富集分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="加载数据-8" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> 加载数据<a href="gsea-富集分析.html#加载数据-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="gsea-富集分析.html#cb53-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb53-2"><a href="gsea-富集分析.html#cb53-2" tabindex="-1"></a><span class="fu">library</span>(org.Hs.eg.db)</span>
+<span id="cb53-3"><a href="gsea-富集分析.html#cb53-3" tabindex="-1"></a><span class="fu">library</span>(clusterProfiler)</span>
+<span id="cb53-4"><a href="gsea-富集分析.html#cb53-4" tabindex="-1"></a><span class="fu">library</span>(ggstatsplot)</span>
+<span id="cb53-5"><a href="gsea-富集分析.html#cb53-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb53-6"><a href="gsea-富集分析.html#cb53-6" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="gsea-富集分析.html#cb53-7" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&quot;Rdata/DEG_edgeR_reg.Rdata&quot;</span>)</span>
+<span id="cb53-8"><a href="gsea-富集分析.html#cb53-8" tabindex="-1"></a><span class="fu">colnames</span>(total)</span>
+<span id="cb53-9"><a href="gsea-富集分析.html#cb53-9" tabindex="-1"></a><span class="do">##  [1] &quot;SYMBOL&quot;         &quot;baseMean&quot;       &quot;baseMeanA&quot;      &quot;baseMeanB&quot;     </span></span>
+<span id="cb53-10"><a href="gsea-富集分析.html#cb53-10" tabindex="-1"></a><span class="do">##  [5] &quot;foldChange&quot;     &quot;log2FoldChange&quot; &quot;PValue&quot;         &quot;PAdj&quot;          </span></span>
+<span id="cb53-11"><a href="gsea-富集分析.html#cb53-11" tabindex="-1"></a><span class="do">##  [9] &quot;FDR&quot;            &quot;falsePos&quot;       &quot;s_MiaFRFP_1&quot;    &quot;s_MiaFRFP_2&quot;   </span></span>
+<span id="cb53-12"><a href="gsea-富集分析.html#cb53-12" tabindex="-1"></a><span class="do">## [13] &quot;s_MiaFRFP_3&quot;    &quot;s_Part1Lag_1&quot;   &quot;s_Part1Lag_2&quot;   &quot;s_Part1Lag_3&quot;  </span></span>
+<span id="cb53-13"><a href="gsea-富集分析.html#cb53-13" tabindex="-1"></a><span class="do">## [17] &quot;regulation&quot;</span></span>
+<span id="cb53-14"><a href="gsea-富集分析.html#cb53-14" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="gsea-富集分析.html#cb53-15" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
+<span id="cb53-16"><a href="gsea-富集分析.html#cb53-16" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;Anno_enrichment/GSEA&quot;</span></span>
+<span id="cb53-17"><a href="gsea-富集分析.html#cb53-17" tabindex="-1"></a><span class="fu">dir.create</span>(OUT_FOLDER, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb53-18"><a href="gsea-富集分析.html#cb53-18" tabindex="-1"></a></span>
+<span id="cb53-19"><a href="gsea-富集分析.html#cb53-19" tabindex="-1"></a><span class="co"># 数据预处理</span></span>
+<span id="cb53-20"><a href="gsea-富集分析.html#cb53-20" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span>  total[, <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;log2FoldChange&quot;</span>, <span class="st">&quot;FDR&quot;</span>)]</span>
+<span id="cb53-21"><a href="gsea-富集分析.html#cb53-21" tabindex="-1"></a><span class="fu">colnames</span>(nrDEG) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&#39;log2FC&#39;</span>, <span class="st">&#39;FDR&#39;</span>)</span>
+<span id="cb53-22"><a href="gsea-富集分析.html#cb53-22" tabindex="-1"></a>gene <span class="ot">&lt;-</span> <span class="fu">bitr</span>(nrDEG<span class="sc">$</span>SYMBOL, </span>
+<span id="cb53-23"><a href="gsea-富集分析.html#cb53-23" tabindex="-1"></a>             <span class="at">fromType =</span> <span class="st">&quot;SYMBOL&quot;</span>,</span>
+<span id="cb53-24"><a href="gsea-富集分析.html#cb53-24" tabindex="-1"></a>             <span class="at">toType =</span>  <span class="st">&quot;ENTREZID&quot;</span>,</span>
+<span id="cb53-25"><a href="gsea-富集分析.html#cb53-25" tabindex="-1"></a>             <span class="at">OrgDb =</span> org.Hs.eg.db)</span>
+<span id="cb53-26"><a href="gsea-富集分析.html#cb53-26" tabindex="-1"></a><span class="fu">head</span>(gene)</span>
+<span id="cb53-27"><a href="gsea-富集分析.html#cb53-27" tabindex="-1"></a><span class="do">##     SYMBOL ENTREZID</span></span>
+<span id="cb53-28"><a href="gsea-富集分析.html#cb53-28" tabindex="-1"></a><span class="do">## 1 HLA-DQA1     3117</span></span>
+<span id="cb53-29"><a href="gsea-富集分析.html#cb53-29" tabindex="-1"></a><span class="do">## 2 HLA-DQB2     3120</span></span>
+<span id="cb53-30"><a href="gsea-富集分析.html#cb53-30" tabindex="-1"></a><span class="do">## 3     LCP1     3936</span></span>
+<span id="cb53-31"><a href="gsea-富集分析.html#cb53-31" tabindex="-1"></a><span class="do">## 4    CSF1R     1436</span></span>
+<span id="cb53-32"><a href="gsea-富集分析.html#cb53-32" tabindex="-1"></a><span class="do">## 5    MMP14     4323</span></span>
+<span id="cb53-33"><a href="gsea-富集分析.html#cb53-33" tabindex="-1"></a><span class="do">## 6      LYZ     4069</span></span>
+<span id="cb53-34"><a href="gsea-富集分析.html#cb53-34" tabindex="-1"></a><span class="fu">head</span>(nrDEG)</span>
+<span id="cb53-35"><a href="gsea-富集分析.html#cb53-35" tabindex="-1"></a><span class="do">##     SYMBOL   log2FC          FDR</span></span>
+<span id="cb53-36"><a href="gsea-富集分析.html#cb53-36" tabindex="-1"></a><span class="do">## 1 HLA-DQA1 11.68556 5.873859e-07</span></span>
+<span id="cb53-37"><a href="gsea-富集分析.html#cb53-37" tabindex="-1"></a><span class="do">## 2 HLA-DQB2 10.52826 5.873859e-07</span></span>
+<span id="cb53-38"><a href="gsea-富集分析.html#cb53-38" tabindex="-1"></a><span class="do">## 3     LCP1 11.80748 5.873859e-07</span></span>
+<span id="cb53-39"><a href="gsea-富集分析.html#cb53-39" tabindex="-1"></a><span class="do">## 4    CSF1R 11.49362 5.873859e-07</span></span>
+<span id="cb53-40"><a href="gsea-富集分析.html#cb53-40" tabindex="-1"></a><span class="do">## 5    MMP14 10.99624 5.873859e-07</span></span>
+<span id="cb53-41"><a href="gsea-富集分析.html#cb53-41" tabindex="-1"></a><span class="do">## 6      LYZ 10.73787 7.767493e-07</span></span>
+<span id="cb53-42"><a href="gsea-富集分析.html#cb53-42" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span> nrDEG[nrDEG<span class="sc">$</span>SYMBOL <span class="sc">%in%</span> gene<span class="sc">$</span>SYMBOL,]</span>
+<span id="cb53-43"><a href="gsea-富集分析.html#cb53-43" tabindex="-1"></a>nrDEG<span class="sc">$</span>ENTREZID <span class="ot">&lt;-</span> gene<span class="sc">$</span>ENTREZID[<span class="fu">match</span>(nrDEG<span class="sc">$</span>SYMBOL, gene<span class="sc">$</span>SYMBOL)]</span>
+<span id="cb53-44"><a href="gsea-富集分析.html#cb53-44" tabindex="-1"></a></span>
+<span id="cb53-45"><a href="gsea-富集分析.html#cb53-45" tabindex="-1"></a>geneList <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>log2FC</span>
+<span id="cb53-46"><a href="gsea-富集分析.html#cb53-46" tabindex="-1"></a><span class="fu">names</span>(geneList) <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>ENTREZID</span>
+<span id="cb53-47"><a href="gsea-富集分析.html#cb53-47" tabindex="-1"></a>geneList <span class="ot">&lt;-</span> <span class="fu">sort</span>(geneList, <span class="at">decreasing =</span> T)</span>
+<span id="cb53-48"><a href="gsea-富集分析.html#cb53-48" tabindex="-1"></a><span class="fu">head</span>(geneList)</span>
+<span id="cb53-49"><a href="gsea-富集分析.html#cb53-49" tabindex="-1"></a><span class="do">##    54947     7078     7048     3553   219285    56944 </span></span>
+<span id="cb53-50"><a href="gsea-富集分析.html#cb53-50" tabindex="-1"></a><span class="do">## 13.29961 13.26271 12.84913 12.69912 12.67004 12.56760</span></span></code></pre></div>
 </div>
-<div id="gsea-分析" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> GSEA 分析<a href="gsea-富集分析.html#gsea-分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="gsea-富集分析.html#cb49-1" tabindex="-1"></a><span class="fu">str</span>(geneList)</span>
-<span id="cb49-2"><a href="gsea-富集分析.html#cb49-2" tabindex="-1"></a><span class="do">##  Named num [1:17462] 13.3 13.3 12.8 12.7 12.7 ...</span></span>
-<span id="cb49-3"><a href="gsea-富集分析.html#cb49-3" tabindex="-1"></a><span class="do">##  - attr(*, &quot;names&quot;)= chr [1:17462] &quot;54947&quot; &quot;7078&quot; &quot;7048&quot; &quot;3553&quot; ...</span></span>
-<span id="cb49-4"><a href="gsea-富集分析.html#cb49-4" tabindex="-1"></a>kk_gse <span class="ot">&lt;-</span> <span class="fu">gseKEGG</span>(<span class="at">geneList     =</span> geneList,</span>
-<span id="cb49-5"><a href="gsea-富集分析.html#cb49-5" tabindex="-1"></a>                  <span class="at">organism     =</span> <span class="st">&#39;hsa&#39;</span>,<span class="co">#按需替换</span></span>
-<span id="cb49-6"><a href="gsea-富集分析.html#cb49-6" tabindex="-1"></a>                  <span class="at">minGSSize    =</span> <span class="dv">10</span>,</span>
-<span id="cb49-7"><a href="gsea-富集分析.html#cb49-7" tabindex="-1"></a>                  <span class="at">pvalueCutoff =</span> <span class="fl">0.99</span>,</span>
-<span id="cb49-8"><a href="gsea-富集分析.html#cb49-8" tabindex="-1"></a>                  <span class="at">verbose      =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb49-9"><a href="gsea-富集分析.html#cb49-9" tabindex="-1"></a>kk <span class="ot">&lt;-</span> DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk_gse, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="co"># 将基因ID换为SYNBOL</span></span>
-<span id="cb49-10"><a href="gsea-富集分析.html#cb49-10" tabindex="-1"></a>                     <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)<span class="co">#按需替换</span></span>
-<span id="cb49-11"><a href="gsea-富集分析.html#cb49-11" tabindex="-1"></a>kk<span class="sc">@</span>result<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39; - Mus musculus </span><span class="sc">\\</span><span class="st">(house mouse</span><span class="sc">\\</span><span class="st">)&#39;</span>,</span>
-<span id="cb49-12"><a href="gsea-富集分析.html#cb49-12" tabindex="-1"></a>                           <span class="st">&#39;&#39;</span>, kk<span class="sc">@</span>result<span class="sc">$</span>Description )</span>
-<span id="cb49-13"><a href="gsea-富集分析.html#cb49-13" tabindex="-1"></a><span class="fu">head</span>(kk<span class="sc">@</span>result<span class="sc">$</span>Description)</span>
-<span id="cb49-14"><a href="gsea-富集分析.html#cb49-14" tabindex="-1"></a><span class="do">## [1] &quot;Systemic lupus erythematosus&quot;        &quot;Antigen processing and presentation&quot;</span></span>
-<span id="cb49-15"><a href="gsea-富集分析.html#cb49-15" tabindex="-1"></a><span class="do">## [3] &quot;Type I diabetes mellitus&quot;            &quot;Graft-versus-host disease&quot;          </span></span>
-<span id="cb49-16"><a href="gsea-富集分析.html#cb49-16" tabindex="-1"></a><span class="do">## [5] &quot;Leishmaniasis&quot;                       &quot;Staphylococcus aureus infection&quot;</span></span>
-<span id="cb49-17"><a href="gsea-富集分析.html#cb49-17" tabindex="-1"></a>tmp<span class="ot">=</span>kk<span class="sc">@</span>result </span></code></pre></div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="gsea-富集分析.html#cb50-1" tabindex="-1"></a><span class="co">#～～～取前6个上调通路和6个下调通路～～～</span></span>
-<span id="cb50-2"><a href="gsea-富集分析.html#cb50-2" tabindex="-1"></a>up_k <span class="ot">&lt;-</span> kk[<span class="fu">head</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];up_k<span class="sc">$</span>group<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb50-3"><a href="gsea-富集分析.html#cb50-3" tabindex="-1"></a>down_k <span class="ot">&lt;-</span> kk[<span class="fu">tail</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];down_k<span class="sc">$</span>group<span class="ot">=</span><span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb50-4"><a href="gsea-富集分析.html#cb50-4" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="gsea-富集分析.html#cb50-5" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(up_k, down_k)</span>
-<span id="cb50-6"><a href="gsea-富集分析.html#cb50-6" tabindex="-1"></a></span>
-<span id="cb50-7"><a href="gsea-富集分析.html#cb50-7" tabindex="-1"></a>dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(dat<span class="sc">$</span>pvalue)<span class="sc">*</span>dat<span class="sc">$</span>group</span>
-<span id="cb50-8"><a href="gsea-富集分析.html#cb50-8" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="fu">order</span>(dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span>, <span class="at">decreasing =</span> F),]</span>
-<span id="cb50-9"><a href="gsea-富集分析.html#cb50-9" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Description, <span class="fu">order</span>(<span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span>, <span class="at">decreasing =</span> F)), </span>
-<span id="cb50-10"><a href="gsea-富集分析.html#cb50-10" tabindex="-1"></a>                      <span class="at">y=</span><span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span>, <span class="at">fill=</span>group)) <span class="sc">+</span> </span>
-<span id="cb50-11"><a href="gsea-富集分析.html#cb50-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb50-12"><a href="gsea-富集分析.html#cb50-12" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">&quot;#34bfb5&quot;</span>,<span class="at">high=</span><span class="st">&quot;#ff6633&quot;</span>,<span class="at">guide =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb50-13"><a href="gsea-富集分析.html#cb50-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Pathway names&quot;</span>, <span class="at">y=</span><span class="st">&quot;-log10Pvalue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb50-14"><a href="gsea-富集分析.html#cb50-14" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
-<span id="cb50-15"><a href="gsea-富集分析.html#cb50-15" tabindex="-1"></a>  <span class="fu">theme_ggstatsplot</span>()<span class="sc">+</span></span>
-<span id="cb50-16"><a href="gsea-富集分析.html#cb50-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  </span>
-<span id="cb50-17"><a href="gsea-富集分析.html#cb50-17" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb50-18"><a href="gsea-富集分析.html#cb50-18" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb50-19"><a href="gsea-富集分析.html#cb50-19" tabindex="-1"></a>        )<span class="sc">+</span></span>
-<span id="cb50-20"><a href="gsea-富集分析.html#cb50-20" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Pathway Enrichment&quot;</span>)</span></code></pre></div>
+<div id="gsea-分析" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> GSEA 分析<a href="gsea-富集分析.html#gsea-分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="gsea-富集分析.html#cb54-1" tabindex="-1"></a><span class="fu">str</span>(geneList)</span>
+<span id="cb54-2"><a href="gsea-富集分析.html#cb54-2" tabindex="-1"></a><span class="do">##  Named num [1:17462] 13.3 13.3 12.8 12.7 12.7 ...</span></span>
+<span id="cb54-3"><a href="gsea-富集分析.html#cb54-3" tabindex="-1"></a><span class="do">##  - attr(*, &quot;names&quot;)= chr [1:17462] &quot;54947&quot; &quot;7078&quot; &quot;7048&quot; &quot;3553&quot; ...</span></span>
+<span id="cb54-4"><a href="gsea-富集分析.html#cb54-4" tabindex="-1"></a>kk_gse <span class="ot">&lt;-</span> <span class="fu">gseKEGG</span>(<span class="at">geneList     =</span> geneList,</span>
+<span id="cb54-5"><a href="gsea-富集分析.html#cb54-5" tabindex="-1"></a>                  <span class="at">organism     =</span> <span class="st">&#39;hsa&#39;</span>,<span class="co">#按需替换</span></span>
+<span id="cb54-6"><a href="gsea-富集分析.html#cb54-6" tabindex="-1"></a>                  <span class="at">minGSSize    =</span> <span class="dv">10</span>,</span>
+<span id="cb54-7"><a href="gsea-富集分析.html#cb54-7" tabindex="-1"></a>                  <span class="at">pvalueCutoff =</span> <span class="fl">0.99</span>,</span>
+<span id="cb54-8"><a href="gsea-富集分析.html#cb54-8" tabindex="-1"></a>                  <span class="at">verbose      =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb54-9"><a href="gsea-富集分析.html#cb54-9" tabindex="-1"></a>kk <span class="ot">&lt;-</span> DOSE<span class="sc">::</span><span class="fu">setReadable</span>(kk_gse, <span class="at">OrgDb=</span><span class="st">&#39;org.Hs.eg.db&#39;</span>, <span class="co"># 将基因ID换为SYNBOL</span></span>
+<span id="cb54-10"><a href="gsea-富集分析.html#cb54-10" tabindex="-1"></a>                     <span class="at">keyType=</span><span class="st">&#39;ENTREZID&#39;</span>)<span class="co">#按需替换</span></span>
+<span id="cb54-11"><a href="gsea-富集分析.html#cb54-11" tabindex="-1"></a>kk<span class="sc">@</span>result<span class="sc">$</span>Description <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&#39; - Mus musculus </span><span class="sc">\\</span><span class="st">(house mouse</span><span class="sc">\\</span><span class="st">)&#39;</span>,</span>
+<span id="cb54-12"><a href="gsea-富集分析.html#cb54-12" tabindex="-1"></a>                           <span class="st">&#39;&#39;</span>, kk<span class="sc">@</span>result<span class="sc">$</span>Description )</span>
+<span id="cb54-13"><a href="gsea-富集分析.html#cb54-13" tabindex="-1"></a><span class="fu">head</span>(kk<span class="sc">@</span>result<span class="sc">$</span>Description)</span>
+<span id="cb54-14"><a href="gsea-富集分析.html#cb54-14" tabindex="-1"></a><span class="do">## [1] &quot;Systemic lupus erythematosus&quot;        &quot;Antigen processing and presentation&quot;</span></span>
+<span id="cb54-15"><a href="gsea-富集分析.html#cb54-15" tabindex="-1"></a><span class="do">## [3] &quot;Type I diabetes mellitus&quot;            &quot;Graft-versus-host disease&quot;          </span></span>
+<span id="cb54-16"><a href="gsea-富集分析.html#cb54-16" tabindex="-1"></a><span class="do">## [5] &quot;Leishmaniasis&quot;                       &quot;Staphylococcus aureus infection&quot;</span></span>
+<span id="cb54-17"><a href="gsea-富集分析.html#cb54-17" tabindex="-1"></a>tmp<span class="ot">=</span>kk<span class="sc">@</span>result </span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="gsea-富集分析.html#cb55-1" tabindex="-1"></a><span class="co">#～～～取前6个上调通路和6个下调通路～～～</span></span>
+<span id="cb55-2"><a href="gsea-富集分析.html#cb55-2" tabindex="-1"></a>up_k <span class="ot">&lt;-</span> kk[<span class="fu">head</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];up_k<span class="sc">$</span>group<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb55-3"><a href="gsea-富集分析.html#cb55-3" tabindex="-1"></a>down_k <span class="ot">&lt;-</span> kk[<span class="fu">tail</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];down_k<span class="sc">$</span>group<span class="ot">=</span><span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb55-4"><a href="gsea-富集分析.html#cb55-4" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="gsea-富集分析.html#cb55-5" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(up_k, down_k)</span>
+<span id="cb55-6"><a href="gsea-富集分析.html#cb55-6" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="gsea-富集分析.html#cb55-7" tabindex="-1"></a>dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">log10</span>(dat<span class="sc">$</span>pvalue)<span class="sc">*</span>dat<span class="sc">$</span>group</span>
+<span id="cb55-8"><a href="gsea-富集分析.html#cb55-8" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[<span class="fu">order</span>(dat<span class="sc">$</span><span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span>, <span class="at">decreasing =</span> F),]</span>
+<span id="cb55-9"><a href="gsea-富集分析.html#cb55-9" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Description, <span class="fu">order</span>(<span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span>, <span class="at">decreasing =</span> F)), </span>
+<span id="cb55-10"><a href="gsea-富集分析.html#cb55-10" tabindex="-1"></a>                      <span class="at">y=</span><span class="st">`</span><span class="at">-log10Pvalue</span><span class="st">`</span>, <span class="at">fill=</span>group)) <span class="sc">+</span> </span>
+<span id="cb55-11"><a href="gsea-富集分析.html#cb55-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb55-12"><a href="gsea-富集分析.html#cb55-12" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">&quot;#34bfb5&quot;</span>,<span class="at">high=</span><span class="st">&quot;#ff6633&quot;</span>,<span class="at">guide =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb55-13"><a href="gsea-富集分析.html#cb55-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Pathway names&quot;</span>, <span class="at">y=</span><span class="st">&quot;-log10Pvalue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-14"><a href="gsea-富集分析.html#cb55-14" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb55-15"><a href="gsea-富集分析.html#cb55-15" tabindex="-1"></a>  <span class="fu">theme_ggstatsplot</span>()<span class="sc">+</span></span>
+<span id="cb55-16"><a href="gsea-富集分析.html#cb55-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  </span>
+<span id="cb55-17"><a href="gsea-富集分析.html#cb55-17" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb55-18"><a href="gsea-富集分析.html#cb55-18" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb55-19"><a href="gsea-富集分析.html#cb55-19" tabindex="-1"></a>        )<span class="sc">+</span></span>
+<span id="cb55-20"><a href="gsea-富集分析.html#cb55-20" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Pathway Enrichment&quot;</span>)</span></code></pre></div>
 <p><img src="05-2-GSEA_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="gsea-富集分析.html#cb51-1" tabindex="-1"></a>up_k <span class="ot">&lt;-</span> kk[<span class="fu">head</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];up_k<span class="sc">$</span>group<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb51-2"><a href="gsea-富集分析.html#cb51-2" tabindex="-1"></a>down_k <span class="ot">&lt;-</span> kk[<span class="fu">tail</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];down_k<span class="sc">$</span>group<span class="ot">=</span><span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb51-3"><a href="gsea-富集分析.html#cb51-3" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="gsea-富集分析.html#cb51-4" tabindex="-1"></a>p_up <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">gseaplot2</span>(kk, <span class="at">geneSetID =</span> <span class="fu">head</span>(<span class="fu">rownames</span>(up_k)));p_up</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="gsea-富集分析.html#cb56-1" tabindex="-1"></a>up_k <span class="ot">&lt;-</span> kk[<span class="fu">head</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];up_k<span class="sc">$</span>group<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb56-2"><a href="gsea-富集分析.html#cb56-2" tabindex="-1"></a>down_k <span class="ot">&lt;-</span> kk[<span class="fu">tail</span>(<span class="fu">order</span>(kk<span class="sc">$</span>enrichmentScore,<span class="at">decreasing =</span> T)),];down_k<span class="sc">$</span>group<span class="ot">=</span><span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb56-3"><a href="gsea-富集分析.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="gsea-富集分析.html#cb56-4" tabindex="-1"></a>p_up <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">gseaplot2</span>(kk, <span class="at">geneSetID =</span> <span class="fu">head</span>(<span class="fu">rownames</span>(up_k)));p_up</span></code></pre></div>
 <p><img src="05-2-GSEA_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="gsea-富集分析.html#cb52-1" tabindex="-1"></a>p_down <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">gseaplot2</span>(kk, <span class="at">geneSetID =</span> <span class="fu">head</span>(<span class="fu">rownames</span>(down_k)));p_down</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="gsea-富集分析.html#cb57-1" tabindex="-1"></a>p_down <span class="ot">&lt;-</span> enrichplot<span class="sc">::</span><span class="fu">gseaplot2</span>(kk, <span class="at">geneSetID =</span> <span class="fu">head</span>(<span class="fu">rownames</span>(down_k)));p_down</span></code></pre></div>
 <p><img src="05-2-GSEA_files/figure-html/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="保存结果-5" class="section level2 hasAnchor" number="8.3">
-<h2><span class="header-section-number">8.3</span> 保存结果<a href="gsea-富集分析.html#保存结果-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="保存结果-5" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> 保存结果<a href="gsea-富集分析.html#保存结果-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>保存结果</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="gsea-富集分析.html#cb53-1" tabindex="-1"></a><span class="fu">write.csv</span>(kk<span class="sc">@</span>result, <span class="at">file =</span> <span class="fu">file.path</span>(<span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/gsea_kegg.csv&#39;</span>)), <span class="at">row.names =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="gsea-富集分析.html#cb58-1" tabindex="-1"></a><span class="fu">write.csv</span>(kk<span class="sc">@</span>result, <span class="at">file =</span> <span class="fu">file.path</span>(<span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&#39;/gsea_kegg.csv&#39;</span>)), <span class="at">row.names =</span> F)</span></code></pre></div>
 <p>保存变量</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="gsea-富集分析.html#cb54-1" tabindex="-1"></a><span class="fu">save</span>(kk, <span class="at">file =</span> <span class="st">&#39;Rdata/gsea_kk.Rdata&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="gsea-富集分析.html#cb59-1" tabindex="-1"></a><span class="fu">save</span>(kk, <span class="at">file =</span> <span class="st">&#39;Rdata/gsea_kk.Rdata&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="ora-富集分析.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="ora-富集分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wgcna.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

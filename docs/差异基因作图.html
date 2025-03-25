@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 6 章 差异基因作图 | RNA-Seq</title>
+  <title>第 7 章 差异基因作图 | RNA-Seq</title>
   <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 6 章 差异基因作图 | RNA-Seq" />
+  <meta property="og:title" content="第 7 章 差异基因作图 | RNA-Seq" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="github-repo" content="smileszh/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 6 章 差异基因作图 | RNA-Seq" />
+  <meta name="twitter:title" content="第 7 章 差异基因作图 | RNA-Seq" />
   
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
@@ -23,14 +23,14 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-22" />
+<meta name="date" content="2025-03-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="limma-voom.html"/>
+<link rel="prev" href="一致性评估.html"/>
 <link rel="next" href="ora-富集分析.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -180,27 +180,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3" data-path="limma-voom.html"><a href="limma-voom.html#整理分析结果规范输出-2"><i class="fa fa-check"></i><b>5.3</b> 整理分析结果，规范输出</a></li>
 <li class="chapter" data-level="5.4" data-path="limma-voom.html"><a href="limma-voom.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
 </ul></li>
-<li class="part"><span><b>IV 差异基因可视化</b></span></li>
-<li class="chapter" data-level="6" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>6</b> 差异基因作图</a>
+<li class="chapter" data-level="6" data-path="一致性评估.html"><a href="一致性评估.html"><i class="fa fa-check"></i><b>6</b> 一致性评估</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
-<li class="chapter" data-level="6.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>6.2</b> 火山图</a></li>
-<li class="chapter" data-level="6.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>6.3</b> 差异基因热图</a></li>
-<li class="chapter" data-level="6.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>6.4</b> 保存结果</a></li>
+<li class="chapter" data-level="6.1" data-path="一致性评估.html"><a href="一致性评估.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="一致性评估.html"><a href="一致性评估.html#可视化"><i class="fa fa-check"></i><b>6.2</b> 可视化</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="一致性评估.html"><a href="一致性评估.html#韦恩图"><i class="fa fa-check"></i><b>6.2.1</b> 韦恩图</a></li>
+<li class="chapter" data-level="6.2.2" data-path="一致性评估.html"><a href="一致性评估.html#upset图"><i class="fa fa-check"></i><b>6.2.2</b> UpSet图</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因可视化</b></span></li>
+<li class="chapter" data-level="7" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>7</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
+<li class="chapter" data-level="7.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>7.2</b> 火山图</a></li>
+<li class="chapter" data-level="7.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>7.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="7.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
 </ul></li>
 <li class="part"><span><b>V 富集分析</b></span></li>
-<li class="chapter" data-level="7" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>7</b> ORA 富集分析</a>
+<li class="chapter" data-level="8" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>8</b> ORA 富集分析</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
-<li class="chapter" data-level="7.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>7.2</b> GO 富集分析</a></li>
-<li class="chapter" data-level="7.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>7.3</b> KEGG 富集分析</a></li>
-<li class="chapter" data-level="7.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
+<li class="chapter" data-level="8.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
+<li class="chapter" data-level="8.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>8.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="8.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>8.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="8.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>8.4</b> 保存结果</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>8</b> GSEA 富集分析</a>
+<li class="chapter" data-level="9" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>9</b> GSEA 富集分析</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
-<li class="chapter" data-level="8.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>8.2</b> GSEA 分析</a></li>
-<li class="chapter" data-level="8.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>8.3</b> 保存结果</a></li>
+<li class="chapter" data-level="9.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-8"><i class="fa fa-check"></i><b>9.1</b> 加载数据</a></li>
+<li class="chapter" data-level="9.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>9.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="9.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>9.3</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>VI 高级分析</b></span></li>
+<li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
+<li class="chapter" data-level="10.3.2" data-path="wgcna.html"><a href="wgcna.html#样本层级聚类查看有无离群值"><i class="fa fa-check"></i><b>10.3.2</b> 样本层级聚类，查看有无离群值</a></li>
+<li class="chapter" data-level="10.3.3" data-path="wgcna.html"><a href="wgcna.html#检查表型信息"><i class="fa fa-check"></i><b>10.3.3</b> 检查表型信息</a></li>
+<li class="chapter" data-level="10.3.4" data-path="wgcna.html"><a href="wgcna.html#软阈值筛选"><i class="fa fa-check"></i><b>10.3.4</b> 软阈值筛选</a></li>
+<li class="chapter" data-level="10.3.5" data-path="wgcna.html"><a href="wgcna.html#构建网络"><i class="fa fa-check"></i><b>10.3.5</b> 构建网络</a></li>
+<li class="chapter" data-level="10.3.6" data-path="wgcna.html"><a href="wgcna.html#保存每个模块的基因"><i class="fa fa-check"></i><b>10.3.6</b> 保存每个模块的基因</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="wgcna.html"><a href="wgcna.html#模块与表型的相关性"><i class="fa fa-check"></i><b>10.4</b> 模块与表型的相关性</a></li>
+<li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
+<li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
+<li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -222,113 +250,130 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="差异基因作图" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">第 6 章</span> 差异基因作图<a href="差异基因作图.html#差异基因作图" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="加载数据-5" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> 加载数据<a href="差异基因作图.html#加载数据-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="差异基因作图.html#cb34-1" tabindex="-1"></a><span class="co"># 加载变量</span></span>
-<span id="cb34-2"><a href="差异基因作图.html#cb34-2" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>) </span>
-<span id="cb34-3"><a href="差异基因作图.html#cb34-3" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/DEG_edgeR.Rdata&#39;</span>)</span>
-<span id="cb34-4"><a href="差异基因作图.html#cb34-4" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
-<span id="cb34-5"><a href="差异基因作图.html#cb34-5" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;DEG_ANalysis&quot;</span></span>
-<span id="cb34-6"><a href="差异基因作图.html#cb34-6" tabindex="-1"></a><span class="co"># title</span></span>
-<span id="cb34-7"><a href="差异基因作图.html#cb34-7" tabindex="-1"></a>group <span class="ot">&lt;-</span> group_list</span>
-<span id="cb34-8"><a href="差异基因作图.html#cb34-8" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(group[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, group[<span class="dv">2</span>])</span>
-<span id="cb34-9"><a href="差异基因作图.html#cb34-9" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="差异基因作图.html#cb34-10" tabindex="-1"></a><span class="co"># 读取差异基因</span></span>
-<span id="cb34-11"><a href="差异基因作图.html#cb34-11" tabindex="-1"></a><span class="co"># cut_log2FC &lt;- mean(abs(total$log2FoldChange)) + 2 * sd(abs(total$log2FoldChange))</span></span>
-<span id="cb34-12"><a href="差异基因作图.html#cb34-12" tabindex="-1"></a><span class="co"># log2FC_t &lt;- ifelse(cut_log2FC &gt; 1, 1, cut_log2FC)</span></span>
-<span id="cb34-13"><a href="差异基因作图.html#cb34-13" tabindex="-1"></a>log2FC_t <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb34-14"><a href="差异基因作图.html#cb34-14" tabindex="-1"></a>pvalue_t <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb34-15"><a href="差异基因作图.html#cb34-15" tabindex="-1"></a><span class="co"># 计算 regulation</span></span>
-<span id="cb34-16"><a href="差异基因作图.html#cb34-16" tabindex="-1"></a>total<span class="sc">$</span>regulation <span class="ot">=</span> <span class="fu">ifelse</span>(total<span class="sc">$</span>FDR <span class="sc">&gt;</span> pvalue_t, <span class="st">&#39;stable&#39;</span>,</span>
-<span id="cb34-17"><a href="差异基因作图.html#cb34-17" tabindex="-1"></a>                          <span class="fu">ifelse</span>(total<span class="sc">$</span>log2FoldChange <span class="sc">&gt;</span> log2FC_t, <span class="st">&#39;up&#39;</span>,</span>
-<span id="cb34-18"><a href="差异基因作图.html#cb34-18" tabindex="-1"></a>                                 <span class="fu">ifelse</span>(total<span class="sc">$</span>log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span>log2FC_t, <span class="st">&#39;down&#39;</span>, <span class="st">&#39;stable&#39;</span>)))</span>
-<span id="cb34-19"><a href="差异基因作图.html#cb34-19" tabindex="-1"></a><span class="co"># 提取所需的列</span></span>
-<span id="cb34-20"><a href="差异基因作图.html#cb34-20" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span>  total[, <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;log2FoldChange&quot;</span>, <span class="st">&quot;FDR&quot;</span>, <span class="st">&quot;regulation&quot;</span>)]</span>
-<span id="cb34-21"><a href="差异基因作图.html#cb34-21" tabindex="-1"></a><span class="fu">colnames</span>(nrDEG) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&#39;log2FC&#39;</span>, <span class="st">&#39;FDR&#39;</span>, <span class="st">&#39;regulation&#39;</span>)</span></code></pre></div>
+<div id="差异基因作图" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">第 7 章</span> 差异基因作图<a href="差异基因作图.html#差异基因作图" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="加载数据-6" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> 加载数据<a href="差异基因作图.html#加载数据-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="差异基因作图.html#cb38-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb38-2"><a href="差异基因作图.html#cb38-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb38-3"><a href="差异基因作图.html#cb38-3" tabindex="-1"></a><span class="co"># 加载变量</span></span>
+<span id="cb38-4"><a href="差异基因作图.html#cb38-4" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>) </span>
+<span id="cb38-5"><a href="差异基因作图.html#cb38-5" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/DEG_edgeR.Rdata&#39;</span>)</span>
+<span id="cb38-6"><a href="差异基因作图.html#cb38-6" tabindex="-1"></a><span class="co"># 输出文件夹</span></span>
+<span id="cb38-7"><a href="差异基因作图.html#cb38-7" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;DEG_ANalysis&quot;</span></span>
+<span id="cb38-8"><a href="差异基因作图.html#cb38-8" tabindex="-1"></a><span class="co"># title</span></span>
+<span id="cb38-9"><a href="差异基因作图.html#cb38-9" tabindex="-1"></a>group <span class="ot">&lt;-</span> group_list</span>
+<span id="cb38-10"><a href="差异基因作图.html#cb38-10" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(group[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, group[<span class="dv">2</span>])</span>
+<span id="cb38-11"><a href="差异基因作图.html#cb38-11" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="差异基因作图.html#cb38-12" tabindex="-1"></a><span class="co"># 读取差异基因</span></span>
+<span id="cb38-13"><a href="差异基因作图.html#cb38-13" tabindex="-1"></a><span class="co"># cut_log2FC &lt;- mean(abs(total$log2FoldChange)) + 2 * sd(abs(total$log2FoldChange))</span></span>
+<span id="cb38-14"><a href="差异基因作图.html#cb38-14" tabindex="-1"></a><span class="co"># log2FC_t &lt;- ifelse(cut_log2FC &gt; 1, 1, cut_log2FC)</span></span>
+<span id="cb38-15"><a href="差异基因作图.html#cb38-15" tabindex="-1"></a>log2FC_t <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb38-16"><a href="差异基因作图.html#cb38-16" tabindex="-1"></a>sig_t <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb38-17"><a href="差异基因作图.html#cb38-17" tabindex="-1"></a><span class="co"># 计算 regulation</span></span>
+<span id="cb38-18"><a href="差异基因作图.html#cb38-18" tabindex="-1"></a>total<span class="sc">$</span>regulation <span class="ot">=</span> <span class="fu">ifelse</span>(total<span class="sc">$</span>FDR <span class="sc">&gt;</span> sig_t, <span class="st">&#39;stable&#39;</span>,</span>
+<span id="cb38-19"><a href="差异基因作图.html#cb38-19" tabindex="-1"></a>                          <span class="fu">ifelse</span>(total<span class="sc">$</span>log2FoldChange <span class="sc">&gt;</span> log2FC_t, <span class="st">&#39;up&#39;</span>,</span>
+<span id="cb38-20"><a href="差异基因作图.html#cb38-20" tabindex="-1"></a>                                 <span class="fu">ifelse</span>(total<span class="sc">$</span>log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span>log2FC_t, <span class="st">&#39;down&#39;</span>, <span class="st">&#39;stable&#39;</span>)))</span>
+<span id="cb38-21"><a href="差异基因作图.html#cb38-21" tabindex="-1"></a><span class="co"># 提取所需的列</span></span>
+<span id="cb38-22"><a href="差异基因作图.html#cb38-22" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span>  total[, <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;log2FoldChange&quot;</span>, <span class="st">&quot;FDR&quot;</span>, <span class="st">&quot;regulation&quot;</span>)]</span>
+<span id="cb38-23"><a href="差异基因作图.html#cb38-23" tabindex="-1"></a><span class="fu">colnames</span>(nrDEG) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&#39;log2FC&#39;</span>, <span class="st">&#39;FDR&#39;</span>, <span class="st">&#39;regulation&#39;</span>)</span></code></pre></div>
 </div>
-<div id="火山图" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> 火山图<a href="差异基因作图.html#火山图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="差异基因作图.html#cb35-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> nrDEG</span>
-<span id="cb35-2"><a href="差异基因作图.html#cb35-2" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
-<span id="cb35-3"><a href="差异基因作图.html#cb35-3" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(res,</span>
-<span id="cb35-4"><a href="差异基因作图.html#cb35-4" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&#39;log2FC&#39;</span>,</span>
-<span id="cb35-5"><a href="差异基因作图.html#cb35-5" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;FDR&quot;</span>,</span>
-<span id="cb35-6"><a href="差异基因作图.html#cb35-6" tabindex="-1"></a>                <span class="at">pCutoff =</span> <span class="fl">0.05</span>,</span>
-<span id="cb35-7"><a href="差异基因作图.html#cb35-7" tabindex="-1"></a>                <span class="at">lab =</span> <span class="st">&quot;SYMBOL&quot;</span>)</span></code></pre></div>
+<div id="火山图" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> 火山图<a href="差异基因作图.html#火山图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="差异基因作图.html#cb39-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> nrDEG</span>
+<span id="cb39-2"><a href="差异基因作图.html#cb39-2" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span>
+<span id="cb39-3"><a href="差异基因作图.html#cb39-3" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(res,</span>
+<span id="cb39-4"><a href="差异基因作图.html#cb39-4" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&#39;log2FC&#39;</span>,</span>
+<span id="cb39-5"><a href="差异基因作图.html#cb39-5" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;FDR&quot;</span>,</span>
+<span id="cb39-6"><a href="差异基因作图.html#cb39-6" tabindex="-1"></a>                <span class="at">pCutoff =</span> <span class="fl">0.05</span>,</span>
+<span id="cb39-7"><a href="差异基因作图.html#cb39-7" tabindex="-1"></a>                <span class="at">lab =</span> <span class="st">&quot;SYMBOL&quot;</span>)</span></code></pre></div>
 <p><img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="差异基因作图.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb36-2"><a href="差异基因作图.html#cb36-2" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span> nrDEG</span>
-<span id="cb36-3"><a href="差异基因作图.html#cb36-3" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="差异基因作图.html#cb36-4" tabindex="-1"></a><span class="co"># 创建文本信息</span></span>
-<span id="cb36-5"><a href="差异基因作图.html#cb36-5" tabindex="-1"></a>this_tile <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&#39;Threshold of log2FC is &#39;</span>, <span class="fu">round</span>(log2FC_t, <span class="dv">3</span>),</span>
-<span id="cb36-6"><a href="差异基因作图.html#cb36-6" tabindex="-1"></a>                    <span class="st">&#39;</span><span class="sc">\n</span><span class="st">The number of up gene is &#39;</span>, <span class="fu">nrow</span>(nrDEG[nrDEG<span class="sc">$</span>regulation <span class="sc">==</span> <span class="st">&#39;up&#39;</span>,]),</span>
-<span id="cb36-7"><a href="差异基因作图.html#cb36-7" tabindex="-1"></a>                    <span class="st">&#39;</span><span class="sc">\n</span><span class="st">The number of down gene is &#39;</span>, <span class="fu">nrow</span>(nrDEG[nrDEG<span class="sc">$</span>regulation <span class="sc">==</span> <span class="st">&#39;down&#39;</span>,]))</span>
-<span id="cb36-8"><a href="差异基因作图.html#cb36-8" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="差异基因作图.html#cb36-9" tabindex="-1"></a><span class="co"># 选择关注的基因，添加标签，以 GAPDH 为例</span></span>
-<span id="cb36-10"><a href="差异基因作图.html#cb36-10" tabindex="-1"></a>target_gene <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;GAPDH&#39;</span>)</span>
-<span id="cb36-11"><a href="差异基因作图.html#cb36-11" tabindex="-1"></a>for_label <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(nrDEG, SYMBOL <span class="sc">%in%</span> target_gene)</span>
-<span id="cb36-12"><a href="差异基因作图.html#cb36-12" tabindex="-1"></a></span>
-<span id="cb36-13"><a href="差异基因作图.html#cb36-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> nrDEG, <span class="fu">aes</span>(<span class="at">x =</span> log2FC, <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(FDR))) <span class="sc">+</span></span>
-<span id="cb36-14"><a href="差异基因作图.html#cb36-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="fu">aes</span>(<span class="at">color =</span> regulation)) <span class="sc">+</span></span>
-<span id="cb36-15"><a href="差异基因作图.html#cb36-15" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">data =</span> for_label) <span class="sc">+</span></span>
-<span id="cb36-16"><a href="差异基因作图.html#cb36-16" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> (for_label<span class="sc">$</span>SYMBOL)), <span class="at">data =</span> for_label,</span>
-<span id="cb36-17"><a href="差异基因作图.html#cb36-17" tabindex="-1"></a>                            <span class="at">max.overlaps =</span> <span class="fu">getOption</span>(<span class="st">&quot;ggrepel.max.overlaps&quot;</span>, <span class="at">default =</span> <span class="dv">20</span>),</span>
-<span id="cb36-18"><a href="差异基因作图.html#cb36-18" tabindex="-1"></a>                            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb36-19"><a href="差异基因作图.html#cb36-19" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#34bfb5&quot;</span>, <span class="st">&quot;#828586&quot;</span>, <span class="st">&quot;#ff6633&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb36-20"><a href="差异基因作图.html#cb36-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;-log10(FDR)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb36-21"><a href="差异基因作图.html#cb36-21" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(log2FC_t, <span class="sc">-</span>log2FC_t), <span class="at">lty =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb36-22"><a href="差异基因作图.html#cb36-22" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(pvalue_t), <span class="at">lty =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb36-23"><a href="差异基因作图.html#cb36-23" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb36-24"><a href="差异基因作图.html#cb36-24" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb36-25"><a href="差异基因作图.html#cb36-25" tabindex="-1"></a>  <span class="fu">ggtitle</span>(this_tile) <span class="sc">+</span></span>
-<span id="cb36-26"><a href="差异基因作图.html#cb36-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb36-27"><a href="差异基因作图.html#cb36-27" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb36-28"><a href="差异基因作图.html#cb36-28" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb36-29"><a href="差异基因作图.html#cb36-29" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="差异基因作图.html#cb40-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb40-2"><a href="差异基因作图.html#cb40-2" tabindex="-1"></a>nrDEG <span class="ot">&lt;-</span> nrDEG</span>
+<span id="cb40-3"><a href="差异基因作图.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="差异基因作图.html#cb40-4" tabindex="-1"></a><span class="co"># 创建文本信息</span></span>
+<span id="cb40-5"><a href="差异基因作图.html#cb40-5" tabindex="-1"></a>this_tile <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&#39;Threshold of log2FC is &#39;</span>, <span class="fu">round</span>(log2FC_t, <span class="dv">3</span>),</span>
+<span id="cb40-6"><a href="差异基因作图.html#cb40-6" tabindex="-1"></a>                    <span class="st">&#39;</span><span class="sc">\n</span><span class="st">The number of up gene is &#39;</span>, <span class="fu">nrow</span>(nrDEG[nrDEG<span class="sc">$</span>regulation <span class="sc">==</span> <span class="st">&#39;up&#39;</span>,]),</span>
+<span id="cb40-7"><a href="差异基因作图.html#cb40-7" tabindex="-1"></a>                    <span class="st">&#39;</span><span class="sc">\n</span><span class="st">The number of down gene is &#39;</span>, <span class="fu">nrow</span>(nrDEG[nrDEG<span class="sc">$</span>regulation <span class="sc">==</span> <span class="st">&#39;down&#39;</span>,]))</span>
+<span id="cb40-8"><a href="差异基因作图.html#cb40-8" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="差异基因作图.html#cb40-9" tabindex="-1"></a><span class="co"># 选择关注的基因，添加标签，以 GAPDH 为例</span></span>
+<span id="cb40-10"><a href="差异基因作图.html#cb40-10" tabindex="-1"></a>target_gene <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;GAPDH&#39;</span>)</span>
+<span id="cb40-11"><a href="差异基因作图.html#cb40-11" tabindex="-1"></a>for_label <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(nrDEG, SYMBOL <span class="sc">%in%</span> target_gene)</span>
+<span id="cb40-12"><a href="差异基因作图.html#cb40-12" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="差异基因作图.html#cb40-13" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> nrDEG, <span class="fu">aes</span>(<span class="at">x =</span> log2FC, <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(FDR))) <span class="sc">+</span></span>
+<span id="cb40-14"><a href="差异基因作图.html#cb40-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="fu">aes</span>(<span class="at">color =</span> regulation)) <span class="sc">+</span></span>
+<span id="cb40-15"><a href="差异基因作图.html#cb40-15" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">1</span>, <span class="at">data =</span> for_label) <span class="sc">+</span></span>
+<span id="cb40-16"><a href="差异基因作图.html#cb40-16" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> (for_label<span class="sc">$</span>SYMBOL)), <span class="at">data =</span> for_label,</span>
+<span id="cb40-17"><a href="差异基因作图.html#cb40-17" tabindex="-1"></a>                            <span class="at">max.overlaps =</span> <span class="fu">getOption</span>(<span class="st">&quot;ggrepel.max.overlaps&quot;</span>, <span class="at">default =</span> <span class="dv">20</span>),</span>
+<span id="cb40-18"><a href="差异基因作图.html#cb40-18" tabindex="-1"></a>                            <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-19"><a href="差异基因作图.html#cb40-19" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#34bfb5&quot;</span>, <span class="st">&quot;#828586&quot;</span>, <span class="st">&quot;#ff6633&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb40-20"><a href="差异基因作图.html#cb40-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;-log10(FDR)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-21"><a href="差异基因作图.html#cb40-21" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(log2FC_t, <span class="sc">-</span>log2FC_t), <span class="at">lty =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb40-22"><a href="差异基因作图.html#cb40-22" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(sig_t), <span class="at">lty =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb40-23"><a href="差异基因作图.html#cb40-23" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb40-24"><a href="差异基因作图.html#cb40-24" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb40-25"><a href="差异基因作图.html#cb40-25" tabindex="-1"></a>  <span class="fu">ggtitle</span>(this_tile) <span class="sc">+</span></span>
+<span id="cb40-26"><a href="差异基因作图.html#cb40-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb40-27"><a href="差异基因作图.html#cb40-27" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb40-28"><a href="差异基因作图.html#cb40-28" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb40-29"><a href="差异基因作图.html#cb40-29" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))</span></code></pre></div>
 <p><img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="差异基因热图" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> 差异基因热图<a href="差异基因作图.html#差异基因热图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="差异基因作图.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
-<span id="cb37-2"><a href="差异基因作图.html#cb37-2" tabindex="-1"></a><span class="co"># 提取所需的列</span></span>
-<span id="cb37-3"><a href="差异基因作图.html#cb37-3" tabindex="-1"></a>nrDEG <span class="ot">=</span> total[, <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;log2FoldChange&quot;</span>, <span class="st">&quot;FDR&quot;</span>)]</span>
-<span id="cb37-4"><a href="差异基因作图.html#cb37-4" tabindex="-1"></a><span class="fu">colnames</span>(nrDEG) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&#39;log2FC&#39;</span>, <span class="st">&#39;FDR&#39;</span>)</span>
-<span id="cb37-5"><a href="差异基因作图.html#cb37-5" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="差异基因作图.html#cb37-6" tabindex="-1"></a><span class="co"># 获取上下调前 100 的基因名</span></span>
-<span id="cb37-7"><a href="差异基因作图.html#cb37-7" tabindex="-1"></a>x <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>log2FC</span>
-<span id="cb37-8"><a href="差异基因作图.html#cb37-8" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>SYMBOL</span>
-<span id="cb37-9"><a href="差异基因作图.html#cb37-9" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(<span class="fu">head</span>(<span class="fu">sort</span>(x), <span class="dv">100</span>)), <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(x), <span class="dv">100</span>)))</span>
-<span id="cb37-10"><a href="差异基因作图.html#cb37-10" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="差异基因作图.html#cb37-11" tabindex="-1"></a><span class="co"># 数据归一化</span></span>
-<span id="cb37-12"><a href="差异基因作图.html#cb37-12" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">log2</span>(edgeR<span class="sc">::</span><span class="fu">cpm</span>(symbol_matrix)<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb37-13"><a href="差异基因作图.html#cb37-13" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">scale</span>(<span class="fu">t</span>(dat[cg, ])))</span>
-<span id="cb37-14"><a href="差异基因作图.html#cb37-14" tabindex="-1"></a>n[n <span class="sc">&gt;</span> <span class="dv">2</span>] <span class="ot">=</span> <span class="dv">2</span></span>
-<span id="cb37-15"><a href="差异基因作图.html#cb37-15" tabindex="-1"></a>n[n <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb37-16"><a href="差异基因作图.html#cb37-16" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="差异基因作图.html#cb37-17" tabindex="-1"></a><span class="co"># 创建分组信息</span></span>
-<span id="cb37-18"><a href="差异基因作图.html#cb37-18" tabindex="-1"></a>ac <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> group_list)</span>
-<span id="cb37-19"><a href="差异基因作图.html#cb37-19" tabindex="-1"></a><span class="fu">rownames</span>(ac) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(n)</span>
-<span id="cb37-20"><a href="差异基因作图.html#cb37-20" tabindex="-1"></a>palette <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">3</span>, <span class="st">&quot;Set2&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
-<span id="cb37-21"><a href="差异基因作图.html#cb37-21" tabindex="-1"></a><span class="fu">names</span>(palette) <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">table</span>(group_list))</span>
-<span id="cb37-22"><a href="差异基因作图.html#cb37-22" tabindex="-1"></a></span>
-<span id="cb37-23"><a href="差异基因作图.html#cb37-23" tabindex="-1"></a><span class="co"># 绘制带有分组注释的热图</span></span>
-<span id="cb37-24"><a href="差异基因作图.html#cb37-24" tabindex="-1"></a><span class="fu">pheatmap</span>(n, </span>
-<span id="cb37-25"><a href="差异基因作图.html#cb37-25" tabindex="-1"></a>         <span class="at">show_colnames =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb37-26"><a href="差异基因作图.html#cb37-26" tabindex="-1"></a>         <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-27"><a href="差异基因作图.html#cb37-27" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb37-28"><a href="差异基因作图.html#cb37-28" tabindex="-1"></a>         <span class="at">annotation_colors =</span> <span class="fu">list</span>(<span class="at">group =</span> palette),</span>
-<span id="cb37-29"><a href="差异基因作图.html#cb37-29" tabindex="-1"></a>         <span class="at">annotation_col =</span> ac, </span>
-<span id="cb37-30"><a href="差异基因作图.html#cb37-30" tabindex="-1"></a>         <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>, <span class="at">length.out =</span> <span class="dv">100</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="差异基因作图.html#cb41-1" tabindex="-1"></a>deg <span class="ot">&lt;-</span> nrDEG</span>
+<span id="cb41-2"><a href="差异基因作图.html#cb41-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> deg, <span class="fu">aes</span>(<span class="at">x =</span> log2FC, <span class="at">y =</span> <span class="sc">-</span><span class="fu">log10</span>(FDR))) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="差异基因作图.html#cb41-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="fu">aes</span>(<span class="at">color=</span>regulation)) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="差异基因作图.html#cb41-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;dodgerblue&quot;</span>, <span class="st">&quot;lightgrey&quot;</span>, <span class="st">&quot;firebrick&quot;</span>))<span class="sc">+</span></span>
+<span id="cb41-5"><a href="差异基因作图.html#cb41-5" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span><span class="fu">c</span>(<span class="sc">-</span>log2FC_t, log2FC_t),<span class="at">lty=</span><span class="dv">4</span>,<span class="at">col=</span><span class="st">&quot;black&quot;</span>,<span class="at">linewidth=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="差异基因作图.html#cb41-6" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(sig_t),<span class="at">lty=</span><span class="dv">4</span>,<span class="at">col=</span><span class="st">&quot;black&quot;</span>,<span class="at">linewidth=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="差异基因作图.html#cb41-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb41-8"><a href="差异基因作图.html#cb41-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">10</span>), </span>
+<span id="cb41-9"><a href="差异基因作图.html#cb41-9" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb41-10"><a href="差异基因作图.html#cb41-10" tabindex="-1"></a>        <span class="at">plot.title.position =</span> <span class="st">&quot;plot&quot;</span>,</span>
+<span id="cb41-11"><a href="差异基因作图.html#cb41-11" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>,</span>
+<span id="cb41-12"><a href="差异基因作图.html#cb41-12" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>),</span>
+<span id="cb41-13"><a href="差异基因作图.html#cb41-13" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">8</span>),</span>
+<span id="cb41-14"><a href="差异基因作图.html#cb41-14" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
-<div id="保存结果-3" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> 保存结果<a href="差异基因作图.html#保存结果-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="差异基因热图" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> 差异基因热图<a href="差异基因作图.html#差异基因热图" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="差异基因作图.html#cb42-1" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb42-2"><a href="差异基因作图.html#cb42-2" tabindex="-1"></a><span class="co"># 提取所需的列</span></span>
+<span id="cb42-3"><a href="差异基因作图.html#cb42-3" tabindex="-1"></a>nrDEG <span class="ot">=</span> total[, <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>,<span class="st">&quot;log2FoldChange&quot;</span>, <span class="st">&quot;FDR&quot;</span>)]</span>
+<span id="cb42-4"><a href="差异基因作图.html#cb42-4" tabindex="-1"></a><span class="fu">colnames</span>(nrDEG) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&#39;log2FC&#39;</span>, <span class="st">&#39;FDR&#39;</span>)</span>
+<span id="cb42-5"><a href="差异基因作图.html#cb42-5" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="差异基因作图.html#cb42-6" tabindex="-1"></a><span class="co"># 获取上下调前 100 的基因名</span></span>
+<span id="cb42-7"><a href="差异基因作图.html#cb42-7" tabindex="-1"></a>x <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>log2FC</span>
+<span id="cb42-8"><a href="差异基因作图.html#cb42-8" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> nrDEG<span class="sc">$</span>SYMBOL</span>
+<span id="cb42-9"><a href="差异基因作图.html#cb42-9" tabindex="-1"></a>cg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">names</span>(<span class="fu">head</span>(<span class="fu">sort</span>(x), <span class="dv">100</span>)), <span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(x), <span class="dv">100</span>)))</span>
+<span id="cb42-10"><a href="差异基因作图.html#cb42-10" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="差异基因作图.html#cb42-11" tabindex="-1"></a><span class="co"># 数据归一化</span></span>
+<span id="cb42-12"><a href="差异基因作图.html#cb42-12" tabindex="-1"></a>dat <span class="ot">=</span> <span class="fu">log2</span>(edgeR<span class="sc">::</span><span class="fu">cpm</span>(symbol_matrix)<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb42-13"><a href="差异基因作图.html#cb42-13" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">scale</span>(<span class="fu">t</span>(dat[cg, ])))</span>
+<span id="cb42-14"><a href="差异基因作图.html#cb42-14" tabindex="-1"></a>n[n <span class="sc">&gt;</span> <span class="dv">2</span>] <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb42-15"><a href="差异基因作图.html#cb42-15" tabindex="-1"></a>n[n <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">2</span>] <span class="ot">=</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb42-16"><a href="差异基因作图.html#cb42-16" tabindex="-1"></a></span>
+<span id="cb42-17"><a href="差异基因作图.html#cb42-17" tabindex="-1"></a><span class="co"># 创建分组信息</span></span>
+<span id="cb42-18"><a href="差异基因作图.html#cb42-18" tabindex="-1"></a>ac <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">group =</span> group_list)</span>
+<span id="cb42-19"><a href="差异基因作图.html#cb42-19" tabindex="-1"></a><span class="fu">rownames</span>(ac) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(n)</span>
+<span id="cb42-20"><a href="差异基因作图.html#cb42-20" tabindex="-1"></a>palette <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">3</span>, <span class="st">&quot;Set2&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb42-21"><a href="差异基因作图.html#cb42-21" tabindex="-1"></a><span class="fu">names</span>(palette) <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">table</span>(group_list))</span>
+<span id="cb42-22"><a href="差异基因作图.html#cb42-22" tabindex="-1"></a></span>
+<span id="cb42-23"><a href="差异基因作图.html#cb42-23" tabindex="-1"></a><span class="co"># 绘制带有分组注释的热图</span></span>
+<span id="cb42-24"><a href="差异基因作图.html#cb42-24" tabindex="-1"></a><span class="fu">pheatmap</span>(n, </span>
+<span id="cb42-25"><a href="差异基因作图.html#cb42-25" tabindex="-1"></a>         <span class="at">show_colnames =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb42-26"><a href="差异基因作图.html#cb42-26" tabindex="-1"></a>         <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb42-27"><a href="差异基因作图.html#cb42-27" tabindex="-1"></a>         <span class="at">cluster_cols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb42-28"><a href="差异基因作图.html#cb42-28" tabindex="-1"></a>         <span class="at">annotation_colors =</span> <span class="fu">list</span>(<span class="at">group =</span> palette),</span>
+<span id="cb42-29"><a href="差异基因作图.html#cb42-29" tabindex="-1"></a>         <span class="at">annotation_col =</span> ac, </span>
+<span id="cb42-30"><a href="差异基因作图.html#cb42-30" tabindex="-1"></a>         <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>, <span class="at">length.out =</span> <span class="dv">100</span>))</span></code></pre></div>
+<p><img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="保存结果-3" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> 保存结果<a href="差异基因作图.html#保存结果-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>保存结果</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="差异基因作图.html#cb38-1" tabindex="-1"></a><span class="fu">write.csv</span>(total, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&quot;/&quot;</span>, title, <span class="st">&quot;_all_edger_reg.csv&quot;</span>), <span class="at">row.names =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="差异基因作图.html#cb43-1" tabindex="-1"></a><span class="fu">write.csv</span>(total, <span class="at">file =</span> <span class="fu">paste0</span>(OUT_FOLDER, <span class="st">&quot;/&quot;</span>, title, <span class="st">&quot;_all_edger_reg.csv&quot;</span>), <span class="at">row.names =</span> F)</span></code></pre></div>
 <p>保存变量</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="差异基因作图.html#cb39-1" tabindex="-1"></a><span class="fu">save</span>(total, <span class="at">file =</span> <span class="st">&quot;Rdata/DEG_edgeR_reg.Rdata&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="差异基因作图.html#cb44-1" tabindex="-1"></a><span class="fu">save</span>(total, <span class="at">file =</span> <span class="st">&quot;Rdata/DEG_edgeR_reg.Rdata&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -340,7 +385,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="limma-voom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="一致性评估.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="ora-富集分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>第 10 章 WGCNA | RNA-Seq</title>
+  <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="第 10 章 WGCNA | RNA-Seq" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
+  <meta name="github-repo" content="smileszh/RNA-Seq" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="第 10 章 WGCNA | RNA-Seq" />
+  
+  <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
+  
+
+<meta name="author" content="小苏" />
+
+
+<meta name="date" content="2025-03-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gsea-富集分析.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RNA-Seq</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>前言</a></li>
+<li class="part"><span><b>I 数据预处理</b></span></li>
+<li class="chapter" data-level="1" data-path="数据预处理.html"><a href="数据预处理.html"><i class="fa fa-check"></i><b>1</b> 数据预处理</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="数据预处理.html"><a href="数据预处理.html#加载数据"><i class="fa fa-check"></i><b>1.1</b> 加载数据</a></li>
+<li class="chapter" data-level="1.2" data-path="数据预处理.html"><a href="数据预处理.html#过滤低表达数据"><i class="fa fa-check"></i><b>1.2</b> 过滤低表达数据</a></li>
+<li class="chapter" data-level="1.3" data-path="数据预处理.html"><a href="数据预处理.html#转换基因-id"><i class="fa fa-check"></i><b>1.3</b> 转换基因 ID</a></li>
+<li class="chapter" data-level="1.4" data-path="数据预处理.html"><a href="数据预处理.html#保存变量"><i class="fa fa-check"></i><b>1.4</b> 保存变量</a></li>
+</ul></li>
+<li class="part"><span><b>II 样本表达分布</b></span></li>
+<li class="chapter" data-level="2" data-path="样本表达分布.html"><a href="样本表达分布.html"><i class="fa fa-check"></i><b>2</b> 样本表达分布</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="样本表达分布.html"><a href="样本表达分布.html#加载数据-1"><i class="fa fa-check"></i><b>2.1</b> 加载数据</a></li>
+<li class="chapter" data-level="2.2" data-path="样本表达分布.html"><a href="样本表达分布.html#箱线图"><i class="fa fa-check"></i><b>2.2</b> 箱线图</a></li>
+<li class="chapter" data-level="2.3" data-path="样本表达分布.html"><a href="样本表达分布.html#pca"><i class="fa fa-check"></i><b>2.3</b> PCA</a></li>
+<li class="chapter" data-level="2.4" data-path="样本表达分布.html"><a href="样本表达分布.html#基因热图"><i class="fa fa-check"></i><b>2.4</b> 基因热图</a></li>
+<li class="chapter" data-level="2.5" data-path="样本表达分布.html"><a href="样本表达分布.html#样本间相关性热图"><i class="fa fa-check"></i><b>2.5</b> 样本间相关性热图</a></li>
+</ul></li>
+<li class="part"><span><b>III 差异基因分析</b></span></li>
+<li class="chapter" data-level="3" data-path="edger.html"><a href="edger.html"><i class="fa fa-check"></i><b>3</b> edgeR</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="edger.html"><a href="edger.html#加载数据-2"><i class="fa fa-check"></i><b>3.1</b> 加载数据</a></li>
+<li class="chapter" data-level="3.2" data-path="edger.html"><a href="edger.html#edger-分析"><i class="fa fa-check"></i><b>3.2</b> edgeR 分析</a></li>
+<li class="chapter" data-level="3.3" data-path="edger.html"><a href="edger.html#整理分析结果规范输出"><i class="fa fa-check"></i><b>3.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="3.4" data-path="edger.html"><a href="edger.html#保存结果"><i class="fa fa-check"></i><b>3.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="deseq2.html"><a href="deseq2.html"><i class="fa fa-check"></i><b>4</b> DESeq2</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="deseq2.html"><a href="deseq2.html#加载数据-3"><i class="fa fa-check"></i><b>4.1</b> 加载数据</a></li>
+<li class="chapter" data-level="4.2" data-path="deseq2.html"><a href="deseq2.html#deseq2-分析"><i class="fa fa-check"></i><b>4.2</b> DESeq2 分析</a></li>
+<li class="chapter" data-level="4.3" data-path="deseq2.html"><a href="deseq2.html#整理分析结果规范输出-1"><i class="fa fa-check"></i><b>4.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="4.4" data-path="deseq2.html"><a href="deseq2.html#保存结果-1"><i class="fa fa-check"></i><b>4.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="limma-voom.html"><a href="limma-voom.html"><i class="fa fa-check"></i><b>5</b> limma-voom</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="limma-voom.html"><a href="limma-voom.html#加载数据-4"><i class="fa fa-check"></i><b>5.1</b> 加载数据</a></li>
+<li class="chapter" data-level="5.2" data-path="limma-voom.html"><a href="limma-voom.html#limma-voom-分析"><i class="fa fa-check"></i><b>5.2</b> limma-voom 分析</a></li>
+<li class="chapter" data-level="5.3" data-path="limma-voom.html"><a href="limma-voom.html#整理分析结果规范输出-2"><i class="fa fa-check"></i><b>5.3</b> 整理分析结果，规范输出</a></li>
+<li class="chapter" data-level="5.4" data-path="limma-voom.html"><a href="limma-voom.html#保存结果-2"><i class="fa fa-check"></i><b>5.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="一致性评估.html"><a href="一致性评估.html"><i class="fa fa-check"></i><b>6</b> 一致性评估</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="一致性评估.html"><a href="一致性评估.html#加载数据-5"><i class="fa fa-check"></i><b>6.1</b> 加载数据</a></li>
+<li class="chapter" data-level="6.2" data-path="一致性评估.html"><a href="一致性评估.html#可视化"><i class="fa fa-check"></i><b>6.2</b> 可视化</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="一致性评估.html"><a href="一致性评估.html#韦恩图"><i class="fa fa-check"></i><b>6.2.1</b> 韦恩图</a></li>
+<li class="chapter" data-level="6.2.2" data-path="一致性评估.html"><a href="一致性评估.html#upset图"><i class="fa fa-check"></i><b>6.2.2</b> UpSet图</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV 差异基因可视化</b></span></li>
+<li class="chapter" data-level="7" data-path="差异基因作图.html"><a href="差异基因作图.html"><i class="fa fa-check"></i><b>7</b> 差异基因作图</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="差异基因作图.html"><a href="差异基因作图.html#加载数据-6"><i class="fa fa-check"></i><b>7.1</b> 加载数据</a></li>
+<li class="chapter" data-level="7.2" data-path="差异基因作图.html"><a href="差异基因作图.html#火山图"><i class="fa fa-check"></i><b>7.2</b> 火山图</a></li>
+<li class="chapter" data-level="7.3" data-path="差异基因作图.html"><a href="差异基因作图.html#差异基因热图"><i class="fa fa-check"></i><b>7.3</b> 差异基因热图</a></li>
+<li class="chapter" data-level="7.4" data-path="差异基因作图.html"><a href="差异基因作图.html#保存结果-3"><i class="fa fa-check"></i><b>7.4</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>V 富集分析</b></span></li>
+<li class="chapter" data-level="8" data-path="ora-富集分析.html"><a href="ora-富集分析.html"><i class="fa fa-check"></i><b>8</b> ORA 富集分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ora-富集分析.html"><a href="ora-富集分析.html#加载数据-7"><i class="fa fa-check"></i><b>8.1</b> 加载数据</a></li>
+<li class="chapter" data-level="8.2" data-path="ora-富集分析.html"><a href="ora-富集分析.html#go-富集分析"><i class="fa fa-check"></i><b>8.2</b> GO 富集分析</a></li>
+<li class="chapter" data-level="8.3" data-path="ora-富集分析.html"><a href="ora-富集分析.html#kegg-富集分析"><i class="fa fa-check"></i><b>8.3</b> KEGG 富集分析</a></li>
+<li class="chapter" data-level="8.4" data-path="ora-富集分析.html"><a href="ora-富集分析.html#保存结果-4"><i class="fa fa-check"></i><b>8.4</b> 保存结果</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html"><i class="fa fa-check"></i><b>9</b> GSEA 富集分析</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#加载数据-8"><i class="fa fa-check"></i><b>9.1</b> 加载数据</a></li>
+<li class="chapter" data-level="9.2" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#gsea-分析"><i class="fa fa-check"></i><b>9.2</b> GSEA 分析</a></li>
+<li class="chapter" data-level="9.3" data-path="gsea-富集分析.html"><a href="gsea-富集分析.html#保存结果-5"><i class="fa fa-check"></i><b>9.3</b> 保存结果</a></li>
+</ul></li>
+<li class="part"><span><b>VI 高级分析</b></span></li>
+<li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
+<li class="chapter" data-level="10.3.2" data-path="wgcna.html"><a href="wgcna.html#样本层级聚类查看有无离群值"><i class="fa fa-check"></i><b>10.3.2</b> 样本层级聚类，查看有无离群值</a></li>
+<li class="chapter" data-level="10.3.3" data-path="wgcna.html"><a href="wgcna.html#检查表型信息"><i class="fa fa-check"></i><b>10.3.3</b> 检查表型信息</a></li>
+<li class="chapter" data-level="10.3.4" data-path="wgcna.html"><a href="wgcna.html#软阈值筛选"><i class="fa fa-check"></i><b>10.3.4</b> 软阈值筛选</a></li>
+<li class="chapter" data-level="10.3.5" data-path="wgcna.html"><a href="wgcna.html#构建网络"><i class="fa fa-check"></i><b>10.3.5</b> 构建网络</a></li>
+<li class="chapter" data-level="10.3.6" data-path="wgcna.html"><a href="wgcna.html#保存每个模块的基因"><i class="fa fa-check"></i><b>10.3.6</b> 保存每个模块的基因</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="wgcna.html"><a href="wgcna.html#模块与表型的相关性"><i class="fa fa-check"></i><b>10.4</b> 模块与表型的相关性</a></li>
+<li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
+<li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
+<li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">RNA-Seq</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="wgcna" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">第 10 章</span> WGCNA<a href="wgcna.html#wgcna" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="默认参数可选" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> 默认参数（可选）<a href="wgcna.html#默认参数可选" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="wgcna.html#cb60-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb60-2"><a href="wgcna.html#cb60-2" tabindex="-1"></a><span class="co"># 打开多线程</span></span>
+<span id="cb60-3"><a href="wgcna.html#cb60-3" tabindex="-1"></a><span class="fu">enableWGCNAThreads</span>()</span>
+<span id="cb60-4"><a href="wgcna.html#cb60-4" tabindex="-1"></a><span class="do">## Allowing parallel execution with up to 7 working processes.</span></span>
+<span id="cb60-5"><a href="wgcna.html#cb60-5" tabindex="-1"></a></span>
+<span id="cb60-6"><a href="wgcna.html#cb60-6" tabindex="-1"></a><span class="co"># 官方推荐 &quot;signed&quot; 或 &quot;signed hybrid&quot;</span></span>
+<span id="cb60-7"><a href="wgcna.html#cb60-7" tabindex="-1"></a><span class="co"># 用signed获得的模块包含的基因会少</span></span>
+<span id="cb60-8"><a href="wgcna.html#cb60-8" tabindex="-1"></a>type <span class="ot">=</span> <span class="st">&quot;unsigned&quot;</span></span>
+<span id="cb60-9"><a href="wgcna.html#cb60-9" tabindex="-1"></a></span>
+<span id="cb60-10"><a href="wgcna.html#cb60-10" tabindex="-1"></a><span class="co"># 相关性计算</span></span>
+<span id="cb60-11"><a href="wgcna.html#cb60-11" tabindex="-1"></a><span class="co"># 官方推荐 biweight mid-correlation &amp; bicor</span></span>
+<span id="cb60-12"><a href="wgcna.html#cb60-12" tabindex="-1"></a><span class="co"># corType: pearson or bicor</span></span>
+<span id="cb60-13"><a href="wgcna.html#cb60-13" tabindex="-1"></a>corType <span class="ot">=</span> <span class="st">&quot;bicor&quot;</span></span>
+<span id="cb60-14"><a href="wgcna.html#cb60-14" tabindex="-1"></a></span>
+<span id="cb60-15"><a href="wgcna.html#cb60-15" tabindex="-1"></a>corFnc <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>, cor, bicor)</span>
+<span id="cb60-16"><a href="wgcna.html#cb60-16" tabindex="-1"></a><span class="co"># 对二元变量，如样本性状信息计算相关性时，</span></span>
+<span id="cb60-17"><a href="wgcna.html#cb60-17" tabindex="-1"></a><span class="co"># 或基因表达严重依赖于疾病状态时，需设置下面参数</span></span>
+<span id="cb60-18"><a href="wgcna.html#cb60-18" tabindex="-1"></a>maxPOutliers <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)</span>
+<span id="cb60-19"><a href="wgcna.html#cb60-19" tabindex="-1"></a></span>
+<span id="cb60-20"><a href="wgcna.html#cb60-20" tabindex="-1"></a><span class="co"># 关联样品性状的二元变量时，设置</span></span>
+<span id="cb60-21"><a href="wgcna.html#cb60-21" tabindex="-1"></a>robustY <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>,T,F)</span></code></pre></div>
+<p>网络类型 (<code>type</code>)：
+“unsigned”：在无符号网络中，正相关和负相关被同等对待，这意味着基因可以被分到同一个模块中，无论它们是正相关还是负相关。这通常会导致模块更大，因为限制较少。“signed” 或 “signed hybrid”：有符号网络区分正相关和负相关。模块通常包含正相关的基因，导致模块更小且更同质化。注释正确指出，有符号网络通常会产生包含较少基因的模块。</p>
+<p>相关性类型 (<code>corType</code>)：
+“pearson”：皮尔逊相关性测量变量之间的线性关系。它假设数据呈正态分布，对异常值敏感。
+“bicor”：双权中值相关性（bicor）是一种稳健的相关性测量方法，与皮尔逊相关性相比，对异常值不太敏感。它在生物数据中非常有用，因为异常值较为常见。注释正确指出，“bicor”在生物数据中推荐使用，因为它的稳健性。</p>
+<p>相关性函数 (<code>corFnc</code>)：
+使用 <code>ifelse</code> 根据 <code>corType</code> 选择相关性函数。对于皮尔逊选择 <code>cor</code>，对于双权中值相关性选择 <code>bicor</code>。</p>
+<p><code>maxPOutliers</code>：
+这个参数在使用双权中值相关性时很重要。它设置可以被视为异常值的样本最大比例。对于皮尔逊相关性，这个值设为1，意味着不将任何样本视为异常值。对于bicor，典型设置可能是0.05，允许一些样本被视为异常值以提高稳健性。注释正确描述了这个参数的用途。</p>
+<p><code>robustY</code>：
+这个参数在将基因表达数据与二元性状（例如疾病状态）相关联时使用。它决定是否在计算涉及二元变量的相关性时使用稳健方法。对于皮尔逊相关性，通常设为 <code>TRUE</code>，而对于 bicor，由于 bicor 本身是稳健的，所以设为 <code>FALSE</code>。注释准确反映了这个参数的用途。</p>
+</div>
+<div id="加载数据-9" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> 加载数据<a href="wgcna.html#加载数据-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>走一遍数据预处理流程。</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="wgcna.html#cb61-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb61-2"><a href="wgcna.html#cb61-2" tabindex="-1"></a><span class="fu">library</span>(WGCNA)</span>
+<span id="cb61-3"><a href="wgcna.html#cb61-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb61-4"><a href="wgcna.html#cb61-4" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb61-5"><a href="wgcna.html#cb61-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb61-6"><a href="wgcna.html#cb61-6" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="wgcna.html#cb62-1" tabindex="-1"></a><span class="co"># 导入分组信息</span></span>
+<span id="cb62-2"><a href="wgcna.html#cb62-2" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;DATA/WGCNA/design.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="wgcna.html#cb62-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;s_MiaFRFP&quot;</span>, </span>
+<span id="cb62-4"><a href="wgcna.html#cb62-4" tabindex="-1"></a>                                          <span class="st">&quot;s_Part1Lag&quot;</span>, </span>
+<span id="cb62-5"><a href="wgcna.html#cb62-5" tabindex="-1"></a>                                          <span class="st">&quot;s_Part1Lead&quot;</span>, </span>
+<span id="cb62-6"><a href="wgcna.html#cb62-6" tabindex="-1"></a>                                          <span class="st">&quot;s_Part2Lead&quot;</span>, </span>
+<span id="cb62-7"><a href="wgcna.html#cb62-7" tabindex="-1"></a>                                          <span class="st">&quot;s_Part3Lead&quot;</span>, </span>
+<span id="cb62-8"><a href="wgcna.html#cb62-8" tabindex="-1"></a>                                          <span class="st">&quot;s_Part4Lead&quot;</span>)))</span>
+<span id="cb62-9"><a href="wgcna.html#cb62-9" tabindex="-1"></a><span class="fu">head</span>(design)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb62-10"><a href="wgcna.html#cb62-10" tabindex="-1"></a><span class="do">##            run     group</span></span>
+<span id="cb62-11"><a href="wgcna.html#cb62-11" tabindex="-1"></a><span class="do">##         &lt;char&gt;    &lt;fctr&gt;</span></span>
+<span id="cb62-12"><a href="wgcna.html#cb62-12" tabindex="-1"></a><span class="do">## 1: SRR19913146 s_MiaFRFP</span></span>
+<span id="cb62-13"><a href="wgcna.html#cb62-13" tabindex="-1"></a><span class="do">## 2: SRR19913145 s_MiaFRFP</span></span>
+<span id="cb62-14"><a href="wgcna.html#cb62-14" tabindex="-1"></a></span>
+<span id="cb62-15"><a href="wgcna.html#cb62-15" tabindex="-1"></a>traitData <span class="ot">&lt;-</span> design <span class="sc">%&gt;%</span></span>
+<span id="cb62-16"><a href="wgcna.html#cb62-16" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(sample, group) <span class="sc">%&gt;%</span></span>
+<span id="cb62-17"><a href="wgcna.html#cb62-17" tabindex="-1"></a>  <span class="fu">dcast</span>(sample <span class="sc">~</span> group, <span class="at">fun.aggregate =</span> length, <span class="at">value.var =</span> <span class="st">&quot;group&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-18"><a href="wgcna.html#cb62-18" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;sample&quot;</span>)</span>
+<span id="cb62-19"><a href="wgcna.html#cb62-19" tabindex="-1"></a><span class="fu">head</span>(traitData)[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb62-20"><a href="wgcna.html#cb62-20" tabindex="-1"></a><span class="do">##              s_MiaFRFP s_Part1Lag s_Part1Lead s_Part2Lead</span></span>
+<span id="cb62-21"><a href="wgcna.html#cb62-21" tabindex="-1"></a><span class="do">## s_MiaFRFP_1          1          0           0           0</span></span>
+<span id="cb62-22"><a href="wgcna.html#cb62-22" tabindex="-1"></a><span class="do">## s_MiaFRFP_2          1          0           0           0</span></span>
+<span id="cb62-23"><a href="wgcna.html#cb62-23" tabindex="-1"></a><span class="do">## s_MiaFRFP_3          1          0           0           0</span></span>
+<span id="cb62-24"><a href="wgcna.html#cb62-24" tabindex="-1"></a><span class="do">## s_Part1Lag_1         0          1           0           0</span></span>
+<span id="cb62-25"><a href="wgcna.html#cb62-25" tabindex="-1"></a></span>
+<span id="cb62-26"><a href="wgcna.html#cb62-26" tabindex="-1"></a>group_list <span class="ot">&lt;-</span> design<span class="sc">$</span>group</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="wgcna.html#cb63-1" tabindex="-1"></a><span class="co"># 导入 counts 数据</span></span>
+<span id="cb63-2"><a href="wgcna.html#cb63-2" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;DATA/WGCNA/counts.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="wgcna.html#cb63-3" tabindex="-1"></a>  <span class="fu">distinct</span>(name, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb63-4"><a href="wgcna.html#cb63-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(name, design<span class="sc">$</span>sample, <span class="fu">everything</span>())</span>
+<span id="cb63-5"><a href="wgcna.html#cb63-5" tabindex="-1"></a><span class="fu">head</span>(counts)</span>
+<span id="cb63-6"><a href="wgcna.html#cb63-6" tabindex="-1"></a><span class="do">##               name s_MiaFRFP_1 s_MiaFRFP_2 s_MiaFRFP_3 s_Part1Lag_1</span></span>
+<span id="cb63-7"><a href="wgcna.html#cb63-7" tabindex="-1"></a><span class="do">##             &lt;char&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;        &lt;int&gt;</span></span>
+<span id="cb63-8"><a href="wgcna.html#cb63-8" tabindex="-1"></a><span class="do">## 1: ENSG00000228037           2           0           0            2</span></span>
+<span id="cb63-9"><a href="wgcna.html#cb63-9" tabindex="-1"></a><span class="do">## 2: ENSG00000142611        2088        1753        2396          358</span></span>
+<span id="cb63-10"><a href="wgcna.html#cb63-10" tabindex="-1"></a><span class="do">## 3: ENSG00000284616           0           0           0            0</span></span>
+<span id="cb63-11"><a href="wgcna.html#cb63-11" tabindex="-1"></a><span class="do">## 4: ENSG00000157911        5039        3794        4870         2294</span></span>
+<span id="cb63-12"><a href="wgcna.html#cb63-12" tabindex="-1"></a><span class="do">## 5: ENSG00000260972           0           0           0            0</span></span>
+<span id="cb63-13"><a href="wgcna.html#cb63-13" tabindex="-1"></a><span class="do">## 6: ENSG00000224340           0           0           1            1</span></span>
+<span id="cb63-14"><a href="wgcna.html#cb63-14" tabindex="-1"></a><span class="do">##    s_Part1Lag_2 s_Part1Lag_3 s_Part1Lead_1 s_Part1Lead_2 s_Part1Lead_3</span></span>
+<span id="cb63-15"><a href="wgcna.html#cb63-15" tabindex="-1"></a><span class="do">##           &lt;int&gt;        &lt;int&gt;         &lt;int&gt;         &lt;int&gt;         &lt;int&gt;</span></span>
+<span id="cb63-16"><a href="wgcna.html#cb63-16" tabindex="-1"></a><span class="do">## 1:            9            0             0             2             0</span></span>
+<span id="cb63-17"><a href="wgcna.html#cb63-17" tabindex="-1"></a><span class="do">## 2:          272          264           204           228           328</span></span>
+<span id="cb63-18"><a href="wgcna.html#cb63-18" tabindex="-1"></a><span class="do">## 3:            0            2             0             0             0</span></span>
+<span id="cb63-19"><a href="wgcna.html#cb63-19" tabindex="-1"></a><span class="do">## 4:         1996         2352          2543          1666          2373</span></span>
+<span id="cb63-20"><a href="wgcna.html#cb63-20" tabindex="-1"></a><span class="do">## 5:            0            0             0             0             0</span></span>
+<span id="cb63-21"><a href="wgcna.html#cb63-21" tabindex="-1"></a><span class="do">## 6:            0            2             2             0             1</span></span>
+<span id="cb63-22"><a href="wgcna.html#cb63-22" tabindex="-1"></a><span class="do">##    s_Part2Lead_1 s_Part2Lead_2 s_Part2Lead_3 s_Part3Lead_1 s_Part3Lead_2</span></span>
+<span id="cb63-23"><a href="wgcna.html#cb63-23" tabindex="-1"></a><span class="do">##            &lt;int&gt;         &lt;int&gt;         &lt;int&gt;         &lt;int&gt;         &lt;int&gt;</span></span>
+<span id="cb63-24"><a href="wgcna.html#cb63-24" tabindex="-1"></a><span class="do">## 1:             0             2             0             0             0</span></span>
+<span id="cb63-25"><a href="wgcna.html#cb63-25" tabindex="-1"></a><span class="do">## 2:           225           136           235           210           331</span></span>
+<span id="cb63-26"><a href="wgcna.html#cb63-26" tabindex="-1"></a><span class="do">## 3:             0             0             0             0             0</span></span>
+<span id="cb63-27"><a href="wgcna.html#cb63-27" tabindex="-1"></a><span class="do">## 4:          2931          2624          3086          1928          2971</span></span>
+<span id="cb63-28"><a href="wgcna.html#cb63-28" tabindex="-1"></a><span class="do">## 5:             0             0             0             0             0</span></span>
+<span id="cb63-29"><a href="wgcna.html#cb63-29" tabindex="-1"></a><span class="do">## 6:             0             0             0             0             0</span></span>
+<span id="cb63-30"><a href="wgcna.html#cb63-30" tabindex="-1"></a><span class="do">##    s_Part3Lead_3 s_Part4Lead_1 s_Part4Lead_2 s_Part4Lead_3            gene</span></span>
+<span id="cb63-31"><a href="wgcna.html#cb63-31" tabindex="-1"></a><span class="do">##            &lt;int&gt;         &lt;int&gt;         &lt;int&gt;         &lt;int&gt;          &lt;char&gt;</span></span>
+<span id="cb63-32"><a href="wgcna.html#cb63-32" tabindex="-1"></a><span class="do">## 1:             0             0             0             0 ENSG00000228037</span></span>
+<span id="cb63-33"><a href="wgcna.html#cb63-33" tabindex="-1"></a><span class="do">## 2:           444           230           120           192          PRDM16</span></span>
+<span id="cb63-34"><a href="wgcna.html#cb63-34" tabindex="-1"></a><span class="do">## 3:             0             0             0             0 ENSG00000284616</span></span>
+<span id="cb63-35"><a href="wgcna.html#cb63-35" tabindex="-1"></a><span class="do">## 4:          3031          2048          2407          4193           PEX10</span></span>
+<span id="cb63-36"><a href="wgcna.html#cb63-36" tabindex="-1"></a><span class="do">## 5:             0             0             0             0 ENSG00000260972</span></span>
+<span id="cb63-37"><a href="wgcna.html#cb63-37" tabindex="-1"></a><span class="do">## 6:             0             0             0             0        RPL21P21</span></span>
+<span id="cb63-38"><a href="wgcna.html#cb63-38" tabindex="-1"></a><span class="co"># 过滤低表达基因</span></span>
+<span id="cb63-39"><a href="wgcna.html#cb63-39" tabindex="-1"></a>mat <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(counts, design<span class="sc">$</span>sample)</span>
+<span id="cb63-40"><a href="wgcna.html#cb63-40" tabindex="-1"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> counts<span class="sc">$</span>name</span>
+<span id="cb63-41"><a href="wgcna.html#cb63-41" tabindex="-1"></a><span class="co"># 筛选出至少在两个样本中表达的基因</span></span>
+<span id="cb63-42"><a href="wgcna.html#cb63-42" tabindex="-1"></a>keep_feature <span class="ot">&lt;-</span> <span class="fu">rowSums</span> (mat <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">&gt;=</span> <span class="dv">2</span> ;<span class="fu">table</span>(keep_feature)</span>
+<span id="cb63-43"><a href="wgcna.html#cb63-43" tabindex="-1"></a><span class="do">## keep_feature</span></span>
+<span id="cb63-44"><a href="wgcna.html#cb63-44" tabindex="-1"></a><span class="do">## FALSE  TRUE </span></span>
+<span id="cb63-45"><a href="wgcna.html#cb63-45" tabindex="-1"></a><span class="do">## 27268 35872</span></span>
+<span id="cb63-46"><a href="wgcna.html#cb63-46" tabindex="-1"></a>ensembl_matrix <span class="ot">&lt;-</span> mat[keep_feature, ]  </span>
+<span id="cb63-47"><a href="wgcna.html#cb63-47" tabindex="-1"></a><span class="fu">rownames</span>(ensembl_matrix) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(mat)[keep_feature]</span>
+<span id="cb63-48"><a href="wgcna.html#cb63-48" tabindex="-1"></a>ensembl_matrix <span class="ot">&lt;-</span> <span class="fu">rownames_to_column</span>(ensembl_matrix, <span class="at">var =</span> <span class="st">&quot;name&quot;</span>)</span>
+<span id="cb63-49"><a href="wgcna.html#cb63-49" tabindex="-1"></a></span>
+<span id="cb63-50"><a href="wgcna.html#cb63-50" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb63-51"><a href="wgcna.html#cb63-51" tabindex="-1"></a><span class="co"># 连接ensembl数据库</span></span>
+<span id="cb63-52"><a href="wgcna.html#cb63-52" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useMart</span>(<span class="st">&quot;ensembl&quot;</span>, <span class="at">dataset =</span> <span class="st">&quot;hsapiens_gene_ensembl&quot;</span>)</span>
+<span id="cb63-53"><a href="wgcna.html#cb63-53" tabindex="-1"></a><span class="co"># atr &lt;- listAttributes(ensembl) # 查看数据库中有哪些信息</span></span>
+<span id="cb63-54"><a href="wgcna.html#cb63-54" tabindex="-1"></a><span class="co"># 获得数据库中关注的 ID 信息</span></span>
+<span id="cb63-55"><a href="wgcna.html#cb63-55" tabindex="-1"></a>ids <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">&quot;ensembl_gene_id&quot;</span>, <span class="st">&quot;hgnc_symbol&quot;</span>,<span class="st">&quot;entrezgene_id&quot;</span>),</span>
+<span id="cb63-56"><a href="wgcna.html#cb63-56" tabindex="-1"></a>             <span class="at">mart =</span> ensembl)</span>
+<span id="cb63-57"><a href="wgcna.html#cb63-57" tabindex="-1"></a><span class="co"># 修改列名</span></span>
+<span id="cb63-58"><a href="wgcna.html#cb63-58" tabindex="-1"></a><span class="fu">colnames</span>(ids) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ENSEMBL&quot;</span>, <span class="st">&quot;SYMBOL&quot;</span>, <span class="st">&quot;ENTREZ&quot;</span>)</span>
+<span id="cb63-59"><a href="wgcna.html#cb63-59" tabindex="-1"></a><span class="co"># 去除重复 ID</span></span>
+<span id="cb63-60"><a href="wgcna.html#cb63-60" tabindex="-1"></a>ids<span class="ot">=</span>ids[<span class="sc">!</span><span class="fu">duplicated</span>(ids<span class="sc">$</span>ENSEMBL),]</span>
+<span id="cb63-61"><a href="wgcna.html#cb63-61" tabindex="-1"></a><span class="co"># 连接基因 counts 矩阵和 ID 信息</span></span>
+<span id="cb63-62"><a href="wgcna.html#cb63-62" tabindex="-1"></a>All_gene_counts <span class="ot">&lt;-</span> <span class="fu">merge</span>(ensembl_matrix, ids, <span class="at">by.x =</span> <span class="st">&quot;name&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;ENSEMBL&quot;</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-63"><a href="wgcna.html#cb63-63" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(name, SYMBOL, ENTREZ, <span class="fu">everything</span>())</span>
+<span id="cb63-64"><a href="wgcna.html#cb63-64" tabindex="-1"></a></span>
+<span id="cb63-65"><a href="wgcna.html#cb63-65" tabindex="-1"></a><span class="co"># 以 SYMBOL 为行名的矩阵</span></span>
+<span id="cb63-66"><a href="wgcna.html#cb63-66" tabindex="-1"></a>symbol_matrix <span class="ot">&lt;-</span> All_gene_counts <span class="sc">%&gt;%</span></span>
+<span id="cb63-67"><a href="wgcna.html#cb63-67" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(SYMBOL)) <span class="sc">%&gt;%</span></span>
+<span id="cb63-68"><a href="wgcna.html#cb63-68" tabindex="-1"></a>  <span class="fu">distinct</span>(SYMBOL, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb63-69"><a href="wgcna.html#cb63-69" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;SYMBOL&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-70"><a href="wgcna.html#cb63-70" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(design<span class="sc">$</span>sample)</span>
+<span id="cb63-71"><a href="wgcna.html#cb63-71" tabindex="-1"></a></span>
+<span id="cb63-72"><a href="wgcna.html#cb63-72" tabindex="-1"></a>dataExpr <span class="ot">&lt;-</span> <span class="fu">log2</span>(symbol_matrix <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="表达量聚类分析" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> 表达量聚类分析<a href="wgcna.html#表达量聚类分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="选择合适基因集过滤缺失值" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> 选择合适基因集，过滤缺失值<a href="wgcna.html#选择合适基因集过滤缺失值" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="wgcna.html#cb64-1" tabindex="-1"></a><span class="co"># 筛选关注的基因，并转换为行为基因名，列为样本名的矩阵。</span></span>
+<span id="cb64-2"><a href="wgcna.html#cb64-2" tabindex="-1"></a><span class="do">## 策略 1：mad最大的前5000，</span></span>
+<span id="cb64-3"><a href="wgcna.html#cb64-3" tabindex="-1"></a><span class="do">### 或者保留基因总数的前1/4(round(0.25*nrow(dataExpr)))。</span></span>
+<span id="cb64-4"><a href="wgcna.html#cb64-4" tabindex="-1"></a><span class="do">### mad可以改为var（方差）。</span></span>
+<span id="cb64-5"><a href="wgcna.html#cb64-5" tabindex="-1"></a><span class="do">### 如果要保留所有的基因进行筛选分析保留datExpr0 = t(dataExpr）。</span></span>
+<span id="cb64-6"><a href="wgcna.html#cb64-6" tabindex="-1"></a>dataExpr <span class="ot">=</span> <span class="fu">t</span>(dataExpr[<span class="fu">order</span>(<span class="fu">apply</span>(dataExpr, <span class="dv">1</span>, mad), <span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2000</span>],])</span>
+<span id="cb64-7"><a href="wgcna.html#cb64-7" tabindex="-1"></a>dataExpr[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb64-8"><a href="wgcna.html#cb64-8" tabindex="-1"></a><span class="do">##              FAM83A    DPPA3     MMP1 HHLA2</span></span>
+<span id="cb64-9"><a href="wgcna.html#cb64-9" tabindex="-1"></a><span class="do">## s_MiaFRFP_1       0 0.000000 9.189825     0</span></span>
+<span id="cb64-10"><a href="wgcna.html#cb64-10" tabindex="-1"></a><span class="do">## s_MiaFRFP_2       0 0.000000 8.857981     0</span></span>
+<span id="cb64-11"><a href="wgcna.html#cb64-11" tabindex="-1"></a><span class="do">## s_MiaFRFP_3       0 0.000000 7.636625     0</span></span>
+<span id="cb64-12"><a href="wgcna.html#cb64-12" tabindex="-1"></a><span class="do">## s_Part1Lag_1      0 9.353147 4.807355     0</span></span>
+<span id="cb64-13"><a href="wgcna.html#cb64-13" tabindex="-1"></a><span class="do">## 策略 2： 筛选中位绝对偏差前75%的基因，至少MAD大于0.01</span></span>
+<span id="cb64-14"><a href="wgcna.html#cb64-14" tabindex="-1"></a><span class="co"># m.mad &lt;- apply(dataExpr,1,mad)</span></span>
+<span id="cb64-15"><a href="wgcna.html#cb64-15" tabindex="-1"></a><span class="co"># dataExprVar &lt;- dataExpr[which(m.mad &gt; </span></span>
+<span id="cb64-16"><a href="wgcna.html#cb64-16" tabindex="-1"></a><span class="co">#                  max(quantile(m.mad, probs=seq(0, 1, 0.25))[2],0.01)),]</span></span>
+<span id="cb64-17"><a href="wgcna.html#cb64-17" tabindex="-1"></a><span class="co"># dataExpr &lt;- as.data.frame(t(dataExprVar))</span></span>
+<span id="cb64-18"><a href="wgcna.html#cb64-18" tabindex="-1"></a></span>
+<span id="cb64-19"><a href="wgcna.html#cb64-19" tabindex="-1"></a><span class="co"># 检测缺失值</span></span>
+<span id="cb64-20"><a href="wgcna.html#cb64-20" tabindex="-1"></a>gsg <span class="ot">=</span> <span class="fu">goodSamplesGenes</span>(dataExpr, <span class="at">verbose =</span> <span class="dv">3</span>)</span>
+<span id="cb64-21"><a href="wgcna.html#cb64-21" tabindex="-1"></a><span class="do">##  Flagging genes and samples with too many missing values...</span></span>
+<span id="cb64-22"><a href="wgcna.html#cb64-22" tabindex="-1"></a><span class="do">##   ..step 1</span></span>
+<span id="cb64-23"><a href="wgcna.html#cb64-23" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>gsg<span class="sc">$</span>allOK){</span>
+<span id="cb64-24"><a href="wgcna.html#cb64-24" tabindex="-1"></a>  <span class="co"># Optionally, print the gene and sample names that were removed:</span></span>
+<span id="cb64-25"><a href="wgcna.html#cb64-25" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(<span class="sc">!</span>gsg<span class="sc">$</span>goodGenes)<span class="sc">&gt;</span><span class="dv">0</span>) </span>
+<span id="cb64-26"><a href="wgcna.html#cb64-26" tabindex="-1"></a>    <span class="fu">printFlush</span>(<span class="fu">paste</span>(<span class="st">&quot;Removing genes:&quot;</span>, </span>
+<span id="cb64-27"><a href="wgcna.html#cb64-27" tabindex="-1"></a>                     <span class="fu">paste</span>(<span class="fu">names</span>(dataExpr)[<span class="sc">!</span>gsg<span class="sc">$</span>goodGenes], <span class="at">collapse =</span> <span class="st">&quot;,&quot;</span>)));</span>
+<span id="cb64-28"><a href="wgcna.html#cb64-28" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(<span class="sc">!</span>gsg<span class="sc">$</span>goodSamples)<span class="sc">&gt;</span><span class="dv">0</span>) </span>
+<span id="cb64-29"><a href="wgcna.html#cb64-29" tabindex="-1"></a>    <span class="fu">printFlush</span>(<span class="fu">paste</span>(<span class="st">&quot;Removing samples:&quot;</span>, </span>
+<span id="cb64-30"><a href="wgcna.html#cb64-30" tabindex="-1"></a>                     <span class="fu">paste</span>(<span class="fu">rownames</span>(dataExpr)[<span class="sc">!</span>gsg<span class="sc">$</span>goodSamples], <span class="at">collapse =</span> <span class="st">&quot;,&quot;</span>)));</span>
+<span id="cb64-31"><a href="wgcna.html#cb64-31" tabindex="-1"></a>  <span class="co"># Remove the offending genes and samples from the data:</span></span>
+<span id="cb64-32"><a href="wgcna.html#cb64-32" tabindex="-1"></a>  dataExpr <span class="ot">=</span> dataExpr[gsg<span class="sc">$</span>goodSamples, gsg<span class="sc">$</span>goodGenes]</span>
+<span id="cb64-33"><a href="wgcna.html#cb64-33" tabindex="-1"></a>}</span>
+<span id="cb64-34"><a href="wgcna.html#cb64-34" tabindex="-1"></a></span>
+<span id="cb64-35"><a href="wgcna.html#cb64-35" tabindex="-1"></a>nGenes <span class="ot">=</span> <span class="fu">ncol</span>(dataExpr)</span>
+<span id="cb64-36"><a href="wgcna.html#cb64-36" tabindex="-1"></a>nSamples <span class="ot">=</span> <span class="fu">nrow</span>(dataExpr)</span>
+<span id="cb64-37"><a href="wgcna.html#cb64-37" tabindex="-1"></a><span class="fu">dim</span>(dataExpr)</span>
+<span id="cb64-38"><a href="wgcna.html#cb64-38" tabindex="-1"></a><span class="do">## [1]   18 2000</span></span>
+<span id="cb64-39"><a href="wgcna.html#cb64-39" tabindex="-1"></a><span class="fu">head</span>(dataExpr)[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb64-40"><a href="wgcna.html#cb64-40" tabindex="-1"></a><span class="do">##                FAM83A    DPPA3     MMP1 HHLA2</span></span>
+<span id="cb64-41"><a href="wgcna.html#cb64-41" tabindex="-1"></a><span class="do">## s_MiaFRFP_1  0.000000 0.000000 9.189825     0</span></span>
+<span id="cb64-42"><a href="wgcna.html#cb64-42" tabindex="-1"></a><span class="do">## s_MiaFRFP_2  0.000000 0.000000 8.857981     0</span></span>
+<span id="cb64-43"><a href="wgcna.html#cb64-43" tabindex="-1"></a><span class="do">## s_MiaFRFP_3  0.000000 0.000000 7.636625     0</span></span>
+<span id="cb64-44"><a href="wgcna.html#cb64-44" tabindex="-1"></a><span class="do">## s_Part1Lag_1 0.000000 9.353147 4.807355     0</span></span>
+<span id="cb64-45"><a href="wgcna.html#cb64-45" tabindex="-1"></a><span class="do">## s_Part1Lag_2 1.000000 8.519636 3.584963     0</span></span>
+<span id="cb64-46"><a href="wgcna.html#cb64-46" tabindex="-1"></a><span class="do">## s_Part1Lag_3 5.930737 4.954196 0.000000     0</span></span></code></pre></div>
+</div>
+<div id="样本层级聚类查看有无离群值" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> 样本层级聚类，查看有无离群值<a href="wgcna.html#样本层级聚类查看有无离群值" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="wgcna.html#cb65-1" tabindex="-1"></a>sampleTree <span class="ot">=</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(dataExpr), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb65-2"><a href="wgcna.html#cb65-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb65-3"><a href="wgcna.html#cb65-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb65-4"><a href="wgcna.html#cb65-4" tabindex="-1"></a><span class="fu">plot</span>(sampleTree, <span class="at">main =</span> <span class="st">&quot;Sample clustering to detect outliers&quot;</span>, <span class="at">sub=</span><span class="st">&quot;&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="wgcna.html#cb66-1" tabindex="-1"></a></span>
+<span id="cb66-2"><a href="wgcna.html#cb66-2" tabindex="-1"></a><span class="do">## 🌟看有没有自己单独一个分支的样本， 如果有异常值就需要去掉，</span></span>
+<span id="cb66-3"><a href="wgcna.html#cb66-3" tabindex="-1"></a><span class="do">## 🌟根据聚类图自己设置cutHeight 参数的值。F改为T;无异常值就不改</span></span>
+<span id="cb66-4"><a href="wgcna.html#cb66-4" tabindex="-1"></a><span class="cf">if</span>(F){</span>
+<span id="cb66-5"><a href="wgcna.html#cb66-5" tabindex="-1"></a>  clust <span class="ot">=</span> <span class="fu">cutreeStatic</span>(sampleTree, <span class="at">cutHeight =</span> <span class="dv">170</span>, <span class="at">minSize =</span> <span class="dv">10</span>)</span>
+<span id="cb66-6"><a href="wgcna.html#cb66-6" tabindex="-1"></a>  <span class="fu">table</span>(clust) <span class="co"># 0代表切除的，1代表保留的</span></span>
+<span id="cb66-7"><a href="wgcna.html#cb66-7" tabindex="-1"></a>  keepSamples <span class="ot">=</span> (clust<span class="sc">!=</span><span class="dv">0</span>)</span>
+<span id="cb66-8"><a href="wgcna.html#cb66-8" tabindex="-1"></a>  datExpr <span class="ot">=</span> dataExpr[keepSamples, ]</span>
+<span id="cb66-9"><a href="wgcna.html#cb66-9" tabindex="-1"></a>}<span class="cf">else</span>{</span>
+<span id="cb66-10"><a href="wgcna.html#cb66-10" tabindex="-1"></a>  <span class="co">#没有异常样本就不需要去除</span></span>
+<span id="cb66-11"><a href="wgcna.html#cb66-11" tabindex="-1"></a>  datExpr <span class="ot">=</span> dataExpr</span>
+<span id="cb66-12"><a href="wgcna.html#cb66-12" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="检查表型信息" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> 检查表型信息<a href="wgcna.html#检查表型信息" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="wgcna.html#cb67-1" tabindex="-1"></a>datTraits <span class="ot">=</span> traitData</span>
+<span id="cb67-2"><a href="wgcna.html#cb67-2" tabindex="-1"></a>sampleTree2 <span class="ot">=</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(datExpr), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb67-3"><a href="wgcna.html#cb67-3" tabindex="-1"></a><span class="co"># 用颜色表示表型在各个样本的表现: 白色表示低，红色为高，灰色为缺失</span></span>
+<span id="cb67-4"><a href="wgcna.html#cb67-4" tabindex="-1"></a>traitColors <span class="ot">=</span> <span class="fu">numbers2colors</span>(datTraits, <span class="at">signed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb67-5"><a href="wgcna.html#cb67-5" tabindex="-1"></a><span class="co"># 把样本聚类和表型绘制在一起</span></span>
+<span id="cb67-6"><a href="wgcna.html#cb67-6" tabindex="-1"></a><span class="fu">plotDendroAndColors</span>(sampleTree2, traitColors,</span>
+<span id="cb67-7"><a href="wgcna.html#cb67-7" tabindex="-1"></a>                    <span class="at">groupLabels =</span> <span class="fu">names</span>(datTraits),</span>
+<span id="cb67-8"><a href="wgcna.html#cb67-8" tabindex="-1"></a>                    <span class="at">main =</span> <span class="st">&quot;Sample dendrogram and trait heatmap&quot;</span>)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="软阈值筛选" class="section level3 hasAnchor" number="10.3.4">
+<h3><span class="header-section-number">10.3.4</span> 软阈值筛选<a href="wgcna.html#软阈值筛选" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="wgcna.html#cb68-1" tabindex="-1"></a>powers <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">12</span>, <span class="at">to=</span><span class="dv">30</span>, <span class="at">by=</span><span class="dv">2</span>))</span>
+<span id="cb68-2"><a href="wgcna.html#cb68-2" tabindex="-1"></a>sft <span class="ot">=</span> <span class="fu">pickSoftThreshold</span>(datExpr, <span class="at">powerVector =</span> powers, <span class="at">verbose =</span> <span class="dv">5</span>)</span>
+<span id="cb68-3"><a href="wgcna.html#cb68-3" tabindex="-1"></a><span class="do">## pickSoftThreshold: will use block size 2000.</span></span>
+<span id="cb68-4"><a href="wgcna.html#cb68-4" tabindex="-1"></a><span class="do">##  pickSoftThreshold: calculating connectivity for given powers...</span></span>
+<span id="cb68-5"><a href="wgcna.html#cb68-5" tabindex="-1"></a><span class="do">##    ..working on genes 1 through 2000 of 2000</span></span>
+<span id="cb68-6"><a href="wgcna.html#cb68-6" tabindex="-1"></a><span class="do">##    Power SFT.R.sq  slope truncated.R.sq mean.k. median.k. max.k.</span></span>
+<span id="cb68-7"><a href="wgcna.html#cb68-7" tabindex="-1"></a><span class="do">## 1      1   0.0178  0.298          0.941 557.000  560.0000  842.0</span></span>
+<span id="cb68-8"><a href="wgcna.html#cb68-8" tabindex="-1"></a><span class="do">## 2      2   0.2430 -0.602          0.942 233.000  225.0000  471.0</span></span>
+<span id="cb68-9"><a href="wgcna.html#cb68-9" tabindex="-1"></a><span class="do">## 3      3   0.6520 -0.892          0.958 119.000  107.0000  301.0</span></span>
+<span id="cb68-10"><a href="wgcna.html#cb68-10" tabindex="-1"></a><span class="do">## 4      4   0.8490 -0.984          0.977  68.500   55.8000  209.0</span></span>
+<span id="cb68-11"><a href="wgcna.html#cb68-11" tabindex="-1"></a><span class="do">## 5      5   0.8910 -1.110          0.959  42.900   31.3000  157.0</span></span>
+<span id="cb68-12"><a href="wgcna.html#cb68-12" tabindex="-1"></a><span class="do">## 6      6   0.9370 -1.150          0.981  28.700   18.4000  122.0</span></span>
+<span id="cb68-13"><a href="wgcna.html#cb68-13" tabindex="-1"></a><span class="do">## 7      7   0.9550 -1.170          0.979  20.100   11.2000   98.6</span></span>
+<span id="cb68-14"><a href="wgcna.html#cb68-14" tabindex="-1"></a><span class="do">## 8      8   0.9750 -1.180          0.989  14.700    7.1500   81.2</span></span>
+<span id="cb68-15"><a href="wgcna.html#cb68-15" tabindex="-1"></a><span class="do">## 9      9   0.9780 -1.200          0.985  11.000    4.6900   68.4</span></span>
+<span id="cb68-16"><a href="wgcna.html#cb68-16" tabindex="-1"></a><span class="do">## 10    10   0.9820 -1.210          0.988   8.520    3.1300   59.2</span></span>
+<span id="cb68-17"><a href="wgcna.html#cb68-17" tabindex="-1"></a><span class="do">## 11    12   0.9630 -1.250          0.971   5.410    1.4800   46.3</span></span>
+<span id="cb68-18"><a href="wgcna.html#cb68-18" tabindex="-1"></a><span class="do">## 12    14   0.9580 -1.260          0.974   3.660    0.7390   37.8</span></span>
+<span id="cb68-19"><a href="wgcna.html#cb68-19" tabindex="-1"></a><span class="do">## 13    16   0.9430 -1.270          0.964   2.610    0.3920   31.8</span></span>
+<span id="cb68-20"><a href="wgcna.html#cb68-20" tabindex="-1"></a><span class="do">## 14    18   0.9150 -1.300          0.950   1.930    0.2180   27.3</span></span>
+<span id="cb68-21"><a href="wgcna.html#cb68-21" tabindex="-1"></a><span class="do">## 15    20   0.8520 -1.370          0.906   1.470    0.1280   23.9</span></span>
+<span id="cb68-22"><a href="wgcna.html#cb68-22" tabindex="-1"></a><span class="do">## 16    22   0.8670 -1.350          0.927   1.150    0.0761   21.1</span></span>
+<span id="cb68-23"><a href="wgcna.html#cb68-23" tabindex="-1"></a><span class="do">## 17    24   0.8720 -1.340          0.932   0.921    0.0466   18.9</span></span>
+<span id="cb68-24"><a href="wgcna.html#cb68-24" tabindex="-1"></a><span class="do">## 18    26   0.8740 -1.360          0.930   0.750    0.0297   17.0</span></span>
+<span id="cb68-25"><a href="wgcna.html#cb68-25" tabindex="-1"></a><span class="do">## 19    28   0.8910 -1.350          0.956   0.619    0.0191   15.5</span></span>
+<span id="cb68-26"><a href="wgcna.html#cb68-26" tabindex="-1"></a><span class="do">## 20    30   0.9050 -1.350          0.959   0.518    0.0122   14.1</span></span>
+<span id="cb68-27"><a href="wgcna.html#cb68-27" tabindex="-1"></a>sft<span class="sc">$</span>powerEstimate <span class="co">#⭐推荐的软阈值</span></span>
+<span id="cb68-28"><a href="wgcna.html#cb68-28" tabindex="-1"></a><span class="do">## [1] 5</span></span>
+<span id="cb68-29"><a href="wgcna.html#cb68-29" tabindex="-1"></a></span>
+<span id="cb68-30"><a href="wgcna.html#cb68-30" tabindex="-1"></a><span class="do">## ⭐这个结果就是推荐的软阈值，拿到了可以直接用，无视下面的图。有的数据走到这一步会得到NA，也就是没得推荐。。。那就要看下面的图，选拐点。</span></span>
+<span id="cb68-31"><a href="wgcna.html#cb68-31" tabindex="-1"></a><span class="do">## 根据我的经验，没有推荐软阈值，或者数字太大，后面跌跌撞撞走起来有些艰难哦，就得跑到前面重新调整表达矩阵里纳入的基因了。</span></span>
+<span id="cb68-32"><a href="wgcna.html#cb68-32" tabindex="-1"></a><span class="do">## ⭐cex1一般设置为0.9，不太合适（就是大多数软阈值对应的纵坐标都达不到0.9）时，可以设置为0.8或者0.85。一般不能再低了。</span></span>
+<span id="cb68-33"><a href="wgcna.html#cb68-33" tabindex="-1"></a>cex1 <span class="ot">=</span> <span class="fl">0.9</span> <span class="co">#⭐👆</span></span>
+<span id="cb68-34"><a href="wgcna.html#cb68-34" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb68-35"><a href="wgcna.html#cb68-35" tabindex="-1"></a><span class="fu">plot</span>(sft<span class="sc">$</span>fitIndices[,<span class="dv">1</span>], <span class="sc">-</span><span class="fu">sign</span>(sft<span class="sc">$</span>fitIndices[,<span class="dv">3</span>])<span class="sc">*</span>sft<span class="sc">$</span>fitIndices[,<span class="dv">2</span>],</span>
+<span id="cb68-36"><a href="wgcna.html#cb68-36" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Soft Threshold (power)&quot;</span>,</span>
+<span id="cb68-37"><a href="wgcna.html#cb68-37" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Scale Free Topology Model Fit,signed R^2&quot;</span>,<span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb68-38"><a href="wgcna.html#cb68-38" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Scale independence&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb68-39"><a href="wgcna.html#cb68-39" tabindex="-1"></a><span class="fu">text</span>(sft<span class="sc">$</span>fitIndices[,<span class="dv">1</span>], <span class="sc">-</span><span class="fu">sign</span>(sft<span class="sc">$</span>fitIndices[,<span class="dv">3</span>])<span class="sc">*</span>sft<span class="sc">$</span>fitIndices[,<span class="dv">2</span>],</span>
+<span id="cb68-40"><a href="wgcna.html#cb68-40" tabindex="-1"></a>     <span class="at">labels=</span>powers,<span class="at">cex=</span>cex1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-41"><a href="wgcna.html#cb68-41" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>cex1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb68-42"><a href="wgcna.html#cb68-42" tabindex="-1"></a><span class="do">## integer(0)</span></span>
+<span id="cb68-43"><a href="wgcna.html#cb68-43" tabindex="-1"></a><span class="fu">plot</span>(sft<span class="sc">$</span>fitIndices[,<span class="dv">1</span>], sft<span class="sc">$</span>fitIndices[,<span class="dv">5</span>],</span>
+<span id="cb68-44"><a href="wgcna.html#cb68-44" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Soft Threshold (power)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Mean Connectivity&quot;</span>, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb68-45"><a href="wgcna.html#cb68-45" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Mean connectivity&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb68-46"><a href="wgcna.html#cb68-46" tabindex="-1"></a><span class="fu">text</span>(sft<span class="sc">$</span>fitIndices[,<span class="dv">1</span>], sft<span class="sc">$</span>fitIndices[,<span class="dv">5</span>], <span class="at">labels=</span>powers, <span class="at">cex=</span>cex1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## integer(0)</code></pre>
+</div>
+<div id="构建网络" class="section level3 hasAnchor" number="10.3.5">
+<h3><span class="header-section-number">10.3.5</span> 构建网络<a href="wgcna.html#构建网络" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>如果前面没有得到推荐的软阈值，这里的power👇就要自己指定一个。根据上面的图，选择左图纵坐标第一个达到上面设置的cex1值的软阈值。</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="wgcna.html#cb70-1" tabindex="-1"></a>power <span class="ot">=</span> sft<span class="sc">$</span>powerEstimate</span>
+<span id="cb70-2"><a href="wgcna.html#cb70-2" tabindex="-1"></a>power</span>
+<span id="cb70-3"><a href="wgcna.html#cb70-3" tabindex="-1"></a><span class="do">## [1] 5</span></span>
+<span id="cb70-4"><a href="wgcna.html#cb70-4" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="wgcna.html#cb70-5" tabindex="-1"></a>net <span class="ot">=</span> <span class="fu">blockwiseModules</span>(datExpr, <span class="at">power =</span> power,</span>
+<span id="cb70-6"><a href="wgcna.html#cb70-6" tabindex="-1"></a>                       <span class="at">TOMType =</span> <span class="st">&quot;unsigned&quot;</span>, </span>
+<span id="cb70-7"><a href="wgcna.html#cb70-7" tabindex="-1"></a>                       <span class="at">minModuleSize =</span> <span class="dv">30</span>, </span>
+<span id="cb70-8"><a href="wgcna.html#cb70-8" tabindex="-1"></a>                       <span class="at">reassignThreshold =</span> <span class="dv">0</span>, </span>
+<span id="cb70-9"><a href="wgcna.html#cb70-9" tabindex="-1"></a>                       <span class="at">mergeCutHeight =</span> <span class="fl">0.25</span>,</span>
+<span id="cb70-10"><a href="wgcna.html#cb70-10" tabindex="-1"></a>                       <span class="at">deepSplit =</span> <span class="dv">2</span> ,</span>
+<span id="cb70-11"><a href="wgcna.html#cb70-11" tabindex="-1"></a>                       <span class="at">numericLabels =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb70-12"><a href="wgcna.html#cb70-12" tabindex="-1"></a>                       <span class="at">pamRespectsDendro =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb70-13"><a href="wgcna.html#cb70-13" tabindex="-1"></a>                       <span class="at">saveTOMs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb70-14"><a href="wgcna.html#cb70-14" tabindex="-1"></a>                       <span class="at">saveTOMFileBase =</span> <span class="st">&quot;TOM&quot;</span>,</span>
+<span id="cb70-15"><a href="wgcna.html#cb70-15" tabindex="-1"></a>                       <span class="at">verbose =</span> <span class="dv">3</span>)</span>
+<span id="cb70-16"><a href="wgcna.html#cb70-16" tabindex="-1"></a><span class="do">##  Calculating module eigengenes block-wise from all genes</span></span>
+<span id="cb70-17"><a href="wgcna.html#cb70-17" tabindex="-1"></a><span class="do">##    Flagging genes and samples with too many missing values...</span></span>
+<span id="cb70-18"><a href="wgcna.html#cb70-18" tabindex="-1"></a><span class="do">##     ..step 1</span></span>
+<span id="cb70-19"><a href="wgcna.html#cb70-19" tabindex="-1"></a><span class="do">##  ..Working on block 1 .</span></span>
+<span id="cb70-20"><a href="wgcna.html#cb70-20" tabindex="-1"></a><span class="do">##     TOM calculation: adjacency..</span></span>
+<span id="cb70-21"><a href="wgcna.html#cb70-21" tabindex="-1"></a><span class="do">##     ..will use 7 parallel threads.</span></span>
+<span id="cb70-22"><a href="wgcna.html#cb70-22" tabindex="-1"></a><span class="do">##      Fraction of slow calculations: 0.000000</span></span>
+<span id="cb70-23"><a href="wgcna.html#cb70-23" tabindex="-1"></a><span class="do">##     ..connectivity..</span></span>
+<span id="cb70-24"><a href="wgcna.html#cb70-24" tabindex="-1"></a><span class="do">##     ..matrix multiplication (system BLAS)..</span></span>
+<span id="cb70-25"><a href="wgcna.html#cb70-25" tabindex="-1"></a><span class="do">##     ..normalization..</span></span>
+<span id="cb70-26"><a href="wgcna.html#cb70-26" tabindex="-1"></a><span class="do">##     ..done.</span></span>
+<span id="cb70-27"><a href="wgcna.html#cb70-27" tabindex="-1"></a><span class="do">##    ..saving TOM for block 1 into file TOM-block.1.RData</span></span>
+<span id="cb70-28"><a href="wgcna.html#cb70-28" tabindex="-1"></a><span class="do">##  ....clustering..</span></span>
+<span id="cb70-29"><a href="wgcna.html#cb70-29" tabindex="-1"></a><span class="do">##  ....detecting modules..</span></span>
+<span id="cb70-30"><a href="wgcna.html#cb70-30" tabindex="-1"></a><span class="do">##  ....calculating module eigengenes..</span></span>
+<span id="cb70-31"><a href="wgcna.html#cb70-31" tabindex="-1"></a><span class="do">##  ....checking kME in modules..</span></span>
+<span id="cb70-32"><a href="wgcna.html#cb70-32" tabindex="-1"></a><span class="do">##      ..removing 39 genes from module 1 because their KME is too low.</span></span>
+<span id="cb70-33"><a href="wgcna.html#cb70-33" tabindex="-1"></a><span class="do">##      ..removing 44 genes from module 2 because their KME is too low.</span></span>
+<span id="cb70-34"><a href="wgcna.html#cb70-34" tabindex="-1"></a><span class="do">##      ..removing 52 genes from module 3 because their KME is too low.</span></span>
+<span id="cb70-35"><a href="wgcna.html#cb70-35" tabindex="-1"></a><span class="do">##      ..removing 13 genes from module 4 because their KME is too low.</span></span>
+<span id="cb70-36"><a href="wgcna.html#cb70-36" tabindex="-1"></a><span class="do">##      ..removing 11 genes from module 6 because their KME is too low.</span></span>
+<span id="cb70-37"><a href="wgcna.html#cb70-37" tabindex="-1"></a><span class="do">##      ..removing 3 genes from module 7 because their KME is too low.</span></span>
+<span id="cb70-38"><a href="wgcna.html#cb70-38" tabindex="-1"></a><span class="do">##  ..merging modules that are too close..</span></span>
+<span id="cb70-39"><a href="wgcna.html#cb70-39" tabindex="-1"></a><span class="do">##      mergeCloseModules: Merging modules whose distance is less than 0.25</span></span>
+<span id="cb70-40"><a href="wgcna.html#cb70-40" tabindex="-1"></a><span class="do">##        Calculating new MEs...</span></span>
+<span id="cb70-41"><a href="wgcna.html#cb70-41" tabindex="-1"></a></span>
+<span id="cb70-42"><a href="wgcna.html#cb70-42" tabindex="-1"></a><span class="do">## 此处展示得到了多少模块，每个模块里面有多少基因</span></span>
+<span id="cb70-43"><a href="wgcna.html#cb70-43" tabindex="-1"></a><span class="fu">table</span>(net<span class="sc">$</span>colors)</span>
+<span id="cb70-44"><a href="wgcna.html#cb70-44" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb70-45"><a href="wgcna.html#cb70-45" tabindex="-1"></a><span class="do">##   0   1   2   3   4   5 </span></span>
+<span id="cb70-46"><a href="wgcna.html#cb70-46" tabindex="-1"></a><span class="do">## 162 731 667 279  98  63</span></span>
+<span id="cb70-47"><a href="wgcna.html#cb70-47" tabindex="-1"></a></span>
+<span id="cb70-48"><a href="wgcna.html#cb70-48" tabindex="-1"></a>mergedColors <span class="ot">=</span> <span class="fu">labels2colors</span>(net<span class="sc">$</span>colors)</span>
+<span id="cb70-49"><a href="wgcna.html#cb70-49" tabindex="-1"></a><span class="fu">plotDendroAndColors</span>(net<span class="sc">$</span>dendrograms[[<span class="dv">1</span>]], mergedColors[net<span class="sc">$</span>blockGenes[[<span class="dv">1</span>]]],</span>
+<span id="cb70-50"><a href="wgcna.html#cb70-50" tabindex="-1"></a>                    <span class="st">&quot;Module colors&quot;</span>,</span>
+<span id="cb70-51"><a href="wgcna.html#cb70-51" tabindex="-1"></a>                    <span class="at">dendroLabels =</span> <span class="cn">FALSE</span>, <span class="at">hang =</span> <span class="fl">0.03</span>,</span>
+<span id="cb70-52"><a href="wgcna.html#cb70-52" tabindex="-1"></a>                    <span class="at">addGuide =</span> <span class="cn">TRUE</span>, <span class="at">guideHang =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="保存每个模块的基因" class="section level3 hasAnchor" number="10.3.6">
+<h3><span class="header-section-number">10.3.6</span> 保存每个模块的基因<a href="wgcna.html#保存每个模块的基因" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="wgcna.html#cb71-1" tabindex="-1"></a>moduleLabels <span class="ot">&lt;-</span> net<span class="sc">$</span>colors</span>
+<span id="cb71-2"><a href="wgcna.html#cb71-2" tabindex="-1"></a>moduleColors <span class="ot">&lt;-</span> <span class="fu">labels2colors</span>(net<span class="sc">$</span>colors)</span>
+<span id="cb71-3"><a href="wgcna.html#cb71-3" tabindex="-1"></a>MEs <span class="ot">&lt;-</span> net<span class="sc">$</span>MEs</span>
+<span id="cb71-4"><a href="wgcna.html#cb71-4" tabindex="-1"></a>geneTree <span class="ot">&lt;-</span> net<span class="sc">$</span>dendrograms[[<span class="dv">1</span>]]</span>
+<span id="cb71-5"><a href="wgcna.html#cb71-5" tabindex="-1"></a>gm <span class="ot">=</span> <span class="fu">data.frame</span>(net<span class="sc">$</span>colors)</span>
+<span id="cb71-6"><a href="wgcna.html#cb71-6" tabindex="-1"></a>gm<span class="sc">$</span>color <span class="ot">&lt;-</span> moduleColors</span>
+<span id="cb71-7"><a href="wgcna.html#cb71-7" tabindex="-1"></a><span class="fu">head</span>(gm)</span>
+<span id="cb71-8"><a href="wgcna.html#cb71-8" tabindex="-1"></a><span class="do">##        net.colors     color</span></span>
+<span id="cb71-9"><a href="wgcna.html#cb71-9" tabindex="-1"></a><span class="do">## FAM83A          2      blue</span></span>
+<span id="cb71-10"><a href="wgcna.html#cb71-10" tabindex="-1"></a><span class="do">## DPPA3           1 turquoise</span></span>
+<span id="cb71-11"><a href="wgcna.html#cb71-11" tabindex="-1"></a><span class="do">## MMP1            3     brown</span></span>
+<span id="cb71-12"><a href="wgcna.html#cb71-12" tabindex="-1"></a><span class="do">## HHLA2           2      blue</span></span>
+<span id="cb71-13"><a href="wgcna.html#cb71-13" tabindex="-1"></a><span class="do">## OLFM4           5     green</span></span>
+<span id="cb71-14"><a href="wgcna.html#cb71-14" tabindex="-1"></a><span class="do">## HSD3B1          1 turquoise</span></span></code></pre></div>
+</div>
+</div>
+<div id="模块与表型的相关性" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> 模块与表型的相关性<a href="wgcna.html#模块与表型的相关性" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="wgcna.html#cb72-1" tabindex="-1"></a>nGenes <span class="ot">=</span> <span class="fu">ncol</span>(datExpr)</span>
+<span id="cb72-2"><a href="wgcna.html#cb72-2" tabindex="-1"></a>nSamples <span class="ot">=</span> <span class="fu">nrow</span>(datExpr)</span>
+<span id="cb72-3"><a href="wgcna.html#cb72-3" tabindex="-1"></a>MEs0 <span class="ot">=</span> <span class="fu">moduleEigengenes</span>(datExpr, moduleColors)<span class="sc">$</span>eigengenes</span>
+<span id="cb72-4"><a href="wgcna.html#cb72-4" tabindex="-1"></a>MEs <span class="ot">=</span> <span class="fu">orderMEs</span>(MEs0)</span>
+<span id="cb72-5"><a href="wgcna.html#cb72-5" tabindex="-1"></a>moduleTraitCor <span class="ot">=</span> <span class="fu">cor</span>(MEs, datTraits, <span class="at">use =</span> <span class="st">&quot;p&quot;</span>)</span>
+<span id="cb72-6"><a href="wgcna.html#cb72-6" tabindex="-1"></a>moduleTraitPvalue <span class="ot">=</span> <span class="fu">corPvalueStudent</span>(moduleTraitCor, nSamples)</span>
+<span id="cb72-7"><a href="wgcna.html#cb72-7" tabindex="-1"></a></span>
+<span id="cb72-8"><a href="wgcna.html#cb72-8" tabindex="-1"></a><span class="co">#热图</span></span>
+<span id="cb72-9"><a href="wgcna.html#cb72-9" tabindex="-1"></a><span class="co"># png(file = &quot;6.labeledHeatmap.png&quot;, width = 2000, height = 2000,res = 300)</span></span>
+<span id="cb72-10"><a href="wgcna.html#cb72-10" tabindex="-1"></a><span class="co"># 设置热图上的文字（两行数字：第一行是模块与各种表型的相关系数；</span></span>
+<span id="cb72-11"><a href="wgcna.html#cb72-11" tabindex="-1"></a><span class="co"># 第二行是p值）</span></span>
+<span id="cb72-12"><a href="wgcna.html#cb72-12" tabindex="-1"></a><span class="co"># signif 取有效数字</span></span>
+<span id="cb72-13"><a href="wgcna.html#cb72-13" tabindex="-1"></a>textMatrix <span class="ot">=</span> <span class="fu">paste</span>(<span class="fu">signif</span>(moduleTraitCor, <span class="dv">2</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">(&quot;</span>,</span>
+<span id="cb72-14"><a href="wgcna.html#cb72-14" tabindex="-1"></a>                   <span class="fu">signif</span>(moduleTraitPvalue, <span class="dv">1</span>), <span class="st">&quot;)&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb72-15"><a href="wgcna.html#cb72-15" tabindex="-1"></a><span class="fu">dim</span>(textMatrix) <span class="ot">=</span> <span class="fu">dim</span>(moduleTraitCor)</span>
+<span id="cb72-16"><a href="wgcna.html#cb72-16" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="fl">8.5</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb72-17"><a href="wgcna.html#cb72-17" tabindex="-1"></a><span class="co"># 然后对moduleTraitCor画热图</span></span>
+<span id="cb72-18"><a href="wgcna.html#cb72-18" tabindex="-1"></a><span class="fu">labeledHeatmap</span>(<span class="at">Matrix =</span> moduleTraitCor,</span>
+<span id="cb72-19"><a href="wgcna.html#cb72-19" tabindex="-1"></a>               <span class="at">xLabels =</span> <span class="fu">names</span>(datTraits),</span>
+<span id="cb72-20"><a href="wgcna.html#cb72-20" tabindex="-1"></a>               <span class="at">yLabels =</span> <span class="fu">names</span>(MEs),</span>
+<span id="cb72-21"><a href="wgcna.html#cb72-21" tabindex="-1"></a>               <span class="at">ySymbols =</span> <span class="fu">names</span>(MEs),</span>
+<span id="cb72-22"><a href="wgcna.html#cb72-22" tabindex="-1"></a>               <span class="at">colorLabels =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb72-23"><a href="wgcna.html#cb72-23" tabindex="-1"></a>               <span class="at">colors =</span> <span class="fu">blueWhiteRed</span> (<span class="dv">50</span>),</span>
+<span id="cb72-24"><a href="wgcna.html#cb72-24" tabindex="-1"></a>               <span class="at">textMatrix =</span> textMatrix,</span>
+<span id="cb72-25"><a href="wgcna.html#cb72-25" tabindex="-1"></a>               <span class="at">setStdMargins =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb72-26"><a href="wgcna.html#cb72-26" tabindex="-1"></a>               <span class="at">cex.text =</span> <span class="fl">0.5</span>,</span>
+<span id="cb72-27"><a href="wgcna.html#cb72-27" tabindex="-1"></a>               <span class="at">zlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb72-28"><a href="wgcna.html#cb72-28" tabindex="-1"></a>               <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Module-trait relationships&quot;</span>))</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gs-与-mm" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> GS 与 MM<a href="wgcna.html#gs-与-mm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>GS (Gene Significance)
+定义：GS 是衡量单个基因与外部临床性状（如疾病状态、表型数据等）之间相关性的指标。
+作用：通过计算每个基因的 GS 值，可以识别出与特定性状最相关的基因。这些基因可能在生物学上具有重要意义，因为它们与感兴趣的性状直接相关。
+计算：通常是通过计算基因表达值与性状之间的相关系数来获得的。GS 值越高，基因与性状的相关性越强。
+MM (Module Membership)
+定义：MM 也称为基因模块成员关系，是衡量一个基因与其所在模块的特征向量（即模块特征基因，Module Eigengene）的相关性。
+作用：MM 值表示一个基因在多大程度上与其所在模块的整体表达模式一致。高 MM 值的基因被认为是该模块的核心基因，通常称为“hub genes”。
+计算：通过计算基因表达值与模块特征向量之间的相关系数来获得。MM 值越高，基因与模块的表达趋势越一致。</p>
+<p>GS 关注的是基因与外部性状的直接相关性，帮助识别与特定性状相关的关键基因。
+MM 关注的是基因与其所在模块的内部一致性，帮助识别模块中的核心基因。</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="wgcna.html#cb73-1" tabindex="-1"></a>modNames <span class="ot">=</span> <span class="fu">substring</span>(<span class="fu">names</span>(MEs), <span class="dv">3</span>)</span>
+<span id="cb73-2"><a href="wgcna.html#cb73-2" tabindex="-1"></a>geneModuleMembership <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">cor</span>(datExpr, MEs, <span class="at">use =</span> <span class="st">&quot;p&quot;</span>))</span>
+<span id="cb73-3"><a href="wgcna.html#cb73-3" tabindex="-1"></a>MMPvalue <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">corPvalueStudent</span>(<span class="fu">as.matrix</span>(geneModuleMembership), nSamples))</span>
+<span id="cb73-4"><a href="wgcna.html#cb73-4" tabindex="-1"></a><span class="fu">names</span>(geneModuleMembership) <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;MM&quot;</span>, modNames, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb73-5"><a href="wgcna.html#cb73-5" tabindex="-1"></a><span class="fu">names</span>(MMPvalue) <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;p.MM&quot;</span>, modNames, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb73-6"><a href="wgcna.html#cb73-6" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="wgcna.html#cb73-7" tabindex="-1"></a><span class="co"># ⭐第几列的表型是最关心的，下面的i就设置为几。</span></span>
+<span id="cb73-8"><a href="wgcna.html#cb73-8" tabindex="-1"></a><span class="co"># ⭐与关心的表型相关性最高的模块赋值给下面的module。</span></span>
+<span id="cb73-9"><a href="wgcna.html#cb73-9" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">2</span> <span class="co">#⭐</span></span>
+<span id="cb73-10"><a href="wgcna.html#cb73-10" tabindex="-1"></a><span class="co">#module = &quot;pink&quot;</span></span>
+<span id="cb73-11"><a href="wgcna.html#cb73-11" tabindex="-1"></a>module <span class="ot">=</span> <span class="st">&quot;turquoise&quot;</span><span class="co">#⭐</span></span>
+<span id="cb73-12"><a href="wgcna.html#cb73-12" tabindex="-1"></a><span class="fu">assign</span>(<span class="fu">colnames</span>(traitData)[i],traitData[i])</span>
+<span id="cb73-13"><a href="wgcna.html#cb73-13" tabindex="-1"></a>instrait <span class="ot">=</span> <span class="fu">eval</span>(<span class="fu">parse</span>(<span class="at">text =</span> <span class="fu">colnames</span>(traitData)[i]))</span>
+<span id="cb73-14"><a href="wgcna.html#cb73-14" tabindex="-1"></a>geneTraitSignificance <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">cor</span>(datExpr, instrait, <span class="at">use =</span> <span class="st">&quot;p&quot;</span>))</span>
+<span id="cb73-15"><a href="wgcna.html#cb73-15" tabindex="-1"></a>GSPvalue <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">corPvalueStudent</span>(<span class="fu">as.matrix</span>(geneTraitSignificance), nSamples))</span>
+<span id="cb73-16"><a href="wgcna.html#cb73-16" tabindex="-1"></a><span class="fu">names</span>(geneTraitSignificance) <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;GS.&quot;</span>, <span class="fu">names</span>(instrait), <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb73-17"><a href="wgcna.html#cb73-17" tabindex="-1"></a><span class="fu">names</span>(GSPvalue) <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">&quot;p.GS.&quot;</span>, <span class="fu">names</span>(instrait), <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb73-18"><a href="wgcna.html#cb73-18" tabindex="-1"></a></span>
+<span id="cb73-19"><a href="wgcna.html#cb73-19" tabindex="-1"></a>column <span class="ot">=</span> <span class="fu">match</span>(module, modNames) <span class="co">#找到目标模块所在列</span></span>
+<span id="cb73-20"><a href="wgcna.html#cb73-20" tabindex="-1"></a>moduleGenes <span class="ot">=</span> moduleColors<span class="sc">==</span>module <span class="co">#找到模块基因所在行</span></span>
+<span id="cb73-21"><a href="wgcna.html#cb73-21" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb73-22"><a href="wgcna.html#cb73-22" tabindex="-1"></a><span class="fu">verboseScatterplot</span>(<span class="fu">abs</span>(geneModuleMembership[moduleGenes, column]),</span>
+<span id="cb73-23"><a href="wgcna.html#cb73-23" tabindex="-1"></a>                   <span class="fu">abs</span>(geneTraitSignificance[moduleGenes, <span class="dv">1</span>]),</span>
+<span id="cb73-24"><a href="wgcna.html#cb73-24" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="fu">paste</span>(<span class="st">&quot;Module Membership in&quot;</span>, module, <span class="st">&quot;module&quot;</span>),</span>
+<span id="cb73-25"><a href="wgcna.html#cb73-25" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Gene significance&quot;</span>,</span>
+<span id="cb73-26"><a href="wgcna.html#cb73-26" tabindex="-1"></a>                   <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Module membership vs. gene significance</span><span class="sc">\n</span><span class="st">&quot;</span>),</span>
+<span id="cb73-27"><a href="wgcna.html#cb73-27" tabindex="-1"></a>                   <span class="at">cex.main =</span> <span class="fl">1.2</span>, <span class="at">cex.lab =</span> <span class="fl">1.2</span>, <span class="at">cex.axis =</span> <span class="fl">1.2</span>, <span class="at">col =</span> module)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="wgcna.html#cb74-1" tabindex="-1"></a></span>
+<span id="cb74-2"><a href="wgcna.html#cb74-2" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="wgcna.html#cb74-3" tabindex="-1"></a><span class="co"># 我们希望看到强悍的正相关。数据挖掘里面，可以把整个模块的基因拿出来和别的步骤结果取交集了。</span></span>
+<span id="cb74-4"><a href="wgcna.html#cb74-4" tabindex="-1"></a><span class="co"># 也可以通过这里找到GS和MM都大的基因。</span></span>
+<span id="cb74-5"><a href="wgcna.html#cb74-5" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">GS =</span> <span class="fu">abs</span>(geneModuleMembership[moduleGenes, column]),</span>
+<span id="cb74-6"><a href="wgcna.html#cb74-6" tabindex="-1"></a><span class="at">MM =</span> <span class="fu">abs</span>(geneTraitSignificance[moduleGenes, <span class="dv">1</span>]))</span>
+<span id="cb74-7"><a href="wgcna.html#cb74-7" tabindex="-1"></a><span class="fu">rownames</span>(f) <span class="ot">=</span> <span class="fu">rownames</span>(gm[moduleGenes,])</span></code></pre></div>
+</div>
+<div id="tom" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> TOM<a href="wgcna.html#tom" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>用基因相关性热图的方式展示加权网络，每行每列代表一个基因。 一般取400个基因画就够啦，拿全部基因去做电脑要烧起来了。
+就想看看对角线附近红彤彤的小方块，以及同一个颜色基本都在一起，快乐。</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="wgcna.html#cb75-1" tabindex="-1"></a>nSelect <span class="ot">=</span> <span class="dv">400</span></span>
+<span id="cb75-2"><a href="wgcna.html#cb75-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb75-3"><a href="wgcna.html#cb75-3" tabindex="-1"></a>dissTOM <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">TOMsimilarityFromExpr</span>(datExpr, <span class="at">power =</span> <span class="dv">6</span>)</span>
+<span id="cb75-4"><a href="wgcna.html#cb75-4" tabindex="-1"></a><span class="do">## TOM calculation: adjacency..</span></span>
+<span id="cb75-5"><a href="wgcna.html#cb75-5" tabindex="-1"></a><span class="do">## ..will use 7 parallel threads.</span></span>
+<span id="cb75-6"><a href="wgcna.html#cb75-6" tabindex="-1"></a><span class="do">##  Fraction of slow calculations: 0.000000</span></span>
+<span id="cb75-7"><a href="wgcna.html#cb75-7" tabindex="-1"></a><span class="do">## ..connectivity..</span></span>
+<span id="cb75-8"><a href="wgcna.html#cb75-8" tabindex="-1"></a><span class="do">## ..matrix multiplication (system BLAS)..</span></span>
+<span id="cb75-9"><a href="wgcna.html#cb75-9" tabindex="-1"></a><span class="do">## ..normalization..</span></span>
+<span id="cb75-10"><a href="wgcna.html#cb75-10" tabindex="-1"></a><span class="do">## ..done.</span></span>
+<span id="cb75-11"><a href="wgcna.html#cb75-11" tabindex="-1"></a></span>
+<span id="cb75-12"><a href="wgcna.html#cb75-12" tabindex="-1"></a>select <span class="ot">=</span> <span class="fu">sample</span>(nGenes, <span class="at">size =</span> nSelect)</span>
+<span id="cb75-13"><a href="wgcna.html#cb75-13" tabindex="-1"></a>selectTOM <span class="ot">=</span> dissTOM[select, select]</span>
+<span id="cb75-14"><a href="wgcna.html#cb75-14" tabindex="-1"></a><span class="co"># 再计算基因之间的距离树(对于基因的子集，需要重新聚类)</span></span>
+<span id="cb75-15"><a href="wgcna.html#cb75-15" tabindex="-1"></a>selectTree <span class="ot">=</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(selectTOM), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb75-16"><a href="wgcna.html#cb75-16" tabindex="-1"></a>selectColors <span class="ot">=</span> moduleColors[select]</span>
+<span id="cb75-17"><a href="wgcna.html#cb75-17" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb75-18"><a href="wgcna.html#cb75-18" tabindex="-1"></a>myheatcol <span class="ot">=</span> <span class="fu">colorpanel</span>(<span class="dv">250</span>,<span class="st">&#39;red&#39;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&#39;lemonchiffon&#39;</span>)</span>
+<span id="cb75-19"><a href="wgcna.html#cb75-19" tabindex="-1"></a></span>
+<span id="cb75-20"><a href="wgcna.html#cb75-20" tabindex="-1"></a>plotDiss <span class="ot">=</span> selectTOM<span class="sc">^</span><span class="dv">7</span></span>
+<span id="cb75-21"><a href="wgcna.html#cb75-21" tabindex="-1"></a><span class="fu">diag</span>(plotDiss) <span class="ot">=</span> <span class="cn">NA</span> <span class="co">#将对角线设成NA，在图形中显示为白色的点，更清晰显示趋势</span></span>
+<span id="cb75-22"><a href="wgcna.html#cb75-22" tabindex="-1"></a><span class="fu">TOMplot</span>(plotDiss, selectTree, selectColors, <span class="at">col=</span>myheatcol,<span class="at">main =</span> <span class="st">&quot;Network heatmap plot, selected genes&quot;</span>)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="关注模块与表型的相关性" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> 关注模块与表型的相关性<a href="wgcna.html#关注模块与表型的相关性" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="wgcna.html#cb76-1" tabindex="-1"></a>MEs <span class="ot">=</span> <span class="fu">moduleEigengenes</span>(datExpr, moduleColors)<span class="sc">$</span>eigengenes</span>
+<span id="cb76-2"><a href="wgcna.html#cb76-2" tabindex="-1"></a>MET <span class="ot">=</span> <span class="fu">orderMEs</span>(<span class="fu">cbind</span>(MEs, instrait))</span>
+<span id="cb76-3"><a href="wgcna.html#cb76-3" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="wgcna.html#cb76-4" tabindex="-1"></a><span class="fu">par</span>(<span class="at">cex =</span> <span class="fl">0.9</span>)</span>
+<span id="cb76-5"><a href="wgcna.html#cb76-5" tabindex="-1"></a><span class="fu">plotEigengeneNetworks</span>(MET, <span class="st">&quot;&quot;</span>, </span>
+<span id="cb76-6"><a href="wgcna.html#cb76-6" tabindex="-1"></a>                      <span class="at">marDendro =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">marHeatmap =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb76-7"><a href="wgcna.html#cb76-7" tabindex="-1"></a>                      <span class="at">cex.lab =</span> <span class="fl">0.8</span>,</span>
+<span id="cb76-8"><a href="wgcna.html#cb76-8" tabindex="-1"></a>                      <span class="at">xLabelsAngle =</span> <span class="dv">90</span>)</span></code></pre></div>
+<p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gsea-富集分析.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/smileszh/RNA-Seq/edit/master/06-1-WGCNA.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

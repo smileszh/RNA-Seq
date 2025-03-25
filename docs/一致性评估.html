@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | RNA-Seq</title>
+  <title>第 6 章 一致性评估 | RNA-Seq</title>
   <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | RNA-Seq" />
+  <meta property="og:title" content="第 6 章 一致性评估 | RNA-Seq" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="github-repo" content="smileszh/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | RNA-Seq" />
+  <meta name="twitter:title" content="第 6 章 一致性评估 | RNA-Seq" />
   
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="limma-voom.html"/>
+<link rel="next" href="差异基因作图.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -250,19 +250,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="一致性评估" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">第 6 章</span> 一致性评估<a href="一致性评估.html#一致性评估" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>edgeR, DESeq2, limma-voom三种方法的差异表达基因分析结果的一致性评估。</p>
+<div id="加载数据-5" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> 加载数据<a href="一致性评估.html#加载数据-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="一致性评估.html#cb34-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb34-2"><a href="一致性评估.html#cb34-2" tabindex="-1"></a>bio.p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;tinyarray&quot;</span>)</span>
+<span id="cb34-3"><a href="一致性评估.html#cb34-3" tabindex="-1"></a>status <span class="ot">=</span> <span class="fu">suppressPackageStartupMessages</span>(</span>
+<span id="cb34-4"><a href="一致性评估.html#cb34-4" tabindex="-1"></a>  <span class="fu">lapply</span>(bio.p, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-5"><a href="一致性评估.html#cb34-5" tabindex="-1"></a>  )</span>
+<span id="cb34-6"><a href="一致性评估.html#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="一致性评估.html#cb34-7" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/DEG_edgeR.RData&#39;</span>);edgeR <span class="ot">&lt;-</span> total</span>
+<span id="cb34-8"><a href="一致性评估.html#cb34-8" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/DEG_DESeq2.RData&#39;</span>);DESeq2 <span class="ot">&lt;-</span> total</span>
+<span id="cb34-9"><a href="一致性评估.html#cb34-9" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file =</span> <span class="st">&#39;Rdata/DEG_limma-voom.RData&#39;</span>);limma_voom <span class="ot">&lt;-</span> total</span></code></pre></div>
 </div>
+<div id="可视化" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 可视化<a href="一致性评估.html#可视化" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="韦恩图" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> 韦恩图<a href="一致性评估.html#韦恩图" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="一致性评估.html#cb35-1" tabindex="-1"></a>gene_sets <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb35-2"><a href="一致性评估.html#cb35-2" tabindex="-1"></a>  <span class="at">edgeR =</span> edgeR <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="一致性评估.html#cb35-3" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL),</span>
+<span id="cb35-4"><a href="一致性评估.html#cb35-4" tabindex="-1"></a>  <span class="at">DESeq2 =</span> DESeq2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-5"><a href="一致性评估.html#cb35-5" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL),</span>
+<span id="cb35-6"><a href="一致性评估.html#cb35-6" tabindex="-1"></a>  <span class="at">limma_voom =</span> limma_voom <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="一致性评估.html#cb35-7" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL)</span>
+<span id="cb35-8"><a href="一致性评估.html#cb35-8" tabindex="-1"></a>)</span>
+<span id="cb35-9"><a href="一致性评估.html#cb35-9" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">draw_venn</span>(<span class="at">x =</span> gene_sets, <span class="st">&quot;genes&quot;</span>)</span>
+<span id="cb35-10"><a href="一致性评估.html#cb35-10" tabindex="-1"></a><span class="fu">grid.draw</span>(p1)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="一致性评估.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(VennDiagram)</span>
+<span id="cb36-2"><a href="一致性评估.html#cb36-2" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb36-3"><a href="一致性评估.html#cb36-3" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb36-4"><a href="一致性评估.html#cb36-4" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="一致性评估.html#cb36-5" tabindex="-1"></a><span class="co"># 创建高级调色板</span></span>
+<span id="cb36-6"><a href="一致性评估.html#cb36-6" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">3</span>, <span class="st">&quot;Set2&quot;</span>)</span>
+<span id="cb36-7"><a href="一致性评估.html#cb36-7" tabindex="-1"></a>grad_pal <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;#f7f7f7&quot;</span>, <span class="st">&quot;#08306b&quot;</span>))</span>
+<span id="cb36-8"><a href="一致性评估.html#cb36-8" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="一致性评估.html#cb36-9" tabindex="-1"></a>venn.plot <span class="ot">&lt;-</span> <span class="fu">venn.diagram</span>(</span>
+<span id="cb36-10"><a href="一致性评估.html#cb36-10" tabindex="-1"></a>  <span class="at">x =</span> gene_sets,</span>
+<span id="cb36-11"><a href="一致性评估.html#cb36-11" tabindex="-1"></a>  <span class="at">category.names =</span> <span class="fu">c</span>(<span class="st">&quot;edgeR&quot;</span>, <span class="st">&quot;DESeq2&quot;</span>, <span class="st">&quot;limma_voom&quot;</span>),</span>
+<span id="cb36-12"><a href="一致性评估.html#cb36-12" tabindex="-1"></a>  <span class="at">filename =</span> <span class="cn">NULL</span>,</span>
+<span id="cb36-13"><a href="一致性评估.html#cb36-13" tabindex="-1"></a>  <span class="at">imagetype =</span> <span class="st">&quot;pdf&quot;</span>,</span>
+<span id="cb36-14"><a href="一致性评估.html#cb36-14" tabindex="-1"></a>  </span>
+<span id="cb36-15"><a href="一致性评估.html#cb36-15" tabindex="-1"></a>  <span class="co"># 高级图形参数</span></span>
+<span id="cb36-16"><a href="一致性评估.html#cb36-16" tabindex="-1"></a>  <span class="at">fill =</span> pal,</span>
+<span id="cb36-17"><a href="一致性评估.html#cb36-17" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.65</span>,</span>
+<span id="cb36-18"><a href="一致性评估.html#cb36-18" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb36-19"><a href="一致性评估.html#cb36-19" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;white&quot;</span>,  <span class="co"># 边界颜色</span></span>
+<span id="cb36-20"><a href="一致性评估.html#cb36-20" tabindex="-1"></a>  </span>
+<span id="cb36-21"><a href="一致性评估.html#cb36-21" tabindex="-1"></a>  <span class="co"># 标签优化</span></span>
+<span id="cb36-22"><a href="一致性评估.html#cb36-22" tabindex="-1"></a>  <span class="at">label.col =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb36-23"><a href="一致性评估.html#cb36-23" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.8</span>,</span>
+<span id="cb36-24"><a href="一致性评估.html#cb36-24" tabindex="-1"></a>  <span class="at">fontfamily =</span> <span class="st">&quot;sans&quot;</span>,</span>
+<span id="cb36-25"><a href="一致性评估.html#cb36-25" tabindex="-1"></a>  </span>
+<span id="cb36-26"><a href="一致性评估.html#cb36-26" tabindex="-1"></a>  <span class="co"># 类别名称优化</span></span>
+<span id="cb36-27"><a href="一致性评估.html#cb36-27" tabindex="-1"></a>  <span class="at">cat.col =</span> pal,</span>
+<span id="cb36-28"><a href="一致性评估.html#cb36-28" tabindex="-1"></a>  <span class="at">cat.cex =</span> <span class="fl">1.5</span>,</span>
+<span id="cb36-29"><a href="一致性评估.html#cb36-29" tabindex="-1"></a>  <span class="at">cat.fontfamily =</span> <span class="st">&quot;sans&quot;</span>,</span>
+<span id="cb36-30"><a href="一致性评估.html#cb36-30" tabindex="-1"></a>  <span class="at">cat.just =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>), <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>), <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>)),</span>
+<span id="cb36-31"><a href="一致性评估.html#cb36-31" tabindex="-1"></a>  </span>
+<span id="cb36-32"><a href="一致性评估.html#cb36-32" tabindex="-1"></a>  <span class="co"># 背景优化</span></span>
+<span id="cb36-33"><a href="一致性评估.html#cb36-33" tabindex="-1"></a>  <span class="at">margin =</span> <span class="fl">0.05</span>,</span>
+<span id="cb36-34"><a href="一致性评估.html#cb36-34" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Genes differentially expressed in 3 methods&quot;</span>,</span>
+<span id="cb36-35"><a href="一致性评估.html#cb36-35" tabindex="-1"></a>  <span class="at">main.cex =</span> <span class="fl">1.8</span>,</span>
+<span id="cb36-36"><a href="一致性评估.html#cb36-36" tabindex="-1"></a>  <span class="at">main.col =</span> <span class="st">&quot;#2c3e50&quot;</span></span>
+<span id="cb36-37"><a href="一致性评估.html#cb36-37" tabindex="-1"></a>)</span>
+<span id="cb36-38"><a href="一致性评估.html#cb36-38" tabindex="-1"></a></span>
+<span id="cb36-39"><a href="一致性评估.html#cb36-39" tabindex="-1"></a><span class="co"># 添加自定义图例</span></span>
+<span id="cb36-40"><a href="一致性评估.html#cb36-40" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb36-41"><a href="一致性评估.html#cb36-41" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">width=</span><span class="fl">0.8</span>, <span class="at">height=</span><span class="fl">0.8</span>))</span>
+<span id="cb36-42"><a href="一致性评估.html#cb36-42" tabindex="-1"></a><span class="fu">grid.draw</span>(venn.plot)</span></code></pre></div>
+<p><img src="03-4-DEG-consistency_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="upset图" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> UpSet图<a href="一致性评估.html#upset图" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="一致性评估.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(UpSetR)</span>
+<span id="cb37-2"><a href="一致性评估.html#cb37-2" tabindex="-1"></a>gene_sets <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb37-3"><a href="一致性评估.html#cb37-3" tabindex="-1"></a>  <span class="at">edgeR =</span> edgeR <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="一致性评估.html#cb37-4" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL),</span>
+<span id="cb37-5"><a href="一致性评估.html#cb37-5" tabindex="-1"></a>  <span class="at">DESeq2 =</span> DESeq2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-6"><a href="一致性评估.html#cb37-6" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL),</span>
+<span id="cb37-7"><a href="一致性评估.html#cb37-7" tabindex="-1"></a>  <span class="at">limma_voom =</span> limma_voom <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="一致性评估.html#cb37-8" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL)</span>
+<span id="cb37-9"><a href="一致性评估.html#cb37-9" tabindex="-1"></a>)</span>
+<span id="cb37-10"><a href="一致性评估.html#cb37-10" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">fromList</span>(gene_sets), </span>
+<span id="cb37-11"><a href="一致性评估.html#cb37-11" tabindex="-1"></a>            <span class="at">nsets =</span> <span class="dv">3</span>,</span>
+<span id="cb37-12"><a href="一致性评估.html#cb37-12" tabindex="-1"></a>            <span class="at">order.by =</span> <span class="st">&quot;freq&quot;</span>, </span>
+<span id="cb37-13"><a href="一致性评估.html#cb37-13" tabindex="-1"></a>            <span class="at">mainbar.y.label =</span> <span class="st">&quot;Intersection size&quot;</span>, </span>
+<span id="cb37-14"><a href="一致性评估.html#cb37-14" tabindex="-1"></a>            <span class="at">sets.x.label =</span> <span class="st">&quot;Set Size&quot;</span>,</span>
+<span id="cb37-15"><a href="一致性评估.html#cb37-15" tabindex="-1"></a>            <span class="at">text.scale =</span> <span class="fl">1.5</span>,  <span class="co"># 增加文本大小提高可读性</span></span>
+<span id="cb37-16"><a href="一致性评估.html#cb37-16" tabindex="-1"></a>            <span class="at">point.size =</span> <span class="fl">3.5</span>,  <span class="co"># 增大矩阵中的点</span></span>
+<span id="cb37-17"><a href="一致性评估.html#cb37-17" tabindex="-1"></a>            <span class="at">line.size =</span> <span class="fl">1.5</span>,   <span class="co"># 加粗连接线</span></span>
+<span id="cb37-18"><a href="一致性评估.html#cb37-18" tabindex="-1"></a>            <span class="at">main.bar.color =</span> <span class="st">&quot;darkred&quot;</span>,  <span class="co"># 设置主柱状图颜色</span></span>
+<span id="cb37-19"><a href="一致性评估.html#cb37-19" tabindex="-1"></a>            <span class="at">sets.bar.color =</span> <span class="st">&quot;steelblue&quot;</span>,  <span class="co"># 设置集合大小柱状图颜色</span></span>
+<span id="cb37-20"><a href="一致性评估.html#cb37-20" tabindex="-1"></a>            <span class="at">shade.color =</span> <span class="st">&quot;lightblue&quot;</span>  <span class="co"># 设置连接点的阴影颜色</span></span>
+<span id="cb37-21"><a href="一致性评估.html#cb37-21" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="03-4-DEG-consistency_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="limma-voom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="差异基因作图.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -293,7 +391,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/smileszh/RNA-Seq/edit/master/%s",
+    "link": "https://github.com/smileszh/RNA-Seq/edit/master/03-4-DEG-consistency.Rmd",
     "text": "Edit"
   },
   "history": {

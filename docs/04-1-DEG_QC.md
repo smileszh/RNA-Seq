@@ -7,6 +7,8 @@
 ## 加载数据
 
 ``` r
+# 加载包
+library(ggplot2)
 # 加载变量
 load(file = 'Rdata/symbol_matrix.Rdata') 
 load(file = 'Rdata/DEG_edgeR.Rdata')
@@ -20,9 +22,9 @@ title <- paste0(group[1], "_vs_", group[2])
 # cut_log2FC <- mean(abs(total$log2FoldChange)) + 2 * sd(abs(total$log2FoldChange))
 # log2FC_t <- ifelse(cut_log2FC > 1, 1, cut_log2FC)
 log2FC_t <- 1
-pvalue_t <- 0.05
+sig_t <- 0.05
 # 计算 regulation
-total$regulation = ifelse(total$FDR > pvalue_t, 'stable',
+total$regulation = ifelse(total$FDR > sig_t, 'stable',
                           ifelse(total$log2FoldChange > log2FC_t, 'up',
                                  ifelse(total$log2FoldChange < -log2FC_t, 'down', 'stable')))
 # 提取所需的列
@@ -67,7 +69,7 @@ ggplot(data = nrDEG, aes(x = log2FC, y = -log10(FDR))) +
   scale_color_manual(values = c("#34bfb5", "#828586", "#ff6633")) +
   labs(y = "-log10(FDR)") +
   geom_vline(xintercept = c(log2FC_t, -log2FC_t), lty = 4, col = "black", lwd = 0.8) +
-  geom_hline(yintercept = -log10(pvalue_t), lty = 4, col = "black", lwd = 0.8) +
+  geom_hline(yintercept = -log10(sig_t), lty = 4, col = "black", lwd = 0.8) +
   xlim(-5, 5) +
   theme_bw() +
   ggtitle(this_tile) +
@@ -78,6 +80,26 @@ ggplot(data = nrDEG, aes(x = log2FC, y = -log10(FDR))) +
 ```
 
 <img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" />
+
+
+``` r
+deg <- nrDEG
+ggplot(data = deg, aes(x = log2FC, y = -log10(FDR))) +
+  geom_point(alpha=0.5, size=1, aes(color=regulation)) +
+  scale_color_manual(values=c("dodgerblue", "lightgrey", "firebrick"))+
+  geom_vline(xintercept=c(-log2FC_t, log2FC_t),lty=4,col="black",linewidth=0.8) +
+  geom_hline(yintercept = -log10(sig_t),lty=4,col="black",linewidth=0.8) +
+  theme_bw() +
+  theme(axis.title = element_text(size=10), 
+        plot.title = element_text(size = 10, hjust = 0.5),
+        plot.title.position = "plot",
+        legend.position = "top",
+        legend.text = element_text(size= 8),
+        legend.title = element_text(size= 8),
+  )
+```
+
+<img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ## 差异基因热图
@@ -116,7 +138,7 @@ pheatmap(n,
          breaks = seq(-2,2, length.out = 100))
 ```
 
-<img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
+<img src="04-1-DEG_QC_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
 
 ## 保存结果
 保存结果
