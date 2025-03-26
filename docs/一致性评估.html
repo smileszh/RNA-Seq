@@ -23,7 +23,7 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-25" />
+<meta name="date" content="2025-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -214,8 +214,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>VI 高级分析</b></span></li>
 <li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
-<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.1</b> 加载数据</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.2</b> 默认参数（可选）</a></li>
 <li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
@@ -229,6 +229,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
 <li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
 <li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
+</ul></li>
+<li class="part"><span><b>VII 小技巧</b></span></li>
+<li class="chapter" data-level="11" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html"><i class="fa fa-check"></i><b>11</b> counts 矩阵标准化</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#featurecounts"><i class="fa fa-check"></i><b>11.1</b> featureCounts</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#tpm"><i class="fa fa-check"></i><b>11.1.1</b> TPM</a></li>
+<li class="chapter" data-level="11.1.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkmrpkm"><i class="fa fa-check"></i><b>11.1.2</b> FPKM/RPKM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkm-转换为tpm"><i class="fa fa-check"></i><b>11.1.3</b> FPKM 转换为TPM</a></li>
+<li class="chapter" data-level="11.1.4" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#cpm"><i class="fa fa-check"></i><b>11.1.4</b> CPM</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#拓展"><i class="fa fa-check"></i><b>11.2</b> 拓展</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -269,6 +281,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.2</span> 可视化<a href="一致性评估.html#可视化" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="韦恩图" class="section level3 hasAnchor" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> 韦恩图<a href="一致性评估.html#韦恩图" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>图 1</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="一致性评估.html#cb35-1" tabindex="-1"></a>gene_sets <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb35-2"><a href="一致性评估.html#cb35-2" tabindex="-1"></a>  <span class="at">edgeR =</span> edgeR <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb35-3"><a href="一致性评估.html#cb35-3" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL),</span>
@@ -277,8 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-6"><a href="一致性评估.html#cb35-6" tabindex="-1"></a>  <span class="at">limma_voom =</span> limma_voom <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb35-7"><a href="一致性评估.html#cb35-7" tabindex="-1"></a>    <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(SYMBOL)</span>
 <span id="cb35-8"><a href="一致性评估.html#cb35-8" tabindex="-1"></a>)</span>
-<span id="cb35-9"><a href="一致性评估.html#cb35-9" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">draw_venn</span>(<span class="at">x =</span> gene_sets, <span class="st">&quot;genes&quot;</span>)</span>
-<span id="cb35-10"><a href="一致性评估.html#cb35-10" tabindex="-1"></a><span class="fu">grid.draw</span>(p1)</span></code></pre></div>
+<span id="cb35-9"><a href="一致性评估.html#cb35-9" tabindex="-1"></a><span class="fu">draw_venn</span>(<span class="at">x =</span> gene_sets, <span class="st">&quot;genes&quot;</span>)</span></code></pre></div>
+<p>图 2</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="一致性评估.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(VennDiagram)</span>
 <span id="cb36-2"><a href="一致性评估.html#cb36-2" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
 <span id="cb36-3"><a href="一致性评估.html#cb36-3" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>

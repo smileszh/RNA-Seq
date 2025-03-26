@@ -38,7 +38,7 @@ load(file = 'Rdata/DEG_edgeR.Rdata')
 OUT_FOLDER <- "DEG_ANalysis"
 # title
 group <- group_list
-title <- paste0(group[1], "_vs_", group[2])
+title <- paste0(levels(group)[1], "_vs_", levels(group)[2])
 
 # 读取差异基因
 # cut_log2FC <- mean(abs(total$log2FoldChange)) + 2 * sd(abs(total$log2FoldChange))

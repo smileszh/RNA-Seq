@@ -23,7 +23,7 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-25" />
+<meta name="date" content="2025-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -214,8 +214,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>VI 高级分析</b></span></li>
 <li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
-<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.1</b> 加载数据</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.2</b> 默认参数（可选）</a></li>
 <li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
@@ -229,6 +229,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
 <li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
 <li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
+</ul></li>
+<li class="part"><span><b>VII 小技巧</b></span></li>
+<li class="chapter" data-level="11" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html"><i class="fa fa-check"></i><b>11</b> counts 矩阵标准化</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#featurecounts"><i class="fa fa-check"></i><b>11.1</b> featureCounts</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#tpm"><i class="fa fa-check"></i><b>11.1.1</b> TPM</a></li>
+<li class="chapter" data-level="11.1.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkmrpkm"><i class="fa fa-check"></i><b>11.1.2</b> FPKM/RPKM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkm-转换为tpm"><i class="fa fa-check"></i><b>11.1.3</b> FPKM 转换为TPM</a></li>
+<li class="chapter" data-level="11.1.4" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#cpm"><i class="fa fa-check"></i><b>11.1.4</b> CPM</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#拓展"><i class="fa fa-check"></i><b>11.2</b> 拓展</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -263,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-7"><a href="差异基因作图.html#cb38-7" tabindex="-1"></a>OUT_FOLDER <span class="ot">&lt;-</span> <span class="st">&quot;DEG_ANalysis&quot;</span></span>
 <span id="cb38-8"><a href="差异基因作图.html#cb38-8" tabindex="-1"></a><span class="co"># title</span></span>
 <span id="cb38-9"><a href="差异基因作图.html#cb38-9" tabindex="-1"></a>group <span class="ot">&lt;-</span> group_list</span>
-<span id="cb38-10"><a href="差异基因作图.html#cb38-10" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(group[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, group[<span class="dv">2</span>])</span>
+<span id="cb38-10"><a href="差异基因作图.html#cb38-10" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">levels</span>(group)[<span class="dv">1</span>], <span class="st">&quot;_vs_&quot;</span>, <span class="fu">levels</span>(group)[<span class="dv">2</span>])</span>
 <span id="cb38-11"><a href="差异基因作图.html#cb38-11" tabindex="-1"></a></span>
 <span id="cb38-12"><a href="差异基因作图.html#cb38-12" tabindex="-1"></a><span class="co"># 读取差异基因</span></span>
 <span id="cb38-13"><a href="差异基因作图.html#cb38-13" tabindex="-1"></a><span class="co"># cut_log2FC &lt;- mean(abs(total$log2FoldChange)) + 2 * sd(abs(total$log2FoldChange))</span></span>

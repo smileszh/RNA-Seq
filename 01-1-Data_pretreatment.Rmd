@@ -38,8 +38,8 @@ head(group_list)
 # 加载表达矩阵，去除重复基因，并将样本名顺序和设计文件中的样本名顺序一致
 counts <- fread("counts.csv") %>%
   distinct(name, .keep_all = T) %>%
-  select(name, design$sample, everything())
-head(counts)
+  dplyr::select(name, design$sample, everything())
+head(counts)[1:4, 1:4]
 ```
 
 
@@ -91,5 +91,6 @@ symbol_matrix <- All_gene_counts %>%
   distinct(SYMBOL, .keep_all = T) %>%
   column_to_rownames("SYMBOL") %>%
   dplyr::select(design$sample)
+dir.create("Rdata", showWarnings = F)
 save(symbol_matrix, design, group_list,file = 'Rdata/symbol_matrix.Rdata')
 ```

@@ -44,8 +44,8 @@ gsea-富集分析
 gsea-分析
 保存结果-5
 wgcna
-默认参数可选
 加载数据-9
+默认参数可选
 表达量聚类分析
 选择合适基因集过滤缺失值
 样本层级聚类查看有无离群值
@@ -57,3 +57,10 @@ wgcna
 gs-与-mm
 tom
 关注模块与表型的相关性
+counts-矩阵标准化
+featurecounts
+tpm
+fpkmrpkm
+fpkm-转换为tpm
+cpm
+拓展

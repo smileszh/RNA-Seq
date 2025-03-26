@@ -23,7 +23,7 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-25" />
+<meta name="date" content="2025-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -214,8 +214,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>VI 高级分析</b></span></li>
 <li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
-<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.1</b> 加载数据</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.2</b> 默认参数（可选）</a></li>
 <li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
@@ -229,6 +229,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
 <li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
 <li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
+</ul></li>
+<li class="part"><span><b>VII 小技巧</b></span></li>
+<li class="chapter" data-level="11" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html"><i class="fa fa-check"></i><b>11</b> counts 矩阵标准化</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#featurecounts"><i class="fa fa-check"></i><b>11.1</b> featureCounts</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#tpm"><i class="fa fa-check"></i><b>11.1.1</b> TPM</a></li>
+<li class="chapter" data-level="11.1.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkmrpkm"><i class="fa fa-check"></i><b>11.1.2</b> FPKM/RPKM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkm-转换为tpm"><i class="fa fa-check"></i><b>11.1.3</b> FPKM 转换为TPM</a></li>
+<li class="chapter" data-level="11.1.4" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#cpm"><i class="fa fa-check"></i><b>11.1.4</b> CPM</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#拓展"><i class="fa fa-check"></i><b>11.2</b> 拓展</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -282,24 +294,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-22"><a href="数据预处理.html#cb1-22" tabindex="-1"></a><span class="co"># 加载表达矩阵，去除重复基因，并将样本名顺序和设计文件中的样本名顺序一致</span></span>
 <span id="cb1-23"><a href="数据预处理.html#cb1-23" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;counts.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb1-24"><a href="数据预处理.html#cb1-24" tabindex="-1"></a>  <span class="fu">distinct</span>(name, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb1-25"><a href="数据预处理.html#cb1-25" tabindex="-1"></a>  <span class="fu">select</span>(name, design<span class="sc">$</span>sample, <span class="fu">everything</span>())</span>
-<span id="cb1-26"><a href="数据预处理.html#cb1-26" tabindex="-1"></a><span class="fu">head</span>(counts)</span>
-<span id="cb1-27"><a href="数据预处理.html#cb1-27" tabindex="-1"></a><span class="do">##               name s_MiaFRFP_1 s_MiaFRFP_2 s_MiaFRFP_3 s_Part1Lag_1</span></span>
-<span id="cb1-28"><a href="数据预处理.html#cb1-28" tabindex="-1"></a><span class="do">##             &lt;char&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;        &lt;int&gt;</span></span>
-<span id="cb1-29"><a href="数据预处理.html#cb1-29" tabindex="-1"></a><span class="do">## 1: ENSG00000228037           2           0           0            2</span></span>
-<span id="cb1-30"><a href="数据预处理.html#cb1-30" tabindex="-1"></a><span class="do">## 2: ENSG00000142611        2088        1753        2396          358</span></span>
-<span id="cb1-31"><a href="数据预处理.html#cb1-31" tabindex="-1"></a><span class="do">## 3: ENSG00000284616           0           0           0            0</span></span>
-<span id="cb1-32"><a href="数据预处理.html#cb1-32" tabindex="-1"></a><span class="do">## 4: ENSG00000157911        5039        3794        4870         2294</span></span>
-<span id="cb1-33"><a href="数据预处理.html#cb1-33" tabindex="-1"></a><span class="do">## 5: ENSG00000260972           0           0           0            0</span></span>
-<span id="cb1-34"><a href="数据预处理.html#cb1-34" tabindex="-1"></a><span class="do">## 6: ENSG00000224340           0           0           1            1</span></span>
-<span id="cb1-35"><a href="数据预处理.html#cb1-35" tabindex="-1"></a><span class="do">##    s_Part1Lag_2 s_Part1Lag_3</span></span>
-<span id="cb1-36"><a href="数据预处理.html#cb1-36" tabindex="-1"></a><span class="do">##           &lt;int&gt;        &lt;int&gt;</span></span>
-<span id="cb1-37"><a href="数据预处理.html#cb1-37" tabindex="-1"></a><span class="do">## 1:            9            0</span></span>
-<span id="cb1-38"><a href="数据预处理.html#cb1-38" tabindex="-1"></a><span class="do">## 2:          272          264</span></span>
-<span id="cb1-39"><a href="数据预处理.html#cb1-39" tabindex="-1"></a><span class="do">## 3:            0            2</span></span>
-<span id="cb1-40"><a href="数据预处理.html#cb1-40" tabindex="-1"></a><span class="do">## 4:         1996         2352</span></span>
-<span id="cb1-41"><a href="数据预处理.html#cb1-41" tabindex="-1"></a><span class="do">## 5:            0            0</span></span>
-<span id="cb1-42"><a href="数据预处理.html#cb1-42" tabindex="-1"></a><span class="do">## 6:            0            2</span></span></code></pre></div>
+<span id="cb1-25"><a href="数据预处理.html#cb1-25" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(name, design<span class="sc">$</span>sample, <span class="fu">everything</span>())</span>
+<span id="cb1-26"><a href="数据预处理.html#cb1-26" tabindex="-1"></a><span class="fu">head</span>(counts)[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb1-27"><a href="数据预处理.html#cb1-27" tabindex="-1"></a><span class="do">##               name s_MiaFRFP_1 s_MiaFRFP_2 s_MiaFRFP_3</span></span>
+<span id="cb1-28"><a href="数据预处理.html#cb1-28" tabindex="-1"></a><span class="do">##             &lt;char&gt;       &lt;int&gt;       &lt;int&gt;       &lt;int&gt;</span></span>
+<span id="cb1-29"><a href="数据预处理.html#cb1-29" tabindex="-1"></a><span class="do">## 1: ENSG00000228037           2           0           0</span></span>
+<span id="cb1-30"><a href="数据预处理.html#cb1-30" tabindex="-1"></a><span class="do">## 2: ENSG00000142611        2088        1753        2396</span></span>
+<span id="cb1-31"><a href="数据预处理.html#cb1-31" tabindex="-1"></a><span class="do">## 3: ENSG00000284616           0           0           0</span></span>
+<span id="cb1-32"><a href="数据预处理.html#cb1-32" tabindex="-1"></a><span class="do">## 4: ENSG00000157911        5039        3794        4870</span></span></code></pre></div>
 </div>
 <div id="过滤低表达数据" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> 过滤低表达数据<a href="数据预处理.html#过滤低表达数据" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -347,7 +349,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-4"><a href="数据预处理.html#cb4-4" tabindex="-1"></a>  <span class="fu">distinct</span>(SYMBOL, <span class="at">.keep_all =</span> T) <span class="sc">%&gt;%</span></span>
 <span id="cb4-5"><a href="数据预处理.html#cb4-5" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;SYMBOL&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-6"><a href="数据预处理.html#cb4-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(design<span class="sc">$</span>sample)</span>
-<span id="cb4-7"><a href="数据预处理.html#cb4-7" tabindex="-1"></a><span class="fu">save</span>(symbol_matrix, design, group_list,<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>)</span></code></pre></div>
+<span id="cb4-7"><a href="数据预处理.html#cb4-7" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;Rdata&quot;</span>, <span class="at">showWarnings =</span> F)</span>
+<span id="cb4-8"><a href="数据预处理.html#cb4-8" tabindex="-1"></a><span class="fu">save</span>(symbol_matrix, design, group_list,<span class="at">file =</span> <span class="st">&#39;Rdata/symbol_matrix.Rdata&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>

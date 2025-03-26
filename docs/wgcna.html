@@ -23,7 +23,7 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-25" />
+<meta name="date" content="2025-03-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="gsea-富集分析.html"/>
-
+<link rel="next" href="counts-矩阵标准化.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -214,8 +214,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>VI 高级分析</b></span></li>
 <li class="chapter" data-level="10" data-path="wgcna.html"><a href="wgcna.html"><i class="fa fa-check"></i><b>10</b> WGCNA</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.1</b> 默认参数（可选）</a></li>
-<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.2</b> 加载数据</a></li>
+<li class="chapter" data-level="10.1" data-path="wgcna.html"><a href="wgcna.html#加载数据-9"><i class="fa fa-check"></i><b>10.1</b> 加载数据</a></li>
+<li class="chapter" data-level="10.2" data-path="wgcna.html"><a href="wgcna.html#默认参数可选"><i class="fa fa-check"></i><b>10.2</b> 默认参数（可选）</a></li>
 <li class="chapter" data-level="10.3" data-path="wgcna.html"><a href="wgcna.html#表达量聚类分析"><i class="fa fa-check"></i><b>10.3</b> 表达量聚类分析</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="wgcna.html"><a href="wgcna.html#选择合适基因集过滤缺失值"><i class="fa fa-check"></i><b>10.3.1</b> 选择合适基因集，过滤缺失值</a></li>
@@ -229,6 +229,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5" data-path="wgcna.html"><a href="wgcna.html#gs-与-mm"><i class="fa fa-check"></i><b>10.5</b> GS 与 MM</a></li>
 <li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
 <li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
+</ul></li>
+<li class="part"><span><b>VII 小技巧</b></span></li>
+<li class="chapter" data-level="11" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html"><i class="fa fa-check"></i><b>11</b> counts 矩阵标准化</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#featurecounts"><i class="fa fa-check"></i><b>11.1</b> featureCounts</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#tpm"><i class="fa fa-check"></i><b>11.1.1</b> TPM</a></li>
+<li class="chapter" data-level="11.1.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkmrpkm"><i class="fa fa-check"></i><b>11.1.2</b> FPKM/RPKM</a></li>
+<li class="chapter" data-level="11.1.3" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkm-转换为tpm"><i class="fa fa-check"></i><b>11.1.3</b> FPKM 转换为TPM</a></li>
+<li class="chapter" data-level="11.1.4" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#cpm"><i class="fa fa-check"></i><b>11.1.4</b> CPM</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#拓展"><i class="fa fa-check"></i><b>11.2</b> 拓展</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
@@ -252,29 +264,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="wgcna" class="section level1 hasAnchor" number="10">
 <h1><span class="header-section-number">第 10 章</span> WGCNA<a href="wgcna.html#wgcna" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="默认参数可选" class="section level2 hasAnchor" number="10.1">
-<h2><span class="header-section-number">10.1</span> 默认参数（可选）<a href="wgcna.html#默认参数可选" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="wgcna.html#cb60-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb60-2"><a href="wgcna.html#cb60-2" tabindex="-1"></a><span class="co"># 打开多线程</span></span>
-<span id="cb60-3"><a href="wgcna.html#cb60-3" tabindex="-1"></a><span class="fu">enableWGCNAThreads</span>()</span>
-<span id="cb60-4"><a href="wgcna.html#cb60-4" tabindex="-1"></a><span class="do">## Allowing parallel execution with up to 7 working processes.</span></span>
-<span id="cb60-5"><a href="wgcna.html#cb60-5" tabindex="-1"></a></span>
-<span id="cb60-6"><a href="wgcna.html#cb60-6" tabindex="-1"></a><span class="co"># 官方推荐 &quot;signed&quot; 或 &quot;signed hybrid&quot;</span></span>
-<span id="cb60-7"><a href="wgcna.html#cb60-7" tabindex="-1"></a><span class="co"># 用signed获得的模块包含的基因会少</span></span>
-<span id="cb60-8"><a href="wgcna.html#cb60-8" tabindex="-1"></a>type <span class="ot">=</span> <span class="st">&quot;unsigned&quot;</span></span>
-<span id="cb60-9"><a href="wgcna.html#cb60-9" tabindex="-1"></a></span>
-<span id="cb60-10"><a href="wgcna.html#cb60-10" tabindex="-1"></a><span class="co"># 相关性计算</span></span>
-<span id="cb60-11"><a href="wgcna.html#cb60-11" tabindex="-1"></a><span class="co"># 官方推荐 biweight mid-correlation &amp; bicor</span></span>
-<span id="cb60-12"><a href="wgcna.html#cb60-12" tabindex="-1"></a><span class="co"># corType: pearson or bicor</span></span>
-<span id="cb60-13"><a href="wgcna.html#cb60-13" tabindex="-1"></a>corType <span class="ot">=</span> <span class="st">&quot;bicor&quot;</span></span>
-<span id="cb60-14"><a href="wgcna.html#cb60-14" tabindex="-1"></a></span>
-<span id="cb60-15"><a href="wgcna.html#cb60-15" tabindex="-1"></a>corFnc <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>, cor, bicor)</span>
-<span id="cb60-16"><a href="wgcna.html#cb60-16" tabindex="-1"></a><span class="co"># 对二元变量，如样本性状信息计算相关性时，</span></span>
-<span id="cb60-17"><a href="wgcna.html#cb60-17" tabindex="-1"></a><span class="co"># 或基因表达严重依赖于疾病状态时，需设置下面参数</span></span>
-<span id="cb60-18"><a href="wgcna.html#cb60-18" tabindex="-1"></a>maxPOutliers <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)</span>
-<span id="cb60-19"><a href="wgcna.html#cb60-19" tabindex="-1"></a></span>
-<span id="cb60-20"><a href="wgcna.html#cb60-20" tabindex="-1"></a><span class="co"># 关联样品性状的二元变量时，设置</span></span>
-<span id="cb60-21"><a href="wgcna.html#cb60-21" tabindex="-1"></a>robustY <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>,T,F)</span></code></pre></div>
+<div id="加载数据-9" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> 加载数据<a href="wgcna.html#加载数据-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>走一遍数据预处理流程。</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="wgcna.html#cb60-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb60-2"><a href="wgcna.html#cb60-2" tabindex="-1"></a><span class="fu">library</span>(WGCNA)</span>
+<span id="cb60-3"><a href="wgcna.html#cb60-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb60-4"><a href="wgcna.html#cb60-4" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb60-5"><a href="wgcna.html#cb60-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb60-6"><a href="wgcna.html#cb60-6" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
+</div>
+<div id="默认参数可选" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> 默认参数（可选）<a href="wgcna.html#默认参数可选" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="wgcna.html#cb61-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb61-2"><a href="wgcna.html#cb61-2" tabindex="-1"></a><span class="co"># 打开多线程</span></span>
+<span id="cb61-3"><a href="wgcna.html#cb61-3" tabindex="-1"></a><span class="fu">enableWGCNAThreads</span>()</span>
+<span id="cb61-4"><a href="wgcna.html#cb61-4" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="wgcna.html#cb61-5" tabindex="-1"></a><span class="co"># 官方推荐 &quot;signed&quot; 或 &quot;signed hybrid&quot;</span></span>
+<span id="cb61-6"><a href="wgcna.html#cb61-6" tabindex="-1"></a><span class="co"># 用signed获得的模块包含的基因会少</span></span>
+<span id="cb61-7"><a href="wgcna.html#cb61-7" tabindex="-1"></a>type <span class="ot">=</span> <span class="st">&quot;unsigned&quot;</span></span>
+<span id="cb61-8"><a href="wgcna.html#cb61-8" tabindex="-1"></a></span>
+<span id="cb61-9"><a href="wgcna.html#cb61-9" tabindex="-1"></a><span class="co"># 相关性计算</span></span>
+<span id="cb61-10"><a href="wgcna.html#cb61-10" tabindex="-1"></a><span class="co"># 官方推荐 biweight mid-correlation &amp; bicor</span></span>
+<span id="cb61-11"><a href="wgcna.html#cb61-11" tabindex="-1"></a><span class="co"># corType: pearson or bicor</span></span>
+<span id="cb61-12"><a href="wgcna.html#cb61-12" tabindex="-1"></a>corType <span class="ot">=</span> <span class="st">&quot;bicor&quot;</span></span>
+<span id="cb61-13"><a href="wgcna.html#cb61-13" tabindex="-1"></a></span>
+<span id="cb61-14"><a href="wgcna.html#cb61-14" tabindex="-1"></a>corFnc <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>, cor, bicor)</span>
+<span id="cb61-15"><a href="wgcna.html#cb61-15" tabindex="-1"></a><span class="co"># 对二元变量，如样本性状信息计算相关性时，</span></span>
+<span id="cb61-16"><a href="wgcna.html#cb61-16" tabindex="-1"></a><span class="co"># 或基因表达严重依赖于疾病状态时，需设置下面参数</span></span>
+<span id="cb61-17"><a href="wgcna.html#cb61-17" tabindex="-1"></a>maxPOutliers <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)</span>
+<span id="cb61-18"><a href="wgcna.html#cb61-18" tabindex="-1"></a></span>
+<span id="cb61-19"><a href="wgcna.html#cb61-19" tabindex="-1"></a><span class="co"># 关联样品性状的二元变量时，设置</span></span>
+<span id="cb61-20"><a href="wgcna.html#cb61-20" tabindex="-1"></a>robustY <span class="ot">=</span> <span class="fu">ifelse</span>(corType<span class="sc">==</span><span class="st">&quot;pearson&quot;</span>,T,F)</span></code></pre></div>
 <p>网络类型 (<code>type</code>)：
 “unsigned”：在无符号网络中，正相关和负相关被同等对待，这意味着基因可以被分到同一个模块中，无论它们是正相关还是负相关。这通常会导致模块更大，因为限制较少。“signed” 或 “signed hybrid”：有符号网络区分正相关和负相关。模块通常包含正相关的基因，导致模块更小且更同质化。注释正确指出，有符号网络通常会产生包含较少基因的模块。</p>
 <p>相关性类型 (<code>corType</code>)：
@@ -286,16 +307,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 这个参数在使用双权中值相关性时很重要。它设置可以被视为异常值的样本最大比例。对于皮尔逊相关性，这个值设为1，意味着不将任何样本视为异常值。对于bicor，典型设置可能是0.05，允许一些样本被视为异常值以提高稳健性。注释正确描述了这个参数的用途。</p>
 <p><code>robustY</code>：
 这个参数在将基因表达数据与二元性状（例如疾病状态）相关联时使用。它决定是否在计算涉及二元变量的相关性时使用稳健方法。对于皮尔逊相关性，通常设为 <code>TRUE</code>，而对于 bicor，由于 bicor 本身是稳健的，所以设为 <code>FALSE</code>。注释准确反映了这个参数的用途。</p>
-</div>
-<div id="加载数据-9" class="section level2 hasAnchor" number="10.2">
-<h2><span class="header-section-number">10.2</span> 加载数据<a href="wgcna.html#加载数据-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>走一遍数据预处理流程。</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="wgcna.html#cb61-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
-<span id="cb61-2"><a href="wgcna.html#cb61-2" tabindex="-1"></a><span class="fu">library</span>(WGCNA)</span>
-<span id="cb61-3"><a href="wgcna.html#cb61-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb61-4"><a href="wgcna.html#cb61-4" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb61-5"><a href="wgcna.html#cb61-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb61-6"><a href="wgcna.html#cb61-6" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="wgcna.html#cb62-1" tabindex="-1"></a><span class="co"># 导入分组信息</span></span>
 <span id="cb62-2"><a href="wgcna.html#cb62-2" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">&quot;DATA/WGCNA/design.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb62-3"><a href="wgcna.html#cb62-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;s_MiaFRFP&quot;</span>, </span>
@@ -393,7 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-69"><a href="wgcna.html#cb63-69" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;SYMBOL&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb63-70"><a href="wgcna.html#cb63-70" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(design<span class="sc">$</span>sample)</span>
 <span id="cb63-71"><a href="wgcna.html#cb63-71" tabindex="-1"></a></span>
-<span id="cb63-72"><a href="wgcna.html#cb63-72" tabindex="-1"></a>dataExpr <span class="ot">&lt;-</span> <span class="fu">log2</span>(symbol_matrix <span class="sc">+</span> <span class="dv">1</span>)</span></code></pre></div>
+<span id="cb63-72"><a href="wgcna.html#cb63-72" tabindex="-1"></a>dataExpr <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">lapply</span>(symbol_matrix, <span class="cf">function</span>(x) <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(x))))</span>
+<span id="cb63-73"><a href="wgcna.html#cb63-73" tabindex="-1"></a><span class="fu">rownames</span>(dataExpr) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(symbol_matrix)</span></code></pre></div>
 </div>
 <div id="表达量聚类分析" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> 表达量聚类分析<a href="wgcna.html#表达量聚类分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -723,16 +735,22 @@ MM 关注的是基因与其所在模块的内部一致性，帮助识别模块�
 <span id="cb76-7"><a href="wgcna.html#cb76-7" tabindex="-1"></a>                      <span class="at">cex.lab =</span> <span class="fl">0.8</span>,</span>
 <span id="cb76-8"><a href="wgcna.html#cb76-8" tabindex="-1"></a>                      <span class="at">xLabelsAngle =</span> <span class="dv">90</span>)</span></code></pre></div>
 <p><img src="06-1-WGCNA_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>可参考教程：
+<a href="https://mp.weixin.qq.com/s/4N8eAStl0D7hL04G-4yICg" class="uri">https://mp.weixin.qq.com/s/4N8eAStl0D7hL04G-4yICg</a>
+<a href="https://www.youtube.com/watch?v=S7rFtZnA21o" class="uri">https://www.youtube.com/watch?v=S7rFtZnA21o</a></p>
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="gsea-富集分析.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="gsea-富集分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="counts-矩阵标准化.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

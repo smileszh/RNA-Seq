@@ -1,0 +1,207 @@
+# (PART) 小技巧 {-}
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+library(DT)
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	error = F,
+	message = FALSE,
+	warning = FALSE,
+	cache = T,
+	collapse = T,
+	# fig.width = 5,
+	fig.height = 4,
+	unit = 'cm',
+	fig.align = 'center'
+)
+
+rm(list = ls())  ## 魔幻操作，一键清空~
+options(stringsAsFactors = F)
+
+getOption('timeout')
+options(timeout=10000) 
+```
+
+# counts 矩阵标准化
+counts 数据的标准化方式有很多种，常见的有RPKM、FPKM 、TPM和CPM这几种方法，这些归一化方式除了CPM外，都是基于基因长度的归一化方法，CPM是基于样本的归一化方法。
+
+有多种方法可以提取出基因的有效长度（或非冗余总外显子长度、总转录本长度）。
+最简单的方法就是从featureCounts的输出文件中提取出基因的长度信息，也可以从GTF文件中提取出基因的长度信息。
+
+## featureCounts 
+从 featureCounts 软件生成的 counts 矩阵可以直接提取出来，然后进行标准化处理。
+```{r}
+# 加载包
+bio.p <- c("tidyverse", "data.table")
+status = suppressPackageStartupMessages(
+  lapply(bio.p, library, character.only = TRUE)
+  )
+```
+
+读取 counts 数据
+```{r}
+# 读取数据
+feature <- fread("DATA/featureCounts.txt") %>% as.data.frame()
+
+counts <- feature %>%
+  column_to_rownames(var = "Geneid")
+counts <- counts[, 6:ncol(counts)]
+```
+
+提取基因的有效长度信息
+```{r}
+# 提取 Geneid 和 Length
+geneid_efflen <- feature %>%
+  select(Geneid, Length) %>%
+  rename(geneid = Geneid, efflen = Length)
+
+# 获取对应的 efflen
+efflen <- geneid_efflen$efflen[match(rownames(counts), geneid_efflen$geneid)]
+```
+
+
+### TPM
+```{r}
+# 定义转换为 TPM 的函数
+counts2TPM <- function(count, efflength) {
+  RPK <- count / (efflength / 1000)  # 每千碱基 reads (reads per kilobase)
+  PMSC_rpk <- sum(RPK) / 1e6         # RPK 的每百万缩放因子
+  RPK / PMSC_rpk
+}
+
+# 计算 TPM
+TPM <- apply(counts, 2, counts2TPM, efflength = efflen) %>%
+  as.data.frame(check.names = FALSE) %>%
+  `rownames<-`(rownames(counts)) %>%
+  setNames(paste0(colnames(counts), "_TPM"))
+```
+
+### FPKM/RPKM
+RPKM是针对单端测序的RNA-seq而言的，其中每个reads对应于一个已测序的单个片段。
+FPKM用于双端测序的RNA-seq。使用双端测序RNA-seq，两个reads可以对应一个片段（Fragment）。
+RPKM和FPKM之间的唯一区别是FPKM考虑到两次reads可以映射到一个片段（因此它不会对该片段进行两次计数）。
+即单端测序：reads=fragments，双端测序：2 * reads≈fragments 而经过上游处理，双端测序两个reads可以对应一个片段的过程已经完成，最后得到的counts就已经相当于是片段fragments了，
+因此下游分析由counts计算RPKM、 FPKM这两者的公式完全一致。
+
+```{r}
+# 定义转换为 FPKM/RPKM 的函数
+counts2FPKM <- function(count=count, efflength=efflen){
+  PMSC_counts <- sum(count)/1e6   # counts的每百万缩放因子 (“per million” scaling factor) 深度标准化   
+  FPM <- count/PMSC_counts        # 每百万reads/Fragments (Reads/Fragments Per Million) 长度标准化   
+  FPM/(efflength/1000)                                       
+} 
+
+# 计算 FPKM/RPKM
+FPKM <- apply(counts, 2, counts2FPKM, efflength = efflen) %>%
+  as.data.frame(check.names = FALSE) %>%
+  `rownames<-`(rownames(counts)) %>%
+  setNames(paste0(colnames(counts), "_FPKM"))
+```
+
+### FPKM 转换为TPM
+```{r}
+FPKM2TPM <- function(fpkm){   
+  fpkm/sum(fpkm)*1e6   
+} 
+
+F2T <- apply(FPKM, 2, FPKM2TPM) %>%
+  as.data.frame(check.names = FALSE) %>%
+  `rownames<-`(rownames(counts)) %>%
+  setNames(paste0(colnames(counts), "_TPM"))
+```
+
+
+### CPM
+```{r}
+# 定义转换为 CPM 的函数
+counts2CPM <- function(count) {
+  # 计算每百万缩放因子
+  PMSC_counts <- sum(count) / 1e6  # counts 的每百万缩放因子 (“per million” scaling factor)
+  # 计算 CPM
+  CPM <- count / PMSC_counts  # 每百万 reads (Counts Per Million)
+}
+
+# 计算 CPM
+CPM <- apply(counts, 2, counts2CPM) %>%
+  as.data.frame(check.names = FALSE) %>%
+  `rownames<-`(rownames(counts)) %>%
+  setNames(paste0(colnames(counts), "_CPM"))
+```
+
+
+## 拓展
+从 GTF 文件中提取基因的长度信息。
+```{r, eval=FALSE}
+# 加载必要的库
+library(parallel)       # 并行计算
+library(GenomicFeatures) # 处理基因组注释
+
+# 创建并行计算集群，使用 3/4 的可用核心
+cl <- makeCluster(ceiling(0.75 * detectCores()))
+
+# 从 GTF 文件创建 TxDb 对象
+txdb <- makeTxDbFromGFF("gencode.vM25.chr_patch_hapl_scaff.annotation.gtf.gz", format = "gtf")
+
+# 提取基因的外显子信息
+exons_gene <- exonsBy(txdb, by = "gene")
+
+# 计算每个基因的总外显子长度
+exons_gene_lens <- parLapply(cl, exons_gene, function(x) {
+  sum(width(reduce(x)))
+})
+
+# 转换为数据框
+geneid_efflen <- data.frame(
+  geneid = names(exons_gene_lens),
+  efflen = as.numeric(exons_gene_lens)
+)
+
+# 打印前 10 个基因的有效长度
+print(head(geneid_efflen, 10))
+
+# 停止并行计算集群
+stopCluster(cl)
+```
+
+```{r, eval=FALSE}
+# 加载必要的库
+library(parallel)     # 并行计算
+library(rtracklayer)  # 导入 GTF 文件
+
+# 创建并行计算集群，使用 3/4 的可用核心
+cl <- makeCluster(ceiling(0.75 * detectCores()))
+
+# 导入 GTF 文件并转换为数据框
+gtf <- as.data.frame(rtracklayer::import("gencode.vM25.chr_patch_hapl_scaff.annotation.gtf.gz"))
+
+# 查看不同类型注释的频数
+print(table(gtf$type))
+
+# 提取外显子信息
+exon <- gtf[gtf$type == "exon", c("start", "end", "gene_id")]
+
+# 按基因 ID 分割外显子信息
+exon_bygeneid <- split(exon, exon$gene_id)
+
+# 计算每个基因的有效外显子长度
+efflen <- parLapply(cl, exon_bygeneid, function(x) {
+  # 对每个外显子生成位置序列并去重
+  unique_positions <- unique(unlist(apply(x, 1, function(y) seq(y[1], y[2]))))
+  length(unique_positions)
+})
+
+# 转换为数据框
+geneid_efflen <- data.frame(
+  geneid = names(efflen),
+  efflen = as.numeric(efflen)
+)
+
+# 打印前 10 个基因的有效长度
+print(head(geneid_efflen, 10))
+
+# 停止并行计算集群
+stopCluster(cl)
+```

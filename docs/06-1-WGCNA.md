@@ -4,13 +4,24 @@
 
 # WGCNA
 
+## 加载数据
+走一遍数据预处理流程。
+
+``` r
+# 加载包
+library(WGCNA)
+library(reshape2)
+library(stringr)
+library(tidyverse)
+library(data.table)
+```
+
 ## 默认参数（可选）
 
 ``` r
 options(stringsAsFactors = FALSE)
 # 打开多线程
 enableWGCNAThreads()
-## Allowing parallel execution with up to 7 working processes.
 
 # 官方推荐 "signed" 或 "signed hybrid"
 # 用signed获得的模块包含的基因会少
@@ -45,19 +56,6 @@ robustY = ifelse(corType=="pearson",T,F)
 `robustY`：
 这个参数在将基因表达数据与二元性状（例如疾病状态）相关联时使用。它决定是否在计算涉及二元变量的相关性时使用稳健方法。对于皮尔逊相关性，通常设为 `TRUE`，而对于 bicor，由于 bicor 本身是稳健的，所以设为 `FALSE`。注释准确反映了这个参数的用途。
 
-
-
-## 加载数据
-走一遍数据预处理流程。
-
-``` r
-# 加载包
-library(WGCNA)
-library(reshape2)
-library(stringr)
-library(tidyverse)
-library(data.table)
-```
 
 
 ``` r
@@ -162,7 +160,8 @@ symbol_matrix <- All_gene_counts %>%
   column_to_rownames("SYMBOL") %>%
   dplyr::select(design$sample)
 
-dataExpr <- log2(symbol_matrix + 1)
+dataExpr <- as.data.frame(lapply(symbol_matrix, function(x) as.numeric(as.character(x))))
+rownames(dataExpr) <- rownames(symbol_matrix)
 ```
 
 ## 表达量聚类分析
@@ -531,3 +530,9 @@ plotEigengeneNetworks(MET, "",
 ```
 
 <img src="06-1-WGCNA_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
+
+
+
+可参考教程：
+https://mp.weixin.qq.com/s/4N8eAStl0D7hL04G-4yICg
+https://www.youtube.com/watch?v=S7rFtZnA21o

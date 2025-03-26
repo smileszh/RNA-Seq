@@ -22,6 +22,7 @@ load(file = 'Rdata/DEG_limma-voom.RData');limma_voom <- total
 
 ## 可视化
 ### 韦恩图
+图 1
 
 ``` r
 gene_sets <- list(
@@ -32,10 +33,9 @@ gene_sets <- list(
   limma_voom = limma_voom %>% filter(FDR < 0.05) %>% 
     filter(log2FoldChange > 1 | log2FoldChange < -1) %>% pull(SYMBOL)
 )
-p1 <- draw_venn(x = gene_sets, "genes")
-grid.draw(p1)
+draw_venn(x = gene_sets, "genes")
 ```
-
+图 2
 
 ``` r
 library(VennDiagram)

@@ -36,24 +36,14 @@ head(group_list)
 # 加载表达矩阵，去除重复基因，并将样本名顺序和设计文件中的样本名顺序一致
 counts <- fread("counts.csv") %>%
   distinct(name, .keep_all = T) %>%
-  select(name, design$sample, everything())
-head(counts)
-##               name s_MiaFRFP_1 s_MiaFRFP_2 s_MiaFRFP_3 s_Part1Lag_1
-##             <char>       <int>       <int>       <int>        <int>
-## 1: ENSG00000228037           2           0           0            2
-## 2: ENSG00000142611        2088        1753        2396          358
-## 3: ENSG00000284616           0           0           0            0
-## 4: ENSG00000157911        5039        3794        4870         2294
-## 5: ENSG00000260972           0           0           0            0
-## 6: ENSG00000224340           0           0           1            1
-##    s_Part1Lag_2 s_Part1Lag_3
-##           <int>        <int>
-## 1:            9            0
-## 2:          272          264
-## 3:            0            2
-## 4:         1996         2352
-## 5:            0            0
-## 6:            0            2
+  dplyr::select(name, design$sample, everything())
+head(counts)[1:4, 1:4]
+##               name s_MiaFRFP_1 s_MiaFRFP_2 s_MiaFRFP_3
+##             <char>       <int>       <int>       <int>
+## 1: ENSG00000228037           2           0           0
+## 2: ENSG00000142611        2088        1753        2396
+## 3: ENSG00000284616           0           0           0
+## 4: ENSG00000157911        5039        3794        4870
 ```
 
 
@@ -111,5 +101,6 @@ symbol_matrix <- All_gene_counts %>%
   distinct(SYMBOL, .keep_all = T) %>%
   column_to_rownames("SYMBOL") %>%
   dplyr::select(design$sample)
+dir.create("Rdata", showWarnings = F)
 save(symbol_matrix, design, group_list,file = 'Rdata/symbol_matrix.Rdata')
 ```
