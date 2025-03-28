@@ -2,7 +2,7 @@
 title: "RNA-Seq"
 author:
   - 小苏
-date: "2025-03-26"
+date: "2025-03-28"
 documentclass: ctexbook
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
