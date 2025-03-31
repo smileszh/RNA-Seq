@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>第 12 章 富集分析图 | RNA-Seq</title>
+  <title>第 13 章 富集分析图 | RNA-Seq</title>
   <meta name="description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="第 12 章 富集分析图 | RNA-Seq" />
+  <meta property="og:title" content="第 13 章 富集分析图 | RNA-Seq" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is an online note of the scRNA-Seq analysis." />
   <meta name="github-repo" content="smileszh/RNA-Seq" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="第 12 章 富集分析图 | RNA-Seq" />
+  <meta name="twitter:title" content="第 13 章 富集分析图 | RNA-Seq" />
   
   <meta name="twitter:description" content="This is an online note of the scRNA-Seq analysis." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="小苏" />
 
 
-<meta name="date" content="2025-03-28" />
+<meta name="date" content="2025-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -230,20 +230,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.6" data-path="wgcna.html"><a href="wgcna.html#tom"><i class="fa fa-check"></i><b>10.6</b> TOM</a></li>
 <li class="chapter" data-level="10.7" data-path="wgcna.html"><a href="wgcna.html#关注模块与表型的相关性"><i class="fa fa-check"></i><b>10.7</b> 关注模块与表型的相关性</a></li>
 </ul></li>
-<li class="part"><span><b>VII 小技巧</b></span></li>
-<li class="chapter" data-level="11" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html"><i class="fa fa-check"></i><b>11</b> counts 矩阵标准化</a>
+<li class="chapter" data-level="11" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html"><i class="fa fa-check"></i><b>11</b> TCGA 生存分析</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#featurecounts"><i class="fa fa-check"></i><b>11.1</b> featureCounts</a>
+<li class="chapter" data-level="11.0.1" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#临床信息下载"><i class="fa fa-check"></i><b>11.0.1</b> 临床信息下载</a></li>
+<li class="chapter" data-level="11.0.2" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#生存信息下载"><i class="fa fa-check"></i><b>11.0.2</b> 生存信息下载</a></li>
+<li class="chapter" data-level="11.1" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#合并生存信息和临床信息"><i class="fa fa-check"></i><b>11.1</b> 合并生存信息和临床信息</a></li>
+<li class="chapter" data-level="11.2" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#表达数据下载"><i class="fa fa-check"></i><b>11.2</b> 表达数据下载</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#tpm"><i class="fa fa-check"></i><b>11.1.1</b> TPM</a></li>
-<li class="chapter" data-level="11.1.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkmrpkm"><i class="fa fa-check"></i><b>11.1.2</b> FPKM/RPKM</a></li>
-<li class="chapter" data-level="11.1.3" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkm-转换为tpm"><i class="fa fa-check"></i><b>11.1.3</b> FPKM 转换为TPM</a></li>
-<li class="chapter" data-level="11.1.4" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#cpm"><i class="fa fa-check"></i><b>11.1.4</b> CPM</a></li>
+<li class="chapter" data-level="11.2.1" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#转换为-symbol-id"><i class="fa fa-check"></i><b>11.2.1</b> 转换为 SYMBOL ID</a></li>
+<li class="chapter" data-level="11.2.2" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#去除-normal-样本"><i class="fa fa-check"></i><b>11.2.2</b> 去除 normal 样本</a></li>
+<li class="chapter" data-level="11.2.3" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#基因过滤"><i class="fa fa-check"></i><b>11.2.3</b> 基因过滤</a></li>
+<li class="chapter" data-level="11.2.4" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#使用-logcpm-或-logtpm-数据"><i class="fa fa-check"></i><b>11.2.4</b> 使用 logCPM 或 logTPM 数据</a></li>
+<li class="chapter" data-level="11.2.5" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#样本与病人信息整理"><i class="fa fa-check"></i><b>11.2.5</b> 样本与病人信息整理</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#拓展"><i class="fa fa-check"></i><b>11.2</b> 拓展</a></li>
+<li class="chapter" data-level="11.3" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#表达矩阵与临床信息匹配"><i class="fa fa-check"></i><b>11.3</b> 表达矩阵与临床信息匹配</a></li>
+<li class="chapter" data-level="11.4" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#生存分析"><i class="fa fa-check"></i><b>11.4</b> 生存分析</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#二分量"><i class="fa fa-check"></i><b>11.4.1</b> 二分量</a></li>
+<li class="chapter" data-level="11.4.2" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#连续型变量"><i class="fa fa-check"></i><b>11.4.2</b> 连续型变量</a></li>
+<li class="chapter" data-level="11.4.3" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#log-rank-test"><i class="fa fa-check"></i><b>11.4.3</b> log-rank test</a></li>
+<li class="chapter" data-level="11.4.4" data-path="tcga-生存分析.html"><a href="tcga-生存分析.html#批量单因素-cox"><i class="fa fa-check"></i><b>11.4.4</b> 批量单因素 cox</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>VII 小技巧</b></span></li>
+<li class="chapter" data-level="12" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html"><i class="fa fa-check"></i><b>12</b> counts 矩阵标准化</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#featurecounts"><i class="fa fa-check"></i><b>12.1</b> featureCounts</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#tpm"><i class="fa fa-check"></i><b>12.1.1</b> TPM</a></li>
+<li class="chapter" data-level="12.1.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkmrpkm"><i class="fa fa-check"></i><b>12.1.2</b> FPKM/RPKM</a></li>
+<li class="chapter" data-level="12.1.3" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#fpkm-转换为tpm"><i class="fa fa-check"></i><b>12.1.3</b> FPKM 转换为TPM</a></li>
+<li class="chapter" data-level="12.1.4" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#cpm"><i class="fa fa-check"></i><b>12.1.4</b> CPM</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="counts-矩阵标准化.html"><a href="counts-矩阵标准化.html#拓展"><i class="fa fa-check"></i><b>12.2</b> 拓展</a></li>
 </ul></li>
 <li class="part"><span><b>VIII 可视化</b></span></li>
-<li class="chapter" data-level="12" data-path="富集分析图.html"><a href="富集分析图.html"><i class="fa fa-check"></i><b>12</b> 富集分析图</a></li>
+<li class="chapter" data-level="13" data-path="富集分析图.html"><a href="富集分析图.html"><i class="fa fa-check"></i><b>13</b> 富集分析图</a></li>
 <li class="divider"></li>
 <li><a href="https://space.bilibili.com/338686099" target="blank">本笔记来自 生信技能书</a></li>
 
@@ -264,111 +286,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="富集分析图" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">第 12 章</span> 富集分析图<a href="富集分析图.html#富集分析图" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="富集分析图.html#cb86-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
-<span id="cb86-2"><a href="富集分析图.html#cb86-2" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;dxsbiocc/gground&quot;)</span></span>
-<span id="cb86-3"><a href="富集分析图.html#cb86-3" tabindex="-1"></a><span class="fu">library</span>(gground)</span>
-<span id="cb86-4"><a href="富集分析图.html#cb86-4" tabindex="-1"></a><span class="fu">library</span>(ggprism)</span>
-<span id="cb86-5"><a href="富集分析图.html#cb86-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb86-6"><a href="富集分析图.html#cb86-6" tabindex="-1"></a><span class="fu">library</span>(ggview)</span>
-<span id="cb86-7"><a href="富集分析图.html#cb86-7" tabindex="-1"></a></span>
-<span id="cb86-8"><a href="富集分析图.html#cb86-8" tabindex="-1"></a><span class="co"># 加载数据</span></span>
-<span id="cb86-9"><a href="富集分析图.html#cb86-9" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Rdata/ORA.RData&quot;</span>)</span>
-<span id="cb86-10"><a href="富集分析图.html#cb86-10" tabindex="-1"></a>GO <span class="ot">&lt;-</span> go_up <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb86-11"><a href="富集分析图.html#cb86-11" tabindex="-1"></a>KEGG <span class="ot">&lt;-</span> kk_up <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<div id="富集分析图" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">第 13 章</span> 富集分析图<a href="富集分析图.html#富集分析图" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="富集分析图.html#cb112-1" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb112-2"><a href="富集分析图.html#cb112-2" tabindex="-1"></a><span class="co"># devtools::install_github(&quot;dxsbiocc/gground&quot;)</span></span>
+<span id="cb112-3"><a href="富集分析图.html#cb112-3" tabindex="-1"></a><span class="fu">library</span>(gground)</span>
+<span id="cb112-4"><a href="富集分析图.html#cb112-4" tabindex="-1"></a><span class="fu">library</span>(ggprism)</span>
+<span id="cb112-5"><a href="富集分析图.html#cb112-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb112-6"><a href="富集分析图.html#cb112-6" tabindex="-1"></a><span class="fu">library</span>(ggview)</span>
+<span id="cb112-7"><a href="富集分析图.html#cb112-7" tabindex="-1"></a></span>
+<span id="cb112-8"><a href="富集分析图.html#cb112-8" tabindex="-1"></a><span class="co"># 加载数据</span></span>
+<span id="cb112-9"><a href="富集分析图.html#cb112-9" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;Rdata/ORA.RData&quot;</span>)</span>
+<span id="cb112-10"><a href="富集分析图.html#cb112-10" tabindex="-1"></a>GO <span class="ot">&lt;-</span> go_up <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb112-11"><a href="富集分析图.html#cb112-11" tabindex="-1"></a>KEGG <span class="ot">&lt;-</span> kk_up <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span></code></pre></div>
 <p>挑选想要展示的富集分析结果</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="富集分析图.html#cb87-1" tabindex="-1"></a><span class="co"># 举例：取 top5 。根据 FDR 值排序，相同 FDR 值取富集到基因最多的通路</span></span>
-<span id="cb87-2"><a href="富集分析图.html#cb87-2" tabindex="-1"></a>use_pathway <span class="ot">&lt;-</span> <span class="fu">group_by</span>(GO, ONTOLOGY) <span class="sc">%&gt;%</span></span>
-<span id="cb87-3"><a href="富集分析图.html#cb87-3" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">5</span>, <span class="at">wt =</span> <span class="sc">-</span>p.adjust) <span class="sc">%&gt;%</span></span>
-<span id="cb87-4"><a href="富集分析图.html#cb87-4" tabindex="-1"></a>    <span class="fu">group_by</span>(p.adjust) <span class="sc">%&gt;%</span></span>
-<span id="cb87-5"><a href="富集分析图.html#cb87-5" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">1</span>, <span class="at">wt =</span> Count) <span class="sc">%&gt;%</span></span>
-<span id="cb87-6"><a href="富集分析图.html#cb87-6" tabindex="-1"></a>    <span class="fu">rbind</span>(</span>
-<span id="cb87-7"><a href="富集分析图.html#cb87-7" tabindex="-1"></a>        <span class="fu">top_n</span>(KEGG, <span class="dv">5</span>, <span class="sc">-</span>p.adjust) <span class="sc">%&gt;%</span></span>
-<span id="cb87-8"><a href="富集分析图.html#cb87-8" tabindex="-1"></a>            <span class="fu">group_by</span>(p.adjust) <span class="sc">%&gt;%</span></span>
-<span id="cb87-9"><a href="富集分析图.html#cb87-9" tabindex="-1"></a>            <span class="fu">top_n</span>(<span class="dv">1</span>, <span class="at">wt =</span> Count) <span class="sc">%&gt;%</span></span>
-<span id="cb87-10"><a href="富集分析图.html#cb87-10" tabindex="-1"></a>            <span class="fu">mutate</span>(<span class="at">ONTOLOGY =</span> <span class="st">&#39;KEGG&#39;</span>)</span>
-<span id="cb87-11"><a href="富集分析图.html#cb87-11" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb87-12"><a href="富集分析图.html#cb87-12" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb87-13"><a href="富集分析图.html#cb87-13" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ONTOLOGY =</span> <span class="fu">factor</span>(ONTOLOGY, </span>
-<span id="cb87-14"><a href="富集分析图.html#cb87-14" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">c</span>(<span class="st">&#39;BP&#39;</span>, <span class="st">&#39;CC&#39;</span>, <span class="st">&#39;MF&#39;</span>, <span class="st">&#39;KEGG&#39;</span>)))) <span class="sc">%&gt;%</span></span>
-<span id="cb87-15"><a href="富集分析图.html#cb87-15" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">arrange</span>(ONTOLOGY, p.adjust) <span class="sc">%&gt;%</span></span>
-<span id="cb87-16"><a href="富集分析图.html#cb87-16" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Description =</span> <span class="fu">factor</span>(Description, <span class="at">levels =</span> Description)) <span class="sc">%&gt;%</span></span>
-<span id="cb87-17"><a href="富集分析图.html#cb87-17" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">&#39;index&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="富集分析图.html#cb113-1" tabindex="-1"></a><span class="co"># 举例：取 top5 。根据 FDR 值排序，相同 FDR 值取富集到基因最多的通路</span></span>
+<span id="cb113-2"><a href="富集分析图.html#cb113-2" tabindex="-1"></a>use_pathway <span class="ot">&lt;-</span> <span class="fu">group_by</span>(GO, ONTOLOGY) <span class="sc">%&gt;%</span></span>
+<span id="cb113-3"><a href="富集分析图.html#cb113-3" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">5</span>, <span class="at">wt =</span> <span class="sc">-</span>p.adjust) <span class="sc">%&gt;%</span></span>
+<span id="cb113-4"><a href="富集分析图.html#cb113-4" tabindex="-1"></a>    <span class="fu">group_by</span>(p.adjust) <span class="sc">%&gt;%</span></span>
+<span id="cb113-5"><a href="富集分析图.html#cb113-5" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">1</span>, <span class="at">wt =</span> Count) <span class="sc">%&gt;%</span></span>
+<span id="cb113-6"><a href="富集分析图.html#cb113-6" tabindex="-1"></a>    <span class="fu">rbind</span>(</span>
+<span id="cb113-7"><a href="富集分析图.html#cb113-7" tabindex="-1"></a>        <span class="fu">top_n</span>(KEGG, <span class="dv">5</span>, <span class="sc">-</span>p.adjust) <span class="sc">%&gt;%</span></span>
+<span id="cb113-8"><a href="富集分析图.html#cb113-8" tabindex="-1"></a>            <span class="fu">group_by</span>(p.adjust) <span class="sc">%&gt;%</span></span>
+<span id="cb113-9"><a href="富集分析图.html#cb113-9" tabindex="-1"></a>            <span class="fu">top_n</span>(<span class="dv">1</span>, <span class="at">wt =</span> Count) <span class="sc">%&gt;%</span></span>
+<span id="cb113-10"><a href="富集分析图.html#cb113-10" tabindex="-1"></a>            <span class="fu">mutate</span>(<span class="at">ONTOLOGY =</span> <span class="st">&#39;KEGG&#39;</span>)</span>
+<span id="cb113-11"><a href="富集分析图.html#cb113-11" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb113-12"><a href="富集分析图.html#cb113-12" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb113-13"><a href="富集分析图.html#cb113-13" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ONTOLOGY =</span> <span class="fu">factor</span>(ONTOLOGY, </span>
+<span id="cb113-14"><a href="富集分析图.html#cb113-14" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">c</span>(<span class="st">&#39;BP&#39;</span>, <span class="st">&#39;CC&#39;</span>, <span class="st">&#39;MF&#39;</span>, <span class="st">&#39;KEGG&#39;</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb113-15"><a href="富集分析图.html#cb113-15" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">arrange</span>(ONTOLOGY, p.adjust) <span class="sc">%&gt;%</span></span>
+<span id="cb113-16"><a href="富集分析图.html#cb113-16" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Description =</span> <span class="fu">factor</span>(Description, <span class="at">levels =</span> Description)) <span class="sc">%&gt;%</span></span>
+<span id="cb113-17"><a href="富集分析图.html#cb113-17" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">&#39;index&#39;</span>)</span></code></pre></div>
 <p>构造左侧标记数据</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="富集分析图.html#cb88-1" tabindex="-1"></a><span class="co"># 左侧分类标签和基因数量点图的宽度</span></span>
-<span id="cb88-2"><a href="富集分析图.html#cb88-2" tabindex="-1"></a>width <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb88-3"><a href="富集分析图.html#cb88-3" tabindex="-1"></a><span class="co"># x 轴长度</span></span>
-<span id="cb88-4"><a href="富集分析图.html#cb88-4" tabindex="-1"></a>xaxis_max <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="sc">-</span><span class="fu">log10</span>(use_pathway<span class="sc">$</span>p.adjust)) <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb88-5"><a href="富集分析图.html#cb88-5" tabindex="-1"></a><span class="co"># 左侧分类标签数据</span></span>
-<span id="cb88-6"><a href="富集分析图.html#cb88-6" tabindex="-1"></a>rect.data <span class="ot">&lt;-</span> <span class="fu">group_by</span>(use_pathway, ONTOLOGY) <span class="sc">%&gt;%</span></span>
-<span id="cb88-7"><a href="富集分析图.html#cb88-7" tabindex="-1"></a>    <span class="fu">reframe</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb88-8"><a href="富集分析图.html#cb88-8" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb88-9"><a href="富集分析图.html#cb88-9" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb88-10"><a href="富集分析图.html#cb88-10" tabindex="-1"></a>        <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">*</span> width,</span>
-<span id="cb88-11"><a href="富集分析图.html#cb88-11" tabindex="-1"></a>        <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> width,</span>
-<span id="cb88-12"><a href="富集分析图.html#cb88-12" tabindex="-1"></a>        <span class="at">ymax =</span> <span class="fu">cumsum</span>(n),</span>
-<span id="cb88-13"><a href="富集分析图.html#cb88-13" tabindex="-1"></a>        <span class="at">ymin =</span> <span class="fu">lag</span>(ymax, <span class="at">default =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="fl">0.6</span>,</span>
-<span id="cb88-14"><a href="富集分析图.html#cb88-14" tabindex="-1"></a>        <span class="at">ymax =</span> ymax <span class="sc">+</span> <span class="fl">0.4</span></span>
-<span id="cb88-15"><a href="富集分析图.html#cb88-15" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="富集分析图.html#cb114-1" tabindex="-1"></a><span class="co"># 左侧分类标签和基因数量点图的宽度</span></span>
+<span id="cb114-2"><a href="富集分析图.html#cb114-2" tabindex="-1"></a>width <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb114-3"><a href="富集分析图.html#cb114-3" tabindex="-1"></a><span class="co"># x 轴长度</span></span>
+<span id="cb114-4"><a href="富集分析图.html#cb114-4" tabindex="-1"></a>xaxis_max <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="sc">-</span><span class="fu">log10</span>(use_pathway<span class="sc">$</span>p.adjust)) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb114-5"><a href="富集分析图.html#cb114-5" tabindex="-1"></a><span class="co"># 左侧分类标签数据</span></span>
+<span id="cb114-6"><a href="富集分析图.html#cb114-6" tabindex="-1"></a>rect.data <span class="ot">&lt;-</span> <span class="fu">group_by</span>(use_pathway, ONTOLOGY) <span class="sc">%&gt;%</span></span>
+<span id="cb114-7"><a href="富集分析图.html#cb114-7" tabindex="-1"></a>    <span class="fu">reframe</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb114-8"><a href="富集分析图.html#cb114-8" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb114-9"><a href="富集分析图.html#cb114-9" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb114-10"><a href="富集分析图.html#cb114-10" tabindex="-1"></a>        <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">*</span> width,</span>
+<span id="cb114-11"><a href="富集分析图.html#cb114-11" tabindex="-1"></a>        <span class="at">xmax =</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> width,</span>
+<span id="cb114-12"><a href="富集分析图.html#cb114-12" tabindex="-1"></a>        <span class="at">ymax =</span> <span class="fu">cumsum</span>(n),</span>
+<span id="cb114-13"><a href="富集分析图.html#cb114-13" tabindex="-1"></a>        <span class="at">ymin =</span> <span class="fu">lag</span>(ymax, <span class="at">default =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="fl">0.6</span>,</span>
+<span id="cb114-14"><a href="富集分析图.html#cb114-14" tabindex="-1"></a>        <span class="at">ymax =</span> ymax <span class="sc">+</span> <span class="fl">0.4</span></span>
+<span id="cb114-15"><a href="富集分析图.html#cb114-15" tabindex="-1"></a>    )</span></code></pre></div>
 <p>绘图</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="富集分析图.html#cb89-1" tabindex="-1"></a><span class="co"># pdf(&#39;pathway.pdf&#39;, width = 10, height = 8)</span></span>
-<span id="cb89-2"><a href="富集分析图.html#cb89-2" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;#7bc4e2&#39;</span>, <span class="st">&#39;#acd372&#39;</span>, <span class="st">&#39;#fbb05b&#39;</span>, <span class="st">&#39;#ed6ca4&#39;</span>)</span>
-<span id="cb89-3"><a href="富集分析图.html#cb89-3" tabindex="-1"></a>use_pathway <span class="sc">%&gt;%</span></span>
-<span id="cb89-4"><a href="富集分析图.html#cb89-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="sc">-</span><span class="fu">log10</span>(p.adjust), <span class="at">y =</span> index, <span class="at">fill =</span> ONTOLOGY)) <span class="sc">+</span></span>
-<span id="cb89-5"><a href="富集分析图.html#cb89-5" tabindex="-1"></a>    <span class="fu">geom_round_col</span>(</span>
-<span id="cb89-6"><a href="富集分析图.html#cb89-6" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">y =</span> Description), <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.8</span></span>
-<span id="cb89-7"><a href="富集分析图.html#cb89-7" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-8"><a href="富集分析图.html#cb89-8" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
-<span id="cb89-9"><a href="富集分析图.html#cb89-9" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.05</span>, <span class="at">label =</span> Description),</span>
-<span id="cb89-10"><a href="富集分析图.html#cb89-10" tabindex="-1"></a>        <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">5</span></span>
-<span id="cb89-11"><a href="富集分析图.html#cb89-11" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-12"><a href="富集分析图.html#cb89-12" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
-<span id="cb89-13"><a href="富集分析图.html#cb89-13" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.1</span>, <span class="at">label =</span> geneID, <span class="at">colour =</span> ONTOLOGY), </span>
-<span id="cb89-14"><a href="富集分析图.html#cb89-14" tabindex="-1"></a>        <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">2.6</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">&#39;italic&#39;</span>, </span>
-<span id="cb89-15"><a href="富集分析图.html#cb89-15" tabindex="-1"></a>        <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb89-16"><a href="富集分析图.html#cb89-16" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-17"><a href="富集分析图.html#cb89-17" tabindex="-1"></a>    <span class="co"># 基因数量</span></span>
-<span id="cb89-18"><a href="富集分析图.html#cb89-18" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb89-19"><a href="富集分析图.html#cb89-19" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>width, <span class="at">size =</span> Count),</span>
-<span id="cb89-20"><a href="富集分析图.html#cb89-20" tabindex="-1"></a>        <span class="at">shape =</span> <span class="dv">21</span></span>
-<span id="cb89-21"><a href="富集分析图.html#cb89-21" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-22"><a href="富集分析图.html#cb89-22" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
-<span id="cb89-23"><a href="富集分析图.html#cb89-23" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>width, <span class="at">label =</span> Count)</span>
-<span id="cb89-24"><a href="富集分析图.html#cb89-24" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-25"><a href="富集分析图.html#cb89-25" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">name =</span> <span class="st">&#39;Count&#39;</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">16</span>)) <span class="sc">+</span></span>
-<span id="cb89-26"><a href="富集分析图.html#cb89-26" tabindex="-1"></a>    <span class="co"># 分类标签</span></span>
-<span id="cb89-27"><a href="富集分析图.html#cb89-27" tabindex="-1"></a>    <span class="fu">geom_round_rect</span>(</span>
-<span id="cb89-28"><a href="富集分析图.html#cb89-28" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax,</span>
-<span id="cb89-29"><a href="富集分析图.html#cb89-29" tabindex="-1"></a>            <span class="at">fill =</span> ONTOLOGY),</span>
-<span id="cb89-30"><a href="富集分析图.html#cb89-30" tabindex="-1"></a>        <span class="at">data =</span> rect.data,</span>
-<span id="cb89-31"><a href="富集分析图.html#cb89-31" tabindex="-1"></a>        <span class="at">radius =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&#39;mm&#39;</span>),</span>
-<span id="cb89-32"><a href="富集分析图.html#cb89-32" tabindex="-1"></a>        <span class="at">inherit.aes =</span> <span class="cn">FALSE</span></span>
-<span id="cb89-33"><a href="富集分析图.html#cb89-33" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-34"><a href="富集分析图.html#cb89-34" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
-<span id="cb89-35"><a href="富集分析图.html#cb89-35" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> (xmin <span class="sc">+</span> xmax) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> (ymin <span class="sc">+</span> ymax) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">label =</span> ONTOLOGY),</span>
-<span id="cb89-36"><a href="富集分析图.html#cb89-36" tabindex="-1"></a>        <span class="at">data =</span> rect.data,</span>
-<span id="cb89-37"><a href="富集分析图.html#cb89-37" tabindex="-1"></a>        <span class="at">inherit.aes =</span> <span class="cn">FALSE</span></span>
-<span id="cb89-38"><a href="富集分析图.html#cb89-38" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-39"><a href="富集分析图.html#cb89-39" tabindex="-1"></a>    <span class="fu">geom_segment</span>(</span>
-<span id="cb89-40"><a href="富集分析图.html#cb89-40" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> xaxis_max, <span class="at">yend =</span> <span class="dv">0</span>),</span>
-<span id="cb89-41"><a href="富集分析图.html#cb89-41" tabindex="-1"></a>        <span class="at">linewidth =</span> <span class="fl">1.5</span>,</span>
-<span id="cb89-42"><a href="富集分析图.html#cb89-42" tabindex="-1"></a>        <span class="at">inherit.aes =</span> <span class="cn">FALSE</span></span>
-<span id="cb89-43"><a href="富集分析图.html#cb89-43" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-44"><a href="富集分析图.html#cb89-44" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb89-45"><a href="富集分析图.html#cb89-45" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">&#39;Category&#39;</span>, <span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb89-46"><a href="富集分析图.html#cb89-46" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb89-47"><a href="富集分析图.html#cb89-47" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb89-48"><a href="富集分析图.html#cb89-48" tabindex="-1"></a>        <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, xaxis_max, <span class="dv">2</span>), </span>
-<span id="cb89-49"><a href="富集分析图.html#cb89-49" tabindex="-1"></a>        <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
-<span id="cb89-50"><a href="富集分析图.html#cb89-50" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb89-51"><a href="富集分析图.html#cb89-51" tabindex="-1"></a>    <span class="fu">theme_prism</span>() <span class="sc">+</span></span>
-<span id="cb89-52"><a href="富集分析图.html#cb89-52" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
-<span id="cb89-53"><a href="富集分析图.html#cb89-53" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb89-54"><a href="富集分析图.html#cb89-54" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb89-55"><a href="富集分析图.html#cb89-55" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb89-56"><a href="富集分析图.html#cb89-56" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>()</span>
-<span id="cb89-57"><a href="富集分析图.html#cb89-57" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="富集分析图.html#cb115-1" tabindex="-1"></a><span class="co"># pdf(&#39;pathway.pdf&#39;, width = 10, height = 8)</span></span>
+<span id="cb115-2"><a href="富集分析图.html#cb115-2" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;#7bc4e2&#39;</span>, <span class="st">&#39;#acd372&#39;</span>, <span class="st">&#39;#fbb05b&#39;</span>, <span class="st">&#39;#ed6ca4&#39;</span>)</span>
+<span id="cb115-3"><a href="富集分析图.html#cb115-3" tabindex="-1"></a>use_pathway <span class="sc">%&gt;%</span></span>
+<span id="cb115-4"><a href="富集分析图.html#cb115-4" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="sc">-</span><span class="fu">log10</span>(p.adjust), <span class="at">y =</span> index, <span class="at">fill =</span> ONTOLOGY)) <span class="sc">+</span></span>
+<span id="cb115-5"><a href="富集分析图.html#cb115-5" tabindex="-1"></a>    <span class="fu">geom_round_col</span>(</span>
+<span id="cb115-6"><a href="富集分析图.html#cb115-6" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">y =</span> Description), <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">alpha =</span> <span class="fl">0.8</span></span>
+<span id="cb115-7"><a href="富集分析图.html#cb115-7" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-8"><a href="富集分析图.html#cb115-8" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb115-9"><a href="富集分析图.html#cb115-9" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.05</span>, <span class="at">label =</span> Description),</span>
+<span id="cb115-10"><a href="富集分析图.html#cb115-10" tabindex="-1"></a>        <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">5</span></span>
+<span id="cb115-11"><a href="富集分析图.html#cb115-11" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-12"><a href="富集分析图.html#cb115-12" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb115-13"><a href="富集分析图.html#cb115-13" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.1</span>, <span class="at">label =</span> geneID, <span class="at">colour =</span> ONTOLOGY), </span>
+<span id="cb115-14"><a href="富集分析图.html#cb115-14" tabindex="-1"></a>        <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">2.6</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">&#39;italic&#39;</span>, </span>
+<span id="cb115-15"><a href="富集分析图.html#cb115-15" tabindex="-1"></a>        <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb115-16"><a href="富集分析图.html#cb115-16" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-17"><a href="富集分析图.html#cb115-17" tabindex="-1"></a>    <span class="co"># 基因数量</span></span>
+<span id="cb115-18"><a href="富集分析图.html#cb115-18" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb115-19"><a href="富集分析图.html#cb115-19" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>width, <span class="at">size =</span> Count),</span>
+<span id="cb115-20"><a href="富集分析图.html#cb115-20" tabindex="-1"></a>        <span class="at">shape =</span> <span class="dv">21</span></span>
+<span id="cb115-21"><a href="富集分析图.html#cb115-21" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-22"><a href="富集分析图.html#cb115-22" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb115-23"><a href="富集分析图.html#cb115-23" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span>width, <span class="at">label =</span> Count)</span>
+<span id="cb115-24"><a href="富集分析图.html#cb115-24" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-25"><a href="富集分析图.html#cb115-25" tabindex="-1"></a>    <span class="fu">scale_size_continuous</span>(<span class="at">name =</span> <span class="st">&#39;Count&#39;</span>, <span class="at">range =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">16</span>)) <span class="sc">+</span></span>
+<span id="cb115-26"><a href="富集分析图.html#cb115-26" tabindex="-1"></a>    <span class="co"># 分类标签</span></span>
+<span id="cb115-27"><a href="富集分析图.html#cb115-27" tabindex="-1"></a>    <span class="fu">geom_round_rect</span>(</span>
+<span id="cb115-28"><a href="富集分析图.html#cb115-28" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax,</span>
+<span id="cb115-29"><a href="富集分析图.html#cb115-29" tabindex="-1"></a>            <span class="at">fill =</span> ONTOLOGY),</span>
+<span id="cb115-30"><a href="富集分析图.html#cb115-30" tabindex="-1"></a>        <span class="at">data =</span> rect.data,</span>
+<span id="cb115-31"><a href="富集分析图.html#cb115-31" tabindex="-1"></a>        <span class="at">radius =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&#39;mm&#39;</span>),</span>
+<span id="cb115-32"><a href="富集分析图.html#cb115-32" tabindex="-1"></a>        <span class="at">inherit.aes =</span> <span class="cn">FALSE</span></span>
+<span id="cb115-33"><a href="富集分析图.html#cb115-33" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-34"><a href="富集分析图.html#cb115-34" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb115-35"><a href="富集分析图.html#cb115-35" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> (xmin <span class="sc">+</span> xmax) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">y =</span> (ymin <span class="sc">+</span> ymax) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">label =</span> ONTOLOGY),</span>
+<span id="cb115-36"><a href="富集分析图.html#cb115-36" tabindex="-1"></a>        <span class="at">data =</span> rect.data,</span>
+<span id="cb115-37"><a href="富集分析图.html#cb115-37" tabindex="-1"></a>        <span class="at">angle =</span> <span class="dv">90</span>,</span>
+<span id="cb115-38"><a href="富集分析图.html#cb115-38" tabindex="-1"></a>        <span class="at">inherit.aes =</span> <span class="cn">FALSE</span></span>
+<span id="cb115-39"><a href="富集分析图.html#cb115-39" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-40"><a href="富集分析图.html#cb115-40" tabindex="-1"></a>    <span class="fu">geom_segment</span>(</span>
+<span id="cb115-41"><a href="富集分析图.html#cb115-41" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> xaxis_max, <span class="at">yend =</span> <span class="dv">0</span>),</span>
+<span id="cb115-42"><a href="富集分析图.html#cb115-42" tabindex="-1"></a>        <span class="at">linewidth =</span> <span class="fl">1.5</span>,</span>
+<span id="cb115-43"><a href="富集分析图.html#cb115-43" tabindex="-1"></a>        <span class="at">inherit.aes =</span> <span class="cn">FALSE</span></span>
+<span id="cb115-44"><a href="富集分析图.html#cb115-44" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-45"><a href="富集分析图.html#cb115-45" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb115-46"><a href="富集分析图.html#cb115-46" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">&#39;Category&#39;</span>, <span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb115-47"><a href="富集分析图.html#cb115-47" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb115-48"><a href="富集分析图.html#cb115-48" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb115-49"><a href="富集分析图.html#cb115-49" tabindex="-1"></a>        <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, xaxis_max, <span class="dv">2</span>), </span>
+<span id="cb115-50"><a href="富集分析图.html#cb115-50" tabindex="-1"></a>        <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb115-51"><a href="富集分析图.html#cb115-51" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb115-52"><a href="富集分析图.html#cb115-52" tabindex="-1"></a>    <span class="fu">theme_prism</span>() <span class="sc">+</span></span>
+<span id="cb115-53"><a href="富集分析图.html#cb115-53" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb115-54"><a href="富集分析图.html#cb115-54" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb115-55"><a href="富集分析图.html#cb115-55" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb115-56"><a href="富集分析图.html#cb115-56" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb115-57"><a href="富集分析图.html#cb115-57" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>()</span>
+<span id="cb115-58"><a href="富集分析图.html#cb115-58" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="08-1-vis-ORA_files/figure-html/unnamed-chunk-4-1.png" width="2400" style="display: block; margin: auto;" /></p>
 <p>参考来源：
 <a href="https://mp.weixin.qq.com/s/D9zvZY1dBi-Fo7lEbQ-1sQ" class="uri">https://mp.weixin.qq.com/s/D9zvZY1dBi-Fo7lEbQ-1sQ</a></p>

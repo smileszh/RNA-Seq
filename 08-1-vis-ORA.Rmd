@@ -119,6 +119,7 @@ use_pathway %>%
     geom_text(
         aes(x = (xmin + xmax) / 2, y = (ymin + ymax) / 2, label = ONTOLOGY),
         data = rect.data,
+        angle = 90,
         inherit.aes = FALSE
     ) +
     geom_segment(
